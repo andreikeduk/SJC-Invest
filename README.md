@@ -1,2 +1,2 @@
 # SJC-Invest
-Repository
+Спецификация находится в разделе "Wiki"
