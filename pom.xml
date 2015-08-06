@@ -16,4 +16,19 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>javax.persistence</groupId>
+  		<artifactId>persistence-api</artifactId>
+  	</dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>javax.persistence</groupId>
+  			<artifactId>persistence-api</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
