@@ -17,4 +17,20 @@ public class CreatorEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idUser")
 	private UserEntity user;
+
+	public Long getIdCreator() {
+		return idCreator;
+	}
+
+	public void setIdCreator(Long idCreator) {
+		this.idCreator = idCreator;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 }
