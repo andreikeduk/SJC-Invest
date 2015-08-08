@@ -1,38 +1,16 @@
-package Entity;
+package model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "Projects")
-public class ProjectEntity {
-	@Id
-	@GeneratedValue
-	@Column(name = "idProject")
+public class Project {
 	private Long idProject;
-	@Column(name = "projectDescription")
 	private String projectDescription;
-	@Column(name = "statusProject")
 	private boolean statusProject;
-	@Column(name = "deadline")
 	private Date deadline;
-	@Column(name = "popularity")
 	private int popularity;
-	@Column(name = "projectAccount")
 	private int projectAccount;
-	@Column(name = "balance")
 	private int balance;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idBid")
-	private BidEntity bid;
+	private Bid bid;
 
 	public Long getIdProject() {
 		return idProject;
@@ -90,11 +68,12 @@ public class ProjectEntity {
 		this.balance = balance;
 	}
 
-	public BidEntity getBid() {
+	public Bid getBid() {
 		return bid;
 	}
 
-	public void setBid(BidEntity bid) {
+	public void setBid(Bid bid) {
 		this.bid = bid;
 	}
+
 }

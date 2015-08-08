@@ -1,28 +1,10 @@
-package Entity;
+package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "Areas")
-public class AreaEntity {
-	@Id
-	@GeneratedValue
-	@Column(name = "idArea")
+public class Area {
 	private Long idArea;
-	@Column(name = "areaName")
 	private String areaName;
-	@Column(name = "areaAccont")
 	private int areaAccount;
-	@Column(name = "areaBalance")
 	private int areaBalance;
-
-	public AreaEntity() {
-
-	}
 
 	public Long getIdArea() {
 		return idArea;

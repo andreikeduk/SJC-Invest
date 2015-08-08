@@ -2,6 +2,7 @@ package Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 @Table(name = "Users")
 public class UserEntity {
 	@Id
+	@GeneratedValue
 	@Column(name = "idUser")
 	private Long idUser;
 	@Column(name = "firstName")

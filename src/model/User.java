@@ -1,18 +1,18 @@
 package model;
 
 public class User {
-	private Long id;
+	private Long idUser;
 	private String firstName;
 	private String lastName;
 	private String login;
 	private String password;
 
-	public Long getId() {
-		return id;
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getFirstName() {

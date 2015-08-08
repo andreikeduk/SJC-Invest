@@ -3,6 +3,7 @@ package Entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "Comments")
 public class CommentEntity {
 	@Id
+	@GeneratedValue
 	@Column(name = "idComment")
 	private Long idComment;
 	@Column(name = "comment")
