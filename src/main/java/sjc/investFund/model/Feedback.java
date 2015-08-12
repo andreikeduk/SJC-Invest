@@ -29,6 +29,10 @@ public class Feedback {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
+	
+	public Feedback() {
+		
+	}
 
 	public int getId() {
 		return id;

@@ -11,6 +11,10 @@ public class Like {
 	@Column(name = "like")
 	private String like;
 
+	public Like() {
+		
+	}
+	
 	public String getLike() {
 		return like;
 	}

@@ -18,31 +18,35 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "status")
 	private boolean status;
-	
+
 	@Column(name = "deadline")
 	private Date deadline;
-	
+
 	@Column(name = "deadline")
 	private int requiredAmount;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Area area;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Account account;
-	
+
+	public Project() {
+
+	}
+
 	public int getId() {
 		return id;
 	}

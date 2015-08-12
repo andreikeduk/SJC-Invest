@@ -11,6 +11,10 @@ public class Mark {
 	@Column(name = "mark")
 	private String mark;
 
+	public Mark() {
+		
+	}
+	
 	public String getMark() {
 		return mark;
 	}

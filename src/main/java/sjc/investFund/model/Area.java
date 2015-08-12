@@ -23,6 +23,10 @@ public class Area {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Account account;
+	
+	public Area() {
+		
+	}
 
 	public int getId() {
 		return id;
