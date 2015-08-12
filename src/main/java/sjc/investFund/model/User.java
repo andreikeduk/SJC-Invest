@@ -1,4 +1,4 @@
-package sjc.investFund.andrew.entity;
+package sjc.investFund.model;
 
 import java.util.List;
 
@@ -40,24 +40,10 @@ public class User {
 	@Column(name = "role")
     @Enumerated(EnumType.ORDINAL)
 	private Role role;
-    @OneToOne
-    @JoinColumn(name = "id")
-    private Account account;
-    
+        
 	public User() {
 	}
-
-	public User(Integer id, String firstName, String lastName, String login,
-			String password, Role role, Account account) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.login = login;
-		this.password = password;
-		this.role = role;
-		this.account = account;
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}

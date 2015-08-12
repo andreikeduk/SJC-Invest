@@ -1,4 +1,4 @@
-package sjc.investFund.andrew.entity;
+package sjc.investFund.model;
 
 public enum Role {
 	DIRECTOR, INVESTOR, CREATOR

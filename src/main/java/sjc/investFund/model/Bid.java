@@ -1,4 +1,4 @@
-package sjc.investFund.andrew.entity;
+package sjc.investFund.model;
 
 import java.util.Date;
 
@@ -28,13 +28,7 @@ public class Bid {
 	private Project project;
 	public Bid() {
 	}
-	public Bid(Integer id, Date periodConsideration, String status,
-			Project project) {
-		this.id = id;
-		this.periodConsideration = periodConsideration;
-		this.status = status;
-		this.project = project;
-	}
+	
 	public Integer getId() {
 		return id;
 	}
