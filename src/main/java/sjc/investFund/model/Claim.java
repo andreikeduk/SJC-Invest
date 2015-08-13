@@ -10,10 +10,7 @@ public class Claim extends Feedback {
 	
 	@Column(name = "claim")
 	private String claim;
-	
-	public Claim() {
-		
-	}
+
 
 	public String getClaim() {
 		return claim;

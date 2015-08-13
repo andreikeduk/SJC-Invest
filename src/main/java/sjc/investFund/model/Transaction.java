@@ -12,7 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Transactions")
@@ -27,12 +31,12 @@ public class Transaction {
 	private TypeTransaction type;
 	@Column(name = "amount")
 	private Integer amount;
-	@OneToMany
-	@JoinColumn(name = "id")
-	private Account investor;
-	@ManyToOne
-	@JoinColumn(name = "id")
-	private Account goal;
+	@OneToOne
+	@JoinColumn(name = "investor_account_id")
+	private Account investorAccount;
+	@OneToOne
+	@JoinColumn(name = "goal_account_id")
+	private Account goalAccount;
 	
 	public Integer getId() {
 		return id;
@@ -66,24 +70,24 @@ public class Transaction {
 		this.amount = amount;
 	}
 
-	public Account getInvestor() {
-		return investor;
-	}
-
-	public void setInvestor(Account investor) {
-		this.investor = investor;
-	}
-
-	public Account getGoal() {
-		return goal;
-	}
-
-	public void setGoal(Account goal) {
-		this.goal = goal;
-	}
-
 	public Transaction() {
 		super();
+	}
+
+	public Account getInvestorAccount() {
+		return investorAccount;
+	}
+
+	public void setInvestorAccount(Account investorAccount) {
+		this.investorAccount = investorAccount;
+	}
+
+	public Account getGoalAccount() {
+		return goalAccount;
+	}
+
+	public void setGoalAccount(Account goalAccount) {
+		this.goalAccount = goalAccount;
 	}
 	
 	

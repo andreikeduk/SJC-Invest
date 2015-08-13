@@ -6,14 +6,10 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("comment")
-public class Comment {
+public class Comment extends Feedback {
 	
 	@Column(name = "comment")
 	private String comment;
-
-	public Comment() {
-		
-	}
 	
 	public String getComment() {
 		return comment;

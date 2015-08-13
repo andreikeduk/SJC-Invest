@@ -40,4 +40,12 @@ public class Account {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

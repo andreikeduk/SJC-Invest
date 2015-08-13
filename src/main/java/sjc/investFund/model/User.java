@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,10 +32,13 @@ public class User {
 	private String login;
 	@Column(name="password")
 	private String password;
-	@Column(name = "role")
-    @Enumerated(EnumType.ORDINAL)
+	@Column(name = "role", nullable=false, updatable=false, insertable=false)
+    @Enumerated(EnumType.STRING)
 	private Role role;
-        
+	@OneToOne
+	@JoinColumn(name = "account_id")
+	private Account account;
+
 	public User() {
 	}
 	
@@ -85,6 +90,12 @@ public class User {
 		this.role = role;
 	} 
 	
-    
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
         
 }

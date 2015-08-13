@@ -6,20 +6,17 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("mark")
-public class Mark {
+public class Mark extends Feedback {
 
 	@Column(name = "mark")
-	private String mark;
+	private Integer mark;
 
-	public Mark() {
-		
-	}
 	
-	public String getMark() {
+	public Integer getMark() {
 		return mark;
 	}
 
-	public void setMark(String mark) {
+	public void setMark(Integer mark) {
 		this.mark = mark;
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,16 +32,19 @@ public class Project {
 	@Column(name = "deadline")
 	private Date deadline;
 
-	@Column(name = "deadline")
+	@Column(name = "requiredAmount")
 	private int requiredAmount;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "area_id")
 	private Area area;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id")
 	private Account account;
 
 	public Project() {
