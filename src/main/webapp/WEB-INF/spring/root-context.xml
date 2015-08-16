@@ -17,7 +17,8 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	
+	<context:component-scan base-package="sjc.investFund.repository.impl" />
+	<context:component-scan base-package="sjc.investFund.serviceImpl" />
 	<context:component-scan base-package="sjc.investFund.andrew.controller" />
 	<mvc:annotation-driven />
 		
