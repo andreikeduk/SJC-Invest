@@ -13,7 +13,7 @@ public class UserRepository extends AbstractHibernateDao<User, Integer> implemen
 		UserDao {
 	
 	@Override
-	public User findUserByName(String name) {
+	public User findByName(String name) {
 		Criteria cr = getSession().createCriteria(User.class, "Users").add(Restrictions.eq("firstName", name));
 		return (User)cr.uniqueResult();
 	}

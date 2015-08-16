@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sjc.investFund.model.User;
 import sjc.investFund.service.UserService;
 
-/*@Controller
+@Controller
 @RequestMapping("")
 public class LoginController {
 
@@ -71,4 +71,4 @@ public class LoginController {
 		return model;
 	}
 
-}*/
+}
