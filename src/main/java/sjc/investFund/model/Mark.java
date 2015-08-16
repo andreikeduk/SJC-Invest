@@ -11,7 +11,9 @@ public class Mark extends Feedback {
 	@Column(name = "mark")
 	private Integer mark;
 
-	
+	public Mark() {
+		
+	}
 	public Integer getMark() {
 		return mark;
 	}

@@ -11,14 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DiscriminatorOptions;
 
 @Entity
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorOptions(force=true)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +36,6 @@ public class User {
 	@Column(name = "role", nullable=false, updatable=false, insertable=false)
     @Enumerated(EnumType.STRING)
 	private Role role;
-	@OneToOne
-	@JoinColumn(name = "account_id")
-	private Account account;
 
 	public User() {
 	}
@@ -88,14 +86,6 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
-	} 
-	
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
         
 }

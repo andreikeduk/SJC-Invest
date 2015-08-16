@@ -5,11 +5,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("like")
+@DiscriminatorValue("popularity")
 public class Popularity extends Feedback{
+	
 	
 	@Column(name = "popularity")
 	private boolean popularity;
 
-	
+	public Popularity() {
+		
+	}
 }

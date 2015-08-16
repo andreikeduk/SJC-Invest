@@ -10,13 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Transactions")
@@ -37,6 +32,10 @@ public class Transaction {
 	@OneToOne
 	@JoinColumn(name = "goal_account_id")
 	private Account goalAccount;
+	
+	public Transaction() {
+		
+	}
 	
 	public Integer getId() {
 		return id;
@@ -68,10 +67,6 @@ public class Transaction {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public Transaction() {
-		super();
 	}
 
 	public Account getInvestorAccount() {

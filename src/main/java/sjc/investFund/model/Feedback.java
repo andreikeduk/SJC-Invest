@@ -28,13 +28,13 @@ public class Feedback {
 	@Column(name = "id")
 	private int id;
 	
-	/*@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "project_id")
 	private Project project;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	private User user;*/
+	private User user;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type", updatable=false, insertable = false)
@@ -60,7 +60,7 @@ public class Feedback {
 		this.type = type;
 	}
 
-	/*public Project getProject() {
+	public Project getProject() {
 		return project;
 	}
 
@@ -74,5 +74,5 @@ public class Feedback {
 
 	public void setUser(User user) {
 		this.user = user;
-	}*/
+	}
 }

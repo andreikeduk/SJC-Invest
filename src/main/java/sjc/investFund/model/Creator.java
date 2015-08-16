@@ -6,5 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Creator")
 public class Creator extends User {
+	public Creator() {
 
+	}
 }
