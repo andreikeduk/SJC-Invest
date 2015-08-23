@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,13 +24,15 @@ public class Bid {
 	private Integer id;
 	@Column(name = "periodConsideration")
 	private Date periodConsideration;
-	@Column(name = "status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private BidStatus status;
 	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "project_id")
 	private Project project;
 
 	public Bid() {
+		status = BidStatus.UNDER_CONSIDERATION;
+		periodConsideration =  new Date();
 	}
 
 	public Integer getId() {
@@ -47,11 +51,11 @@ public class Bid {
 		this.periodConsideration = periodConsideration;
 	}
 
-	public String getStatus() {
+	public BidStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(BidStatus status) {
 		this.status = status;
 	}
 

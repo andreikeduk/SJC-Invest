@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/home.css"/>" />
 
-<div class="navbar navbar-default" role="navigation">
+<div class="nav nav-pills" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 			<c:if test="${not empty user}">
@@ -22,6 +22,7 @@
 			</c:if>
 			<c:if test="${empty user}">
 				<a href="<c:url value="/login"/>">Log In</a>
+				<a href="/test/user/add" title="addUser">Register</a>
 			</c:if>
 
 		</div>

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import sjc.investFund.model.Role;
 import sjc.investFund.model.User;
@@ -27,36 +30,51 @@ import sjc.investFund.service.UserService;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	private UserService userService;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listUsers(Map<String, Object> map) {
 
-			map.put("userList", userService.findAllUsers());
+		map.put("userList", userService.findAllUsers());
 
-			return "userslist";
+		return "users.list";
 	}
+
 	@RequestMapping(value = "/")
-	public String home(){
+	public String home() {
 		return "redirect:/list";
 	}
-	
-	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
-	public String listUsers() {
-		
-		return "user";
-	}
-	@RequestMapping(value = "/adduser/add", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUser(Model model) {
-			
-		return "redirect:/index";
-		
+		model.addAttribute("user", new User());
+		model.addAttribute("action", "add");
+		model.addAttribute("roleOptions", Role.values());
+
+		return "user";
+
 	}
-		
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addUser(@Valid @ModelAttribute("user") User user,
+			@RequestParam("role") String role, BindingResult result) {
+
+		String view = "home";
+
+		if (result.hasErrors()) {
+			view = "user";
+		} else {
+			if (user != null) {
+				user.setRole(Role.valueOf(role));
+				userService.create(user);
+			}
+		}
+		return view;
+	}
+
 }

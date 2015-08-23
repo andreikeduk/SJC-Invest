@@ -5,7 +5,7 @@ import java.util.List;
 import sjc.investFund.model.User;
 
 public interface UserService {
-	User findByLogin(String login);
+	User findByLoginAndPassword(String login, String password);
 	void create(User user);
 	void delete(User user);
 	void update(User user);

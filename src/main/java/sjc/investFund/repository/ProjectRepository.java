@@ -20,7 +20,7 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> findProjectsByUser(User user) {
-		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("id", user.getId()));
+		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("user", user));
 		return (List<Project>)cr.list();
 	}
 	/*

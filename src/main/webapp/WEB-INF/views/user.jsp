@@ -8,23 +8,44 @@
 <html>
 
 <body>
-	<form:form method="post" action="adduser" commandName="user">
-	<table>
-		<tr>
-			<td><form:label path="firstName"></form:label></td>
-			<td><form:input path="firstName" /></td>
-		</tr>
-		<tr>
-			<td><form:label path="lastName">
-			
-			</form:label></td>
-			<td><form:input path="lastName" /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="Add" /></td>
-		</tr>
-	</table>
-</form:form>
+	<form:form method="post" action="${action}" modelAttribute="user">
+		<table>
+			<tr>
+				<td><form:label path="firstName">firstName</form:label></td>
+				<td><form:input path="firstName" placeholder="firstName" /></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="lastName">lastName</form:label></td>
+				<td><form:input path="lastName" placeholder="lastName" /></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="login">login</form:label></td>
+				<td><form:input path="login" placeholder="login" /></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="password">password</form:label></td>
+				<td><form:password path="password" placeholder="password" /></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="email">email</form:label></td>
+				<td><form:input path="email" /></td>
+				<td><form:errors path="email" cssClass="errorblock" /></td>
+			</tr>
+
+			<tr>
+				<td>What do you want to be:</td>
+				<td><form:radiobuttons path="role" items="${roleOptions}" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2"><input type="submit" value="Add" /></td>
+			</tr>
+		</table>
+	</form:form>
 
 </body>
 </html>

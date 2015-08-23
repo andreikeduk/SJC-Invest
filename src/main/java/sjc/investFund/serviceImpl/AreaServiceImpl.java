@@ -38,4 +38,10 @@ public class AreaServiceImpl implements AreaService {
 		return areaRepository.findAll();
 	}
 
+	@Override
+	public Area findById(Integer id) {
+		areaRepository.findById(id);
+		return null;
+	}
+
 }

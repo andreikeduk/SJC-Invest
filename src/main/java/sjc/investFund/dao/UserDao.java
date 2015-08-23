@@ -5,7 +5,7 @@ import sjc.investFund.model.User;
 
 public interface UserDao extends GenericDao<User, Integer> {
 
-	User findByLogin(String login);
+	User findByLoginAndPassword(String login, String password);
 
 //	void create(User user);
 //

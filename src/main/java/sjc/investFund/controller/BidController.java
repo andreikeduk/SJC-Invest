@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjc.investFund.model.Account;
@@ -41,17 +43,16 @@ public class BidController {
 	private AreaService areaService;
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String newClientForm(Model model) {
+	public String newBidForm(Model model) {
 
-		model.addAttribute("bid", new Bid());
 		model.addAttribute("project", new Project());
 		model.addAttribute("action", "new");
 
-		Map<Integer, String> areaList = new LinkedHashMap<Integer, String>();
+		Map<String, String> areaList = new LinkedHashMap<String, String>();
 
 		List<Area> areas = areaService.findAllAreas();
 		for (Area a : areas) {
-			areaList.put(a.getId(), a.getName());
+			areaList.put(a.getId().toString(), a.getName());
 		}
 		model.addAttribute("arealist", areaList);
 
@@ -61,7 +62,8 @@ public class BidController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView addbid(
 			@ModelAttribute("project") @Valid Project project,
-			BindingResult br, HttpSession session) {
+			/* @RequestParam("area") String area, */BindingResult br,
+			HttpSession session) {
 		String view = "home";
 
 		if (br.hasErrors()) {
@@ -71,15 +73,18 @@ public class BidController {
 			if (project != null) {
 
 				Account account = new Account();
-				account.setNumber(account.getId() + 1000);
 
 				Object userObject = session.getAttribute("user");
 				if ((userObject != null) && (userObject instanceof User)) {
-					User user = (User)userObject;
-					System.out.println(user.getFirstName());
+					User user = (User) userObject;
+					Bid bid = new Bid();
+					bid.setProject(project);
 					project.setUser(user);
 					project.setAccount(account);
+					
+					// project.setArea(areaService.findById(Integer.parseInt(area)));
 					projectService.createProject(project);
+					bidService.create(bid);
 				}
 			}
 		}

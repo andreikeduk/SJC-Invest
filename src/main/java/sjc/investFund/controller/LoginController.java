@@ -34,11 +34,11 @@ public class LoginController {
 		HttpSession session) {
 			
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findByLogin(login);
+		User user = userService.findByLoginAndPassword(login, password);
 		session.setAttribute("user", user);
-		mav.addObject("user", user);
-		mav.addObject("projectlist", projectService.findProjectsByUser(user));
-		mav.setViewName("creator.room");
+//		mav.addObject("user", user);
+//		mav.addObject("projectlist", projectService.findProjectsByUser(user));
+		mav.setViewName("redirect:/creator/"+ user.getId().toString());
 		return mav;
 	}
 	@RequestMapping(value = "/logout")

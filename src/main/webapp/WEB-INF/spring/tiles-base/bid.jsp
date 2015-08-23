@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
-	pageEncoding="utf8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/home.css"/>" />
+
 <html>
 <head>
 <title>Home</title>
@@ -16,7 +14,7 @@
 		<form:label path="name">Project name: </form:label>
 		<form:input path="name" />
 		<form:errors path="name" cssClass="error"></form:errors>
-
+		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
 		<form:input path="requiredAmount" />
 		<br />
@@ -26,8 +24,8 @@
 		<br />
 		<form:label path="area">Area:</form:label>
 		<br />
-		<form:select path="area">
-		<form:errors path="area" cssClass="error"></form:errors>
+		<!-- <form:select path="area">
+			<form:errors path="area" cssClass="error"></form:errors>
 			<form:option value="NONE" label="--- Select ---" />
 
 			<c:forEach var="area" items="${arealist}">
@@ -41,7 +39,7 @@
 					<option value="${area.key}">${area.value}</option>
 				</c:if>
 			</c:forEach>
-		</form:select>
+		</form:select>-->
 
 		<br />
 		<input type="submit" value="Add" />

@@ -42,15 +42,15 @@ public class Project {
 
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
-	@NotNull(message = "area null")
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id")
 	private Area area;
-	@NotNull(message = "user null")
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;
-	@NotNull(message = "acc null")
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
 	private Account account;

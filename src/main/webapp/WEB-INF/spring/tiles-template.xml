@@ -51,5 +51,15 @@
 		<put-attribute name="title" value="View: Room"/>
 		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/creator-room.jsp"/>
 	</definition>
+	
+	<definition name="users.list" extends="base">
+		<put-attribute name="title" value="View: Users list"/>
+		<put-attribute name="content" value="/WEB-INF/views/userslist.jsp"/>
+	</definition>
+	
+	<definition name="user" extends="base">
+		<put-attribute name="title" value="View: New User"/>
+		<put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
+	</definition>
 
 </tiles-definitions>

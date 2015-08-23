@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DiscriminatorOptions;
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "users")
@@ -29,10 +31,15 @@ public class User {
 	private String firstName;
 	@Column(name = "lastName")
 	private String lastName;
+	@NotNull(message = "Login required")
 	@Column(name = "login")
 	private String login;
+	@NotNull(message = "Password required")
 	@Column(name = "password")
 	private String password;
+	@Email(message = "Please, enter valid email")
+	@Column(name = "email")
+	private String email;
 	@Column(name = "role", nullable = false, updatable = false, insertable = false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -80,6 +87,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public Role getRole() {
 		return role;
 	}

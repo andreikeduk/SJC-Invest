@@ -11,12 +11,13 @@ import sjc.investFund.hibernate.AbstractHibernateDao;
 import sjc.investFund.model.User;
 
 @Repository
-public class UserRepository extends AbstractHibernateDao<User, Integer> implements
-		UserDao {
-		
+public class UserRepository extends AbstractHibernateDao<User, Integer>
+		implements UserDao {
+
 	@Override
-	public User findByLogin(String login) {
-		Criteria cr = getSession().createCriteria(User.class, "Users").add(Restrictions.eq("login", login));
-		return (User)cr.uniqueResult();
+	public User findByLoginAndPassword(String login, String password) {
+		Criteria cr = getSession().createCriteria(User.class, "Users")
+				.add(Restrictions.eq("login", login)).add(Restrictions.eq("password", password));
+		return (User) cr.uniqueResult();
 	}
 }

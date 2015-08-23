@@ -2136,6 +2136,15 @@ textarea.input-lg {
 .has-success .checkbox-inline {
   color: #468847;
 }
+ 
+.errorblock {  
+ color: #ff0000;  
+ background-color: #ffEEEE;  
+ border: 3px solid #ff0000;  
+ padding: 8px;  
+ margin: 16px;  
+}  
+
 
 .has-success .form-control {
   border-color: #468847;

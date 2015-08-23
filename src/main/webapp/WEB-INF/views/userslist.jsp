@@ -10,12 +10,12 @@
 	<c:forEach items="${userList}" var="user">
 		<tr>
 			<td>${user.lastName},${user.firstName}</td>
-			<td>${user.login},${user.password}</td>
+			<td>${user.login},${user.email}</td>
 			<br/>
 		</tr>
 	</c:forEach>
 	<br/>
-	<a href="<c:url value="/" />"> Another Operation</a>
+	
 	
 </body>
 </html>
