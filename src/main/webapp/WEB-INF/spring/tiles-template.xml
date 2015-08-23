@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="base"	template="/WEB-INF/spring/tiles-base/base-template.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/spring/tiles-base/header.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/spring/tiles-base/navigation.jsp"/>
+		<put-attribute name="content" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/spring/tiles-base/footer.jsp"/>
+	</definition>
+
+	<definition name="home" extends="base">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/home.jsp" />
+	</definition>
+	
+	<definition name="bid" extends="base">
+		<put-attribute name="title" value="View: main"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/bid.jsp"/>
+	</definition>
+	
+	<definition name="bidlist" extends="base">
+		<put-attribute name="title" value="View: info"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/bid-list.jsp"/>
+	</definition>
+	
+	<definition name="projects" extends="base">
+		<put-attribute name="title" value="Projects"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/projects.jsp"/>
+	</definition>
+	
+	<definition name="project.details" extends="base">
+		<put-attribute name="title" expression="Simple Project" />
+		<put-attribute name="body"
+			value="/WEB-INF/spring/tiles-base/project-details.jsp" />
+	</definition>
+	
+	<definition name="login" extends="base">
+		<put-attribute name="title" value="View: login"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/login.jsp"/>
+	</definition>
+	
+	<definition name="profile" extends="base">
+		<put-attribute name="title" value="View: Profile"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/profile.jsp"/>
+	</definition>
+	
+	<definition name="creator.room" extends="base">
+		<put-attribute name="title" value="View: Room"/>
+		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/creator-room.jsp"/>
+	</definition>
+
+</tiles-definitions>
