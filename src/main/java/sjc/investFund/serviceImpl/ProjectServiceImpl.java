@@ -37,4 +37,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> findProjectsByUser(User user) {
 		return projectRepository.findProjectsByUser(user);
 	}
+
+	@Override
+	public Integer howManyMoney(Project project) {
+		
+		return project.getAccount().getBalance();
+	}
+	
+	
 }

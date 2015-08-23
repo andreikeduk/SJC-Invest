@@ -16,9 +16,7 @@
 			<a href="<c:url value="/login/logout"/>">Logout</a>
 				You are:<a href="<c:url value="/profile/${user.id}" />">${user.role}
 					${user.login} </a>
-				<a class="navbar-header" href="<c:url value="/bid/list" />">Bids
-					list</a>
-				
+				<a class="navbar-header" href="<c:url value="/creator/${user.id}" />">User projects</a>				
 			</c:if>
 			<c:if test="${empty user}">
 				<a href="<c:url value="/login"/>">Log In</a>

@@ -12,4 +12,5 @@ public interface ProjectService {
 	List<Project> findAllBids();
 	void createProject(Project project);
 	List<Project> findProjectsByUser(User user);
+	Integer howManyMoney(Project project);
 }
