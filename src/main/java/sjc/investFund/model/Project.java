@@ -41,7 +41,7 @@ public class Project {
 
 	@Column(name = "deadline")
 	private Calendar deadline;
-
+	@NotNull(message = "You do not need money?")
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
 	

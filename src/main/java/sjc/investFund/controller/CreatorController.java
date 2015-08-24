@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjc.investFund.model.User;
+import sjc.investFund.service.BidService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.UserService;
 
@@ -20,9 +21,11 @@ public class CreatorController {
 	private UserService userService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private BidService bidService;
 
-	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public ModelAndView creatorRoom(@PathVariable("login") String login,
+	@RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+	public ModelAndView creatorRoom(/*@PathVariable("login") String login,*/
 			HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
@@ -31,8 +34,7 @@ public class CreatorController {
 		Object userObject = session.getAttribute("user");
 		if ((userObject != null) && (userObject instanceof User)) {
 			User user = (User) userObject;
-			mav.addObject("projectlist", projectService.findProjectsByUser(user));
-
+			mav.addObject("bidslist", bidService.findBidsByUser(user));
 		}
 		return mav;
 	}

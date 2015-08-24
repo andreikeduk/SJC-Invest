@@ -38,7 +38,7 @@ public class LoginController {
 		session.setAttribute("user", user);
 //		mav.addObject("user", user);
 //		mav.addObject("projectlist", projectService.findProjectsByUser(user));
-		mav.setViewName("redirect:/creator/"+ user.getId().toString());
+		mav.setViewName("redirect:/creator");
 		return mav;
 	}
 	@RequestMapping(value = "/logout")

@@ -13,18 +13,17 @@
 		<th>AccNum</th>
 		<th>Required</th>
 		<th>Balance</th>
+		<th>Status</th>
 		<th>Complete</th>
 	</tr>
-	<c:forEach var="project" items="${projectlist}">
-
-
-
+	<c:forEach var="bid" items="${bidslist}">
 		<tr>
-			<td>${project.name}</td>
-			<td>${project.account.number}</td>
-			<td>${project.requiredAmount}</td>
-			<td>${project.account.balance}</td>
-			<td>${project.account.balance/project.requiredAmount}%</td>
+			<td>${bid.project.name}</td>
+			<td>${bid.project.account.number}</td>
+			<td>${bid.project.requiredAmount}</td>
+			<td>${bid.project.account.balance}</td>
+			<td>${bid.status}</td>
+			<td>${bid.project.account.balance/bid.project.requiredAmount}%</td>
 		</tr>
 		<br />
 	</c:forEach>

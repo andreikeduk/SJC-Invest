@@ -6,9 +6,9 @@
 	<c:forEach var="area" items="${arealist}">
 		<li>${area.value}</li>
 	</c:forEach>
-	<li><a href="/test/index" title="home">HOME</a></li>
-	<li><a href="/test/bid/new" title="addbid">addbid</a></li>
-	<li><a href="/invest/projects" title="projects">Projects</a></li>
+	<li><a href="<c:url value="/index"/>" title="home">HOME</a></li>
+	<li><a href="<c:url value="/bid/new"/>" title="addbid">addbid</a></li>
+	<li><a href="<c:url value="/projects"/>" title="projects">Projects</a></li>
 	
 
 </ul>

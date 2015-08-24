@@ -18,9 +18,8 @@ public class ProfileController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public ModelAndView profile(@PathVariable("login") String login,
-			HttpSession session) {
+	@RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+	public ModelAndView profile(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("profile");
 

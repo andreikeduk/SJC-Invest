@@ -19,7 +19,7 @@ public class BidRepository extends AbstractHibernateDao<Bid, Integer> implements
 
 	@Override
 	public Bid getProjectBid(Project project) {
-		Criteria criteria = getSession().createCriteria(Bid.class, "bids").add(Restrictions.eq("id", project));
+		Criteria criteria = getSession().createCriteria(Bid.class, "bids").add(Restrictions.eq("project", project));
 		return (Bid)criteria.uniqueResult();
 	}
 

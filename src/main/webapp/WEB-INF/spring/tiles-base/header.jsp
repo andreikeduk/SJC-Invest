@@ -14,13 +14,13 @@
 		<div class="navbar-header">
 			<c:if test="${not empty user}">
 			<a href="<c:url value="/login/logout"/>">Logout</a>
-				You are:<a href="<c:url value="/profile/${user.id}" />">${user.role}
+				You are:<a href="<c:url value="/profile/"/>">${user.role}
 					${user.login} </a>
-				<a class="navbar-header" href="<c:url value="/creator/${user.id}" />">User projects</a>				
+				<a class="navbar-header" href="<c:url value="/creator" />">User projects</a>				
 			</c:if>
 			<c:if test="${empty user}">
 				<a href="<c:url value="/login"/>">Log In</a>
-				<a href="/test/user/add" title="addUser">Register</a>
+				<a href="<c:url value="/user/add"/>" title="addUser">Register</a>
 			</c:if>
 
 		</div>

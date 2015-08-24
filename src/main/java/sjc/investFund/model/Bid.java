@@ -1,5 +1,6 @@
 package sjc.investFund.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class Bid {
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "periodConsideration")
-	private Date periodConsideration;
+	private Calendar periodConsideration;
 	@Enumerated(EnumType.STRING)
 	private BidStatus status;
 	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
@@ -32,7 +33,7 @@ public class Bid {
 
 	public Bid() {
 		status = BidStatus.UNDER_CONSIDERATION;
-		periodConsideration =  new Date();
+		periodConsideration = Calendar.getInstance() ;
 	}
 
 	public Integer getId() {
@@ -43,11 +44,11 @@ public class Bid {
 		this.id = id;
 	}
 
-	public Date getPeriodConsideration() {
+	public Calendar getPeriodConsideration() {
 		return periodConsideration;
 	}
 
-	public void setPeriodConsideration(Date periodConsideration) {
+	public void setPeriodConsideration(Calendar periodConsideration) {
 		this.periodConsideration = periodConsideration;
 	}
 
