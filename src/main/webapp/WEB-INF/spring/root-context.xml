@@ -19,7 +19,9 @@
 	<context:annotation-config />
 	<context:component-scan base-package="sjc.investFund.hibernate" />
 	<context:component-scan base-package="sjc.investFund.repository" />
-	<context:component-scan base-package="sjc.investFund.serviceImpl" />		
+	<context:component-scan base-package="sjc.investFund.serviceImpl" />
+	<context:component-scan base-package="sjc.investFund.controller" />	
+	<context:component-scan base-package="sjc.investFund.converters" />		
 				
 	<import resource="app-data.xml" />
 </beans>

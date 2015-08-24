@@ -1,6 +1,8 @@
 package sjc.investFund.model;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,7 +40,7 @@ public class Project {
 	private Boolean status;
 
 	@Column(name = "deadline")
-	private Date deadline;
+	private Calendar deadline;
 
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
@@ -83,19 +85,25 @@ public class Project {
 		this.description = description;
 	}
 
-	public Boolean isStatus() {
-		return status;
+	public String getStatus() {
+		String stringStatus;
+		if(status == true) { stringStatus = "Project ready";}
+		else {stringStatus = "Project not ready";}
+		return stringStatus;
 	}
 
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
-	public Date getDeadline() {
-		return deadline;
+	public String getDeadline() {
+		String dateString = deadline.get(GregorianCalendar.DATE) + "."
+				+ deadline.get(GregorianCalendar.MONTH) + "."
+				+ deadline.get(GregorianCalendar.YEAR);
+		return dateString;
 	}
 
-	public void setDeadline(Date deadline) {
+	public void setDeadline(Calendar deadline) {
 		this.deadline = deadline;
 	}
 

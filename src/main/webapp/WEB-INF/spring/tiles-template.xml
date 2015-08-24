@@ -33,8 +33,20 @@
 	
 	<definition name="project.details" extends="base">
 		<put-attribute name="title" expression="Simple Project" />
-		<put-attribute name="body"
+		<put-attribute name="content"
 			value="/WEB-INF/spring/tiles-base/project-details.jsp" />
+	</definition>
+	
+	<definition name="sendMoney" extends="base">
+		<put-attribute name="title" expression="Send Money" />
+		<put-attribute name="content"
+			value="/WEB-INF/spring/tiles-base/sendMoney.jsp" />
+	</definition>
+	
+	<definition name="sendClaim" extends="base">
+		<put-attribute name="title" expression="Send Claim" />
+		<put-attribute name="content"
+			value="/WEB-INF/spring/tiles-base/sendClaim.jsp" />
 	</definition>
 	
 	<definition name="login" extends="base">

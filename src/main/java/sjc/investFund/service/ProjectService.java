@@ -8,9 +8,12 @@ import sjc.investFund.model.User;
 
 @Service
 public interface ProjectService {
-	public Project getUserById(int id);
 	List<Project> findAllBids();
 	void createProject(Project project);
 	List<Project> findProjectsByUser(User user);
 	Integer howManyMoney(Project project);
+	
+	public Project getProjectById(int id);
+	void saveProject(Project project);
+	void changeStatus(boolean status);
 }

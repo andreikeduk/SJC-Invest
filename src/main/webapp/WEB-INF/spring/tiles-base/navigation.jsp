@@ -8,7 +8,7 @@
 	</c:forEach>
 	<li><a href="/test/index" title="home">HOME</a></li>
 	<li><a href="/test/bid/new" title="addbid">addbid</a></li>
-	<li><a href="/test/projects" title="projects">Projects</a></li>
+	<li><a href="/invest/projects" title="projects">Projects</a></li>
 	
 
 </ul>

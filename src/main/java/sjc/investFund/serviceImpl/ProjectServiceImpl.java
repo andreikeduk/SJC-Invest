@@ -18,7 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectDao projectRepository;
 
 	@Override
-	public Project getUserById(int id) {
+	public Project getProjectById(int id) {
 		return projectRepository.findById(id);
 	}
 
@@ -42,6 +42,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public Integer howManyMoney(Project project) {
 		
 		return project.getAccount().getBalance();
+	}
+	
+	@Override
+	public void changeStatus(boolean status) {	
+	}
+
+	@Override
+	public void saveProject(Project project) {
+		projectRepository.save(project);
 	}
 	
 	
