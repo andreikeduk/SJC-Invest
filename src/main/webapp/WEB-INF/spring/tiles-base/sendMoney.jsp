@@ -7,7 +7,7 @@
 <h3>Registration transfer</h3>
 
 <form name='loginForm' action="login" method='POST'
-	class="form-horizontal" role="form">
+	class="form-horizontal">
 	<div class="form-group">
 		<label for="login" class="col-sm-4 control-label">Amount:</label>
 		<div class="col-sm-8">
