@@ -6,6 +6,7 @@ import sjc.investFund.model.User;
 
 public interface UserService {
 	User findByLoginAndPassword(String login, String password);
+	User findByLogin(String login);
 	void create(User user);
 	void delete(User user);
 	void update(User user);

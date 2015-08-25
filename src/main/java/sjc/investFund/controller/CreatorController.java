@@ -3,6 +3,7 @@ package sjc.investFund.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,15 +27,17 @@ public class CreatorController {
 
 	@RequestMapping(value = {"","/"}, method = RequestMethod.GET)
 	public ModelAndView creatorRoom(/*@PathVariable("login") String login,*/
-			HttpSession session) {
+			HttpSession session, Authentication auth) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("creator.room");
 
-		Object userObject = session.getAttribute("user");
-		if ((userObject != null) && (userObject instanceof User)) {
-			User user = (User) userObject;
+		User user = userService.findByLogin(auth.getName());
+		//Object userObject = session.getAttribute("user");
+		if ((user!= null) && (user instanceof User)) {
+			//User user = (User) userObject;
 			mav.addObject("bidslist", bidService.findBidsByUser(user));
+			mav.addObject("user", user);
 		}
 		return mav;
 	}

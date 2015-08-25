@@ -5,11 +5,21 @@
  
 <h3>Please sign in</h3>
 
-<form name='loginForm' action="login" method='POST' class="form-horizontal" role="form">
+<c:if test="${not empty error}">
+	<div class="danger">
+		<p class="alert alert-danger">
+		Your login attempt was not successful, try again.  
+ 		Reason: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		</p>
+	</div>
+</c:if>
+
+<c:url value="/j_spring_security_check" var="loginUrl" />
+<form name='loginForm' action="${loginUrl}" method='POST' class="form-horizontal">
 	<div class="form-group">
 		<label for="login" class="col-sm-4 control-label">User:</label>
 		<div class="col-sm-8">
-			<input type="text" id="login" name="login" class="form-control" placeholder="Enter user name">
+			<input type="text" id="login" name="login" class="form-control" placeholder="Enter login">
 		</div>
 	</div>
 	<div class="form-group">

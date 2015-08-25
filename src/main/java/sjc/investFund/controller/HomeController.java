@@ -22,7 +22,7 @@ public class HomeController {
 	@Autowired
 	private AreaService areaService;
 
-	@RequestMapping(value = {"", "/", "index"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
 	public String home(Model model){
 		
 		Map<Integer, String> areaList = new LinkedHashMap<Integer, String>();
@@ -35,5 +35,8 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+	@RequestMapping(value = { "/access-denied" }, method = { RequestMethod.GET })
+	public String denied() {
+		return "denied";
+	}
 }

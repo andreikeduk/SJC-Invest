@@ -1,10 +1,12 @@
 package sjc.investFund.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,36 +23,42 @@ public class LoginController {
 	private UserService userService;
 	@Autowired
 	private ProjectService projectService;
-	
-	@RequestMapping(value = {"", "/", "/login"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "", "/"}, method = RequestMethod.GET)
 	public String login() {
 		return "login";
 	}
-	
-	@RequestMapping(value = {"", "/", "/login"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.POST)
 	public ModelAndView login(
-		@RequestParam(value = "login", required = true) String login,
-		@RequestParam(value = "password", required = true) String password, 
-		HttpSession session) {
-			
+			@RequestParam(value = "login", required = true) String login,
+			@RequestParam(value = "password", required = true) String password,
+			HttpRequest request, HttpSession session) {
+		
 		ModelAndView mav = new ModelAndView();
 		User user = userService.findByLoginAndPassword(login, password);
 		session.setAttribute("user", user);
-//		mav.addObject("user", user);
-//		mav.addObject("projectlist", projectService.findProjectsByUser(user));
+		//mav.addObject("user", user);
+		// mav.addObject("projectlist",
+		// projectService.findProjectsByUser(user));
 		mav.setViewName("redirect:/creator");
 		return mav;
 	}
+
+	@RequestMapping(value = "/failure", method = RequestMethod.GET)
+	public String loginerror(ModelMap model) {
+		model.addAttribute("error",
+				"This combination user and password not found");
+		return "login";
+	}
+
 	@RequestMapping(value = "/logout")
 	public ModelAndView logout(HttpSession session) {
-
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
-		
 		session.setAttribute("user", null);
 		session.invalidate();
-		
 		return model;
 	}
-	
+
 }
