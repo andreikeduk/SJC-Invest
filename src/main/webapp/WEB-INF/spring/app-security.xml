@@ -10,15 +10,19 @@
 	<global-method-security pre-post-annotations="enabled"/>
 
 	<http auto-config="true" use-expressions="true">
-		<!-- 
+		 
 		<intercept-url pattern="/login" access="permitAll"></intercept-url>
 		<intercept-url pattern="/logout" access="permitAll"></intercept-url>
 		<intercept-url pattern="/access-denied" access="permitAll"></intercept-url>
-		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"></intercept-url>
-	 	-->
+		<intercept-url pattern="/index" access="permitAll"></intercept-url>
+		<!--<intercept-url pattern="/creator" access="hasRole('ROLE_CREATOR')"></intercept-url>-->
+		
+		
+		
+	 	
 	 	
 		<form-login
-                login-page="/login"
+                login-page="/index"
             	default-target-url="/creator"
                 authentication-failure-url="/login/failure"
                 username-parameter="login"

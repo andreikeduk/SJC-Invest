@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 
 <div id="header">
@@ -12,17 +14,19 @@
 <div class="nav nav-pills">
 	<div class="container">
 		<div class="navbar-header">
-			<c:if test="${not empty user}">
-			<a href="<c:url value="/login/logout"/>">Logout</a>
-				You are:<a href="<c:url value="/profile/"/>">${user.role}
-					${user.login} </a>
-				<a class="navbar-header" href="<c:url value="/creator" />">User projects</a>				
-			</c:if>
-			<c:if test="${empty user}">
+			<security:authorize access="isAuthenticated()">
+				<c:set var="login">
+					<security:authentication property="principal.username" />
+				</c:set>
+				<c:url var="logoutUrl" value='/j_spring_security_logout' />
+				<a href="${logoutUrl}">Logout</a>
+				<a href="<c:url value="/profile/"/>">${login}</a>
+				<a href="<c:url value="/creator" />">User projects</a>
+			</security:authorize>
+			<security:authorize access="isAnonymous()">
 				<a href="<c:url value="/login"/>">Log In</a>
 				<a href="<c:url value="/user/add"/>" title="addUser">Register</a>
-			</c:if>
-
+			</security:authorize>
 		</div>
 	</div>
 </div>

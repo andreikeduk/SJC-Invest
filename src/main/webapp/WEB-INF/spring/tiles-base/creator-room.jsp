@@ -10,20 +10,22 @@
 	class="table table-striped table-bordered">
 	<tr>
 		<th>Name</th>
-		<th>AccNum</th>
 		<th>Required</th>
 		<th>Balance</th>
-		<th>Status</th>
 		<th>Complete</th>
+		<th>Status</th>
+		
 	</tr>
 	<c:forEach var="bid" items="${bidslist}">
+	<c:url value="/projects/${bid.project.id}" var="viewProjectUrl" />
 		<tr>
-			<td>${bid.project.name}</td>
-			<td>${bid.project.account.number}</td>
+			
+			<td><a href="${viewProjectUrl}">${bid.project.name}</a></td>			
 			<td>${bid.project.requiredAmount}</td>
 			<td>${bid.project.account.balance}</td>
-			<td>${bid.status}</td>
 			<td>${bid.project.account.balance/bid.project.requiredAmount}%</td>
+			<td>${bid.status}</td>
+			
 		</tr>
 		<br />
 	</c:forEach>

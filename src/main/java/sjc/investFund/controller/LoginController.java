@@ -51,14 +51,4 @@ public class LoginController {
 				"This combination user and password not found");
 		return "login";
 	}
-
-	@RequestMapping(value = "/logout")
-	public ModelAndView logout(HttpSession session) {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("login");
-		session.setAttribute("user", null);
-		session.invalidate();
-		return model;
-	}
-
 }
