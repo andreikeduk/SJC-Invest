@@ -9,5 +9,5 @@ public interface AreaService {
 	void deleteArea(Area area);
 	void updateArea(Area area);
 	List<Area> findAllAreas();
-	Area findById(Integer id);
+	Area findAreaById(Integer id);
 }

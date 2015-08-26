@@ -26,10 +26,8 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	@Size(min = 3, max = 20,
-			message = "Project name must be between 3 and 20 characters long.")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$",
-			message = "Project name must be alphanumeric with no spaces")
+	@Size(min = 3, max = 40,
+			message = "Project name must be between 3 and 40 characters long.")
 	@Column(name = "name")
 	private String name;
 
@@ -58,7 +56,7 @@ public class Project {
 	private Account account;
 
 	public Project() {
-
+		status = false;
 	}
 
 	public int getId() {
@@ -87,8 +85,11 @@ public class Project {
 
 	public String getStatus() {
 		String stringStatus;
-		if(status == true) { stringStatus = "Project ready";}
-		else {stringStatus = "Project not ready";}
+		if (status == true) {
+			stringStatus = "Project ready";
+		} else {
+			stringStatus = "Project not ready";
+		}
 		return stringStatus;
 	}
 

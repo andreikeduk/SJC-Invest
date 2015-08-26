@@ -37,7 +37,6 @@ public class CreatorController {
 		if ((user!= null) && (user instanceof User)) {
 			//User user = (User) userObject;
 			mav.addObject("bidslist", bidService.getBidsByUser(user));
-			mav.addObject("user", user);
 		}
 		return mav;
 	}

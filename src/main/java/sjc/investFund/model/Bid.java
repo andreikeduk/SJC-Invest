@@ -34,6 +34,7 @@ public class Bid {
 	public Bid() {
 		status = BidStatus.UNDER_CONSIDERATION;
 		periodConsideration = Calendar.getInstance() ;
+		periodConsideration.add(Calendar.DAY_OF_YEAR, 10);
 	}
 
 	public Integer getId() {

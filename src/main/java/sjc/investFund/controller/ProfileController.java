@@ -3,6 +3,7 @@ package sjc.investFund.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +20,13 @@ public class ProfileController {
 	private UserService userService;
 
 	@RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-	public ModelAndView profile(HttpSession session) {
+	public ModelAndView profile(HttpSession session, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("profile");
 
-		Object userObject = session.getAttribute("user");
-		if ((userObject != null) && (userObject instanceof User)) {
-			User user = (User) userObject;
+		User user = userService.findByLogin(auth.getName());
+		
+		if ((user!= null) && (user instanceof User)) {
 			mav.addObject("user", user);
 		}
 		return mav;

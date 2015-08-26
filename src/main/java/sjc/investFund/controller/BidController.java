@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,8 +63,8 @@ public class BidController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView addbid(
 			@ModelAttribute("project") @Valid Project project,
-			/* @RequestParam("area") String area, */BindingResult br,
-			HttpSession session) {
+			@RequestParam("area") String area, BindingResult br,
+			HttpSession session, Authentication auth) {
 		String view = "home";
 
 		if (br.hasErrors()) {
@@ -72,22 +73,22 @@ public class BidController {
 		} else {
 			if (project != null) {
 
-				Account account = new Account();
+				User user = userService.findByLogin(auth.getName());
 
-				Object userObject = session.getAttribute("user");
-				if ((userObject != null) && (userObject instanceof User)) {
-					User user = (User) userObject;
+				if ((user != null) && (user instanceof User)) {
+					Account acc = new Account();
 					Bid bid = new Bid();
 					bid.setProject(project);
-					project.setUser(user);
-					project.setAccount(account);
 					
-					// project.setArea(areaService.findById(Integer.parseInt(area)));
+					project.setUser(user);
+					project.setAccount(acc);
+					project.setArea(areaService.findAreaById(Integer.parseInt(area)));
 					projectService.createProject(project);
 					bidService.create(bid);
 				}
 			}
 		}
+
 		return new ModelAndView(view);
 	}
 
