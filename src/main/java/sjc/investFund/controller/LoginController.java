@@ -37,7 +37,7 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView();
 		User user = userService.findByLoginAndPassword(login, password);
-		session.setAttribute("user", user);
+		//session.setAttribute("user", user.getLogin());
 		//mav.addObject("user", user);
 		// mav.addObject("projectlist",
 		// projectService.findProjectsByUser(user));

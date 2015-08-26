@@ -40,8 +40,7 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public Area findAreaById(Integer id) {
-		areaRepository.findById(id);
-		return null;
+		return areaRepository.findById(id);
 	}
 
 }

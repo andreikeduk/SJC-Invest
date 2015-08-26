@@ -63,26 +63,22 @@ public class BidController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView addbid(
 			@ModelAttribute("project") @Valid Project project,
-			@RequestParam("area") String area, BindingResult br,
-			HttpSession session, Authentication auth) {
-		String view = "home";
+			BindingResult br, HttpSession session, Authentication auth) {
+		String view = "/profile";
 
 		if (br.hasErrors()) {
 			view = "bid";
-			System.out.println("error");
 		} else {
 			if (project != null) {
-
 				User user = userService.findByLogin(auth.getName());
 
 				if ((user != null) && (user instanceof User)) {
 					Account acc = new Account();
 					Bid bid = new Bid();
 					bid.setProject(project);
-					
+
 					project.setUser(user);
 					project.setAccount(acc);
-					project.setArea(areaService.findAreaById(Integer.parseInt(area)));
 					projectService.createProject(project);
 					bidService.create(bid);
 				}

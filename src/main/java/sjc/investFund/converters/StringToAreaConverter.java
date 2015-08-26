@@ -15,7 +15,6 @@ public class StringToAreaConverter implements Converter<String, Area> {
 
 	@Override
 	public Area convert(String id) {
-		System.out.println(id);
 		return areaService.findAreaById(Integer.parseInt(id));
 	}
 

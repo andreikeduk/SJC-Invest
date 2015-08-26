@@ -16,6 +16,8 @@
 		<li>login: ${user.login}</li>
 		<br />
 		<li>email: ${user.email}</li>
+		<br />
+		<li>Role: ${user.getRole().toString()}</li>
 		
 	</ul>
 </c:if>

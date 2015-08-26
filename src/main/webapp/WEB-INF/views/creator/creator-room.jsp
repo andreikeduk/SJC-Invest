@@ -5,9 +5,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<h1>User Room:</h1>
+<h4>User Room:</h4>
 <table border="1" cellpadding="10" cellspacing="0"
-	class="table table-striped table-bordered">
+	class="table table-striped table-bordered" >
 	<tr>
 		<th>Name</th>
 		<th>Required</th>

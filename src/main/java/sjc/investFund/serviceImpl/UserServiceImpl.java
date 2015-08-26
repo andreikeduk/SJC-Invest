@@ -18,13 +18,13 @@ public class UserServiceImpl implements UserService {
 	private UserDao userRepository;
 
 	@Override
-	public User findByLoginAndPassword(String login, String password) {
-		return userRepository.findByLoginAndPassword(login, password);
+	public User findByLogin(String login) {
+		return userRepository.findByLogin(login);
 	}
 
 	@Override
-	public User findByLogin(String login) {
-		return userRepository.findByLogin(login);
+	public User findByLoginAndPassword(String login, String password) {
+		return userRepository.findByLoginAndPassword(login, password);
 	}
 
 	@Override

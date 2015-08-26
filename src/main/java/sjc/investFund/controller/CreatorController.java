@@ -33,9 +33,7 @@ public class CreatorController {
 		mav.setViewName("creator.room");
 
 		User user = userService.findByLogin(auth.getName());
-		//Object userObject = session.getAttribute("user");
-		if ((user!= null) && (user instanceof User)) {
-			//User user = (User) userObject;
+		if ((user!= null) && (user instanceof User)) {			
 			mav.addObject("bidslist", bidService.getBidsByUser(user));
 		}
 		return mav;

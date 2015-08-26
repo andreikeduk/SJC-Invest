@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.model.Creator;
+import sjc.investFund.model.Investor;
 import sjc.investFund.model.Role;
 import sjc.investFund.model.User;
 import sjc.investFund.repository.UserRepository;
@@ -57,12 +59,11 @@ public class UserController {
 		model.addAttribute("roleOptions", Role.values());
 
 		return "user";
-
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute("user") User user,
-			@RequestParam("role") String role, BindingResult result) {
+			@RequestParam("role") String role, BindingResult result, Model model) {
 
 		String view = "home";
 
@@ -70,8 +71,13 @@ public class UserController {
 			view = "user";
 		} else {
 			if (user != null) {
-				user.setRole(Role.valueOf(role));
 				userService.create(user);
+//				if (role == "INVESTOR") {
+//					user = (Investor) user;
+//				} else if (role == "CREATOR") {
+//					user = (Creator) user;
+//				}
+//				userService.update(user);
 			}
 		}
 		return view;
