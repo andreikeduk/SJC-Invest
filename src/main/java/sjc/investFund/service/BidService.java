@@ -13,6 +13,7 @@ public interface BidService {
 	void update(Bid bid);
 	List<Bid> findAllBids();
 	List<Bid> findBidsByUser(User user);
+	List<Bid> getBidsByUser(User user);
 	List<Bid> findBidsByArea(Area area);
 	Bid getProjectBid(Project project);
 }

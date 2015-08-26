@@ -10,6 +10,6 @@ import sjc.investFund.model.User;
 
 public interface BidDao extends GenericDao<Bid, Integer> {
 	Bid getProjectBid(Project project);
-	
+	List<Bid> getBidsByUser(User user); 
 	
 }

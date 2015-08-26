@@ -36,7 +36,7 @@ public class CreatorController {
 		//Object userObject = session.getAttribute("user");
 		if ((user!= null) && (user instanceof User)) {
 			//User user = (User) userObject;
-			mav.addObject("bidslist", bidService.findBidsByUser(user));
+			mav.addObject("bidslist", bidService.getBidsByUser(user));
 			mav.addObject("user", user);
 		}
 		return mav;

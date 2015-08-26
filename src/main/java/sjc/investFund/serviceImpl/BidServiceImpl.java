@@ -60,6 +60,9 @@ public class BidServiceImpl implements BidService {
 		}
 		return bids;
 	}
+	public List<Bid> getBidsByUser(User user){
+		return bidRepository.getBidsByUser(user);
+	}
 
 	@Override
 	public List<Bid> findBidsByArea(Area area) {
