@@ -24,8 +24,8 @@
 		<br />
 		<form:label path="area">Area:</form:label>
 		<br />
-		<!-- <form:select path="area">
-			<form:errors path="area" cssClass="error"></form:errors>
+		<form:select path="area">
+			
 			<form:option value="NONE" label="--- Select ---" />
 
 			<c:forEach var="area" items="${arealist}">
@@ -39,8 +39,8 @@
 					<option value="${area.key}">${area.value}</option>
 				</c:if>
 			</c:forEach>
-		</form:select>-->
-
+		</form:select>
+		<form:errors path="area" cssClass="error"></form:errors>
 		<br />
 		<input type="submit" value="Add" />
 

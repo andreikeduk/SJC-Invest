@@ -13,61 +13,61 @@
 
 	<definition name="home" extends="base">
 		<put-attribute name="title" value="Home" />
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/home.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
 	</definition>
 	
 	<definition name="bid" extends="base">
 		<put-attribute name="title" value="View: main"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/bid.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/creator/bid.jsp"/>
 	</definition>
 	
 	<definition name="bidlist" extends="base">
 		<put-attribute name="title" value="View: info"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/bid-list.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/creator/bid-list.jsp"/>
 	</definition>
 	
 	<definition name="projects" extends="base">
 		<put-attribute name="title" value="Projects"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/projects.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/investor/projects.jsp"/>
 	</definition>
 	
 	<definition name="project.details" extends="base">
 		<put-attribute name="title" expression="Simple Project" />
 		<put-attribute name="content"
-			value="/WEB-INF/spring/tiles-base/project-details.jsp" />
+			value="/WEB-INF/views/investor/project-details.jsp" />
 	</definition>
 	
 	<definition name="sendMoney" extends="base">
 		<put-attribute name="title" expression="Send Money" />
 		<put-attribute name="content"
-			value="/WEB-INF/spring/tiles-base/sendMoney.jsp" />
+			value="/WEB-INF/views/investor/sendMoney.jsp" />
 	</definition>
 	
 	<definition name="sendClaim" extends="base">
 		<put-attribute name="title" expression="Send Claim" />
 		<put-attribute name="content"
-			value="/WEB-INF/spring/tiles-base/sendClaim.jsp" />
+			value="/WEB-INF/views/investor/sendClaim.jsp" />
 	</definition>
 	
 	<definition name="infoSendingClaim" extends="base">
 		<put-attribute name="title" expression="Info Send Claim" />
 		<put-attribute name="content"
-			value="/WEB-INF/spring/tiles-base/infoSendingClaim.jsp" />
+			value="/WEB-INF/views/investor/infoSendingClaim.jsp" />
 	</definition>
 	
 	<definition name="login" extends="base">
 		<put-attribute name="title" value="View: login"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/login.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
 	</definition>
 	
 	<definition name="profile" extends="base">
 		<put-attribute name="title" value="View: Profile"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/profile.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/creator/profile.jsp"/>
 	</definition>
 	
 	<definition name="creator.room" extends="base">
 		<put-attribute name="title" value="View: Room"/>
-		<put-attribute name="content" value="/WEB-INF/spring/tiles-base/creator-room.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/creator/creator-room.jsp"/>
 	</definition>
 	
 	<definition name="users.list" extends="base">

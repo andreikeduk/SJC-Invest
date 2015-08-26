@@ -14,7 +14,7 @@
 		<intercept-url pattern="/login" access="permitAll"></intercept-url>
 		<intercept-url pattern="/logout" access="permitAll"></intercept-url>
 		<intercept-url pattern="/access-denied" access="permitAll"></intercept-url>
-		<intercept-url pattern="/index" access="permitAll"></intercept-url>
+		<!--<intercept-url pattern="/index" access="permitAll"></intercept-url>-->
 		<!--<intercept-url pattern="/creator" access="hasRole('ROLE_CREATOR')"></intercept-url>-->
 		
 		

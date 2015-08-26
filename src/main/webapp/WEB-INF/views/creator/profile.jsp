@@ -13,7 +13,7 @@
 		<br />
 		<li>lastName: ${user.lastName}</li>
 		<br />
-		<li>login: (${user.login})</li>
+		<li>login: ${user.login}</li>
 		<br />
 		<li>email: ${user.email}</li>
 		

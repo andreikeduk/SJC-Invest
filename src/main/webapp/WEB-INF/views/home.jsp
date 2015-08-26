@@ -9,23 +9,8 @@
 <title>Home</title>
 </head>
 
-<body>
-	<h1>Hello on our Invest Fund!!!</h1>
-
-	<ul>
-		<li><h1>
-				<a href="<c:url value="/bid/new"/>">add bid</a>
-			</h1></li>
-		<li><h1>
-				<a href="<c:url value="/bid/list"/>">list bids</a>
-			</h1></li>
-		<li><h1>
-				<a href="<c:url value="/transaction"/>">transaction</a>
-			</h1></li>
-		<li><h1>
-				<a href="<c:url value="/creator"/>">creator page</a>
-			</h1></li>
-	</ul>
+<body>	
+		<h1>Здрасьте. Это тело!</h1>
 </body>
 
 </html>
