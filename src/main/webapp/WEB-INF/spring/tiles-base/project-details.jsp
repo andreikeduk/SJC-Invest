@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <h1>Name: ${project.name}</h1>
 Description: ${project.description}
@@ -17,11 +20,26 @@ Creator: ${project.user.firstName} ${project.user.lastName}
 <br /></br>
 Area: ${project.area.name}
 <br /></br>
-<form>
-	<input type="button" value="Send Money"
-		onClick='location.href="/invest/projects/${project.id}/sendMoney"'>
-</form>
+<security:authorize
+	access="hasRole('ROLE_INVESTOR') and isAuthenticated()">
+	<form>
+		<input type="button" value="Send Money"
+			onClick='location.href="/invest/projects/${project.id}/sendMoney"'>
+	</form>
+</security:authorize>
+<br /></br>
 <form>
 	<input type="button" value="Complain"
 		onClick='location.href="/invest/projects/${project.id}/sendClaim"'>
 </form>
+<br /></br>
+<h2>Comments:</h2>
+<security:authorize access="isAuthenticated()">
+	<form:form method="post" modelAttribute="comment" action="${action}">
+
+		<form:label path="comment">Your Comment: </form:label>
+		<form:input path="comment" />
+		<br />
+		<input type="submit" value="Add" />
+	</form:form>
+</security:authorize>
