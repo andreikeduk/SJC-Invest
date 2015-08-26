@@ -28,14 +28,16 @@ Area: ${project.area.name}
 	</form>
 </security:authorize>
 <br /></br>
-<form>
-	<input type="button" value="Complain"
-		onClick='location.href="/invest/projects/${project.id}/sendClaim"'>
-</form>
+<security:authorize access="isAuthenticated()">
+	<form>
+		<input type="button" value="Complain"
+			onClick='location.href="/invest/projects/${project.id}/sendClaim"'>
+	</form>
+</security:authorize>
 <br /></br>
 <h2>Comments:</h2>
 <security:authorize access="isAuthenticated()">
-	<form:form method="post" modelAttribute="comment" action="${action}">
+	<form:form method="post" commandName="comment" modelAttribute="comment" action="${action}">
 
 		<form:label path="comment">Your Comment: </form:label>
 		<form:input path="comment" />

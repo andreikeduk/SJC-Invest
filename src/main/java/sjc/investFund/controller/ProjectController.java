@@ -20,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
+import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
+import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
@@ -35,6 +37,9 @@ public class ProjectController {
 
 	@Autowired
 	private CommentService commentService;
+
+	@Autowired
+	private ClaimService claimService;
 
 	@Autowired
 	private TransactionService transactionService;
@@ -60,10 +65,31 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String addComment(@PathVariable("id") Project project,
-			@ModelAttribute("comment") Comment comment, Model model,
-			HttpSession session) {
+			@ModelAttribute("comment") Comment comment,
+			BindingResult bindingResult, Model model, HttpSession session) {
 		commentService.createComment(comment);
+		model.asMap().remove("comment");
 		String view = "project.details";
+		return view;
+	}
+
+	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.GET)
+	public String sendClaim(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+		model.addAttribute("project", project);
+		model.addAttribute("claim", new Claim());
+		model.addAttribute("claimaction");
+
+		return "sendClaim";
+	}
+
+	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.POST)
+	public String sendClaim(@PathVariable("id") Project project,
+			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
+			HttpSession session, Model model) {
+		claimService.createClaim(claim);
+		model.asMap().remove("claim");
+		String view = "infoSendingClaim";
 		return view;
 	}
 
@@ -89,14 +115,6 @@ public class ProjectController {
 		model.addAttribute("project", project);
 
 		return "sendMoney";
-	}
-
-	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.GET)
-	public String sendClaim(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-		model.addAttribute("project", project);
-
-		return "sendClaim";
 	}
 
 	/*

@@ -3,24 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 
+<security:authorize access="isAuthenticated()">
+	<form:form method="post" modelAttribute="claim" action="${claimaction}">
 
-<form name='loginForm' action="login" method='POST'
-	class="form-horizontal">
-	<div class="form-group">
-		<label for="login" class="col-sm-4 control-label">Enter your
-			claim:</label>
-		<div class="col-sm-8">
-			<input type="text" id="claim" name="claim" class="form-control"
-				placeholder="Enter claim">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<input name="submit" type="submit" class="btn btn-primary"
-				value=" Send claim " />
-		</div>
-	</div>
-</form>
+		<form:label path="claim">Your Claim: </form:label>
+		<form:input path="claim" />
+		<br />
+		<input type="submit" value="Add" />
+	</form:form>
+</security:authorize>
