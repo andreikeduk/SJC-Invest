@@ -7,6 +7,9 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
+<security:authorize access="isAuthenticated() and hasRole('ROLE_CREATOR')">
+	<a href="<c:url value="/projects/edit/${project.id}"/>" title="projects">Edit</a>
+</security:authorize>
 <h1>Name: ${project.name}</h1>
 Description: ${project.description}
 <br /></br>
@@ -45,3 +48,4 @@ Area: ${project.area.name}
 		<input type="submit" value="Add" />
 	</form:form>
 </security:authorize>
+
