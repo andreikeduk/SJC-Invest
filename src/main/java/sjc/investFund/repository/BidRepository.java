@@ -13,6 +13,7 @@ import sjc.investFund.dao.BidDao;
 import sjc.investFund.hibernate.AbstractHibernateDao;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
+import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 
@@ -27,23 +28,33 @@ public class BidRepository extends AbstractHibernateDao<Bid, Integer> implements
 		return (Bid) criteria.uniqueResult();
 	}
 
-	
 	@Override
 	public List<Bid> getBidsByUser(User user) {
 
-//		List<Bid> bids = getSession()
-//				.createQuery(
-//						"from Bid as b left join b.project as p left join p.user as u where u = ? ")
-//				.setEntity(0, user).list();
-		
+		// List<Bid> bids = getSession()
+		// .createQuery(
+		// "from Bid as b left join b.project as p left join p.user as u where u = ? ")
+		// .setEntity(0, user).list();
 
-		 Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
-		 criteria.createAlias("project","bid_project",JoinType.LEFT_OUTER_JOIN);
-		 criteria.createAlias("bid_project.user","project_user",JoinType.LEFT_OUTER_JOIN);
-		 criteria.add(Restrictions.eq("project_user.login", user.getLogin()));
-//		 criteria.setProjection(Projections.property("bids"));
+		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
+		criteria.createAlias("project", "bid_project", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("bid_project.user", "project_user",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("project_user.id", user.getId()));
+		// criteria.setProjection(Projections.property("bids"));
 
-		return (List<Bid>)criteria.list();
+		return (List<Bid>) criteria.list();
+	}
+
+	@Override
+	public List<Bid> getBidsByArea(Area area, BidStatus status) {
+		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
+		criteria.add(Restrictions.eq("Bids.status", status));
+		criteria.createAlias("project", "bid_project", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("bid_project.area", "project_area",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("project_area.id", area.getId()));
+		return (List<Bid>) criteria.list();
 	}
 
 }

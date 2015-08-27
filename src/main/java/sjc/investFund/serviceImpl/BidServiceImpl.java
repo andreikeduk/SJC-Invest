@@ -11,6 +11,7 @@ import sjc.investFund.dao.BidDao;
 import sjc.investFund.dao.ProjectDao;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
+import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 import sjc.investFund.service.BidService;
@@ -49,7 +50,8 @@ public class BidServiceImpl implements BidService {
 	public Bid getProjectBid(Project project) {
 		return bidRepository.getProjectBid(project);
 	}
-
+	
+	//unused
 	@Override
 	public List<Bid> findBidsByUser(User user) {
 
@@ -65,9 +67,8 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public List<Bid> findBidsByArea(Area area) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Bid> findBidsByArea(Area area, BidStatus status) {
+		return bidRepository.getBidsByArea(area, status);
 	}
 
 }

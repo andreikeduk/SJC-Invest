@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
+import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
@@ -64,27 +65,23 @@ public class BidController {
 	public ModelAndView addbid(
 			@ModelAttribute("project") @Valid Project project,
 			BindingResult br, HttpSession session, Authentication auth) {
-		String view = "/profile";
+		String view = "redirect:/profile";
 
 		if (br.hasErrors()) {
 			view = "bid";
 		} else {
 			if (project != null) {
 				User user = userService.findByLogin(auth.getName());
+				Account acc = new Account();
+				Bid bid = new Bid();
+				bid.setProject(project);
 
-				if ((user != null) && (user instanceof User)) {
-					Account acc = new Account();
-					Bid bid = new Bid();
-					bid.setProject(project);
-
-					project.setUser(user);
-					project.setAccount(acc);
-					projectService.createProject(project);
-					bidService.create(bid);
-				}
+				project.setUser(user);
+				project.setAccount(acc);
+				projectService.createProject(project);
+				bidService.create(bid);
 			}
 		}
-
 		return new ModelAndView(view);
 	}
 
@@ -96,6 +93,17 @@ public class BidController {
 		mav.setViewName("bidlist");
 		return mav;
 
+	}
+
+	// andrew
+	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
+	public String sendMoney(@PathVariable("id") Area area,
+			HttpSession session, Model model) {
+		
+		model.addAttribute("areabids", bidService.findBidsByArea(area, BidStatus.ACCEPTED));
+		model.addAttribute("area", area.getName());
+
+		return "area.bids";
 	}
 
 }

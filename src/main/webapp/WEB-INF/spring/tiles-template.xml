@@ -79,5 +79,10 @@
 		<put-attribute name="title" value="View: New User"/>
 		<put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
 	</definition>
+	
+	<definition name="area.bids" extends="base">
+		<put-attribute name="title" value="View: Area bids"/>
+		<put-attribute name="content" value="/WEB-INF/views/area-bids.jsp"/>
+	</definition>
 
 </tiles-definitions>
