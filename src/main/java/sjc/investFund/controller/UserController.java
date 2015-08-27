@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjc.investFund.model.Creator;
+import sjc.investFund.model.Director;
 import sjc.investFund.model.Investor;
 import sjc.investFund.model.Role;
 import sjc.investFund.model.User;
@@ -56,7 +57,7 @@ public class UserController {
 	public String addUser(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("action", "add");
-		model.addAttribute("roleOptions", Role.values());
+		//model.addAttribute("roleOptions", Role.values());
 
 		return "user";
 	}
@@ -64,20 +65,20 @@ public class UserController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute("user") User user,
 			@RequestParam("role") String role, BindingResult result, Model model) {
-
+		
 		String view = "home";
-
 		if (result.hasErrors()) {
 			view = "user";
 		} else {
 			if (user != null) {
+				if (role.equals("INV") ) {		
+					user = new Investor(user);
+				} else if(role.equals("CRE")) {					
+					user = new Creator(user);
+				}else if(role.equals("DIR")) {				
+					user = new Director(user);
+				}
 				userService.create(user);
-//				if (role == "INVESTOR") {
-//					user = (Investor) user;
-//				} else if (role == "CREATOR") {
-//					user = (Creator) user;
-//				}
-//				userService.update(user);
 			}
 		}
 		return view;

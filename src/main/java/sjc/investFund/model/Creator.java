@@ -7,7 +7,17 @@ import javax.persistence.Entity;
 @DiscriminatorValue("CREATOR")
 public class Creator extends User {
 
-	public Creator(){
+	public Creator() {
+	}
+
+	public Creator(User user) {
+		this.setEmail(user.getEmail());
+		this.setFirstName(user.getFirstName());
+		this.setId(user.getId());
+		this.setLastName(user.getLastName());
+		this.setLogin(user.getLogin());
+		this.setPassword(user.getPassword());
 		
 	}
+
 }
