@@ -15,14 +15,10 @@
 		<intercept-url pattern="/logout" access="permitAll"></intercept-url>
 		<intercept-url pattern="/access-denied" access="permitAll"></intercept-url>
 		<!--<intercept-url pattern="/index" access="permitAll"></intercept-url>-->
-		<!--<intercept-url pattern="/creator" access="hasRole('ROLE_CREATOR')"></intercept-url>-->
-		
-		
-		
-	 	
-	 	
+		<intercept-url pattern="/creator" access="hasRole('ROLE_CREATOR')"></intercept-url>
+			 	
 		<form-login
-                login-page="/index"
+                login-page="/login"
             	default-target-url="/creator"
                 authentication-failure-url="/login/failure"
                 username-parameter="login"
@@ -50,14 +46,5 @@
     <beans:bean id="encoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<beans:constructor-arg name="strength" value="10" />
-	</beans:bean>
-     
-	<!-- <authentication-manager id="in-memory-auth">
-        <authentication-provider>
-            <user-service>
-                <user name="mack" password="1111" authorities="CREATOR" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>/-->
- 	
+	</beans:bean> 	
 </beans:beans>

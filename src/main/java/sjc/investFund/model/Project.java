@@ -40,7 +40,7 @@ public class Project {
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id")
 	private Area area;
 	
@@ -54,6 +54,7 @@ public class Project {
 
 	public Project() {
 		status = false;
+		deadline = Calendar.getInstance();
 	}
 
 	public int getId() {
@@ -102,7 +103,7 @@ public class Project {
 	}
 
 	public void setDeadline(Calendar deadline) {
-		this.deadline = deadline;
+		this.deadline =deadline;
 	}
 
 	public int getRequiredAmount() {

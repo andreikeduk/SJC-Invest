@@ -1,6 +1,8 @@
 package sjc.investFund.model;
 
 import java.util.Calendar;
+import java.util.Locale;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,7 +50,7 @@ public class Bid {
 	}
 
 	public void setPeriodConsideration(Calendar periodConsideration) {
-		this.periodConsideration = periodConsideration;
+		this.periodConsideration = periodConsideration;					
 	}
 
 	public BidStatus getStatus() {
