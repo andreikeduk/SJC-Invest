@@ -1,14 +1,10 @@
 package sjc.investFund.repository;
 
 import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import sjc.investFund.dao.TransactionDao;
 import sjc.investFund.hibernate.AbstractHibernateDao;
-import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;

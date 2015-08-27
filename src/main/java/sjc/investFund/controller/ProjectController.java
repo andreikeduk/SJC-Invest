@@ -1,11 +1,6 @@
 package sjc.investFund.controller;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import sjc.investFund.model.Account;
-import sjc.investFund.model.Area;
-import sjc.investFund.model.Bid;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Project;
-import sjc.investFund.model.User;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
 import sjc.investFund.service.ProjectService;
