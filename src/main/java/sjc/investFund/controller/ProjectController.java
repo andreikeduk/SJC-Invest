@@ -61,6 +61,8 @@ public class ProjectController {
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
 		model.addAttribute("comment", new Comment());
+		List<Comment> comments = commentService.getCommentsByProject(project);
+		model.addAttribute("comments", comments);
 		model.addAttribute("action");
 
 		return "project.details";
