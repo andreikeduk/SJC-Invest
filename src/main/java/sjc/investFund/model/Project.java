@@ -40,7 +40,7 @@ public class Project {
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id")
 	private Area area;
 	
