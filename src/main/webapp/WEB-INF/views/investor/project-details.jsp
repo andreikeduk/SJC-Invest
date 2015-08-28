@@ -7,8 +7,10 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<security:authorize access="isAuthenticated() and hasRole('ROLE_CREATOR')">
-	<a href="<c:url value="/projects/edit/${project.id}"/>" title="projects">Edit</a>
+<security:authorize
+	access="isAuthenticated() and hasRole('ROLE_CREATOR')">
+	<a href="<c:url value="/projects/edit/${project.id}"/>"
+		title="projects">Edit</a>
 </security:authorize>
 <h1>Name: ${project.name}</h1>
 Description: ${project.description}
@@ -39,8 +41,14 @@ Area: ${project.area.name}
 </security:authorize>
 <br /></br>
 <h2>Comments:</h2>
+<c:forEach items="${comments}" var="comment">
+	<b>${comment.user.firstName} ${comment.user.lastName}</b><br>
+	${comment.comment}
+	<hr align="left" width="300" size="4" color="#FF4500" />
+</c:forEach>
 <security:authorize access="isAuthenticated()">
-	<form:form method="post" commandName="comment" modelAttribute="comment" action="${action}">
+	<form:form method="post" commandName="comment" modelAttribute="comment"
+		action="${action}">
 
 		<form:label path="comment">Your Comment: </form:label>
 		<form:input path="comment" />
