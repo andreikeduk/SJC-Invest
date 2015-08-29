@@ -40,8 +40,7 @@ public class HellController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user", user);
 		mav.setViewName("home");
-		
-		
+				
 		return mav;
 	}
 		

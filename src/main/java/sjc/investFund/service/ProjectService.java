@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import freemarker.core.Comment;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 
@@ -16,4 +17,5 @@ public interface ProjectService {
 	public Project getProjectById(int id);
 	void updateProject(Project project);
 	void changeStatus(boolean status);
+	
 }

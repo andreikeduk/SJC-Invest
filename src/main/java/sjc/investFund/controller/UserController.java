@@ -83,5 +83,14 @@ public class UserController {
 		}
 		return view;
 	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editUser(Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("action", "edit");
+		//model.addAttribute("roleOptions", Role.values());
+
+		return "user";
+	}
 
 }
