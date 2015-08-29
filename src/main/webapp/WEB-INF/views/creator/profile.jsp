@@ -9,7 +9,6 @@
 <c:if test="${not empty user}">
 	<ul>
 		<li>firstName: ${user.firstName}</li>
-		<li>
 		<br />
 		<li>lastName: ${user.lastName}</li>
 		<br />

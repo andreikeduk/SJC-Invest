@@ -50,24 +50,18 @@ public class BidController {
 		model.addAttribute("project", new Project());
 		model.addAttribute("action", "new");
 
-		Map<String, String> areaList = new LinkedHashMap<String, String>();
-
-		List<Area> areas = areaService.findAllAreas();
-		for (Area a : areas) {
-			areaList.put(a.getId().toString(), a.getName());
-		}
-		model.addAttribute("arealist", areaList);
+		getAreaList(model);
 
 		return "bid";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public ModelAndView addbid(
-			@ModelAttribute("project") @Valid Project project,
-			BindingResult br, HttpSession session, Authentication auth) {
-		String view = "redirect:/profile";
+	public String addBid(@ModelAttribute("project") @Valid Project project,
+			BindingResult br, Authentication auth, Model model) {
+		String view = "redirect:/creator";
 
 		if (br.hasErrors()) {
+			getAreaList(model);
 			view = "bid";
 		} else {
 			if (project != null) {
@@ -82,7 +76,7 @@ public class BidController {
 				bidService.create(bid);
 			}
 		}
-		return new ModelAndView(view);
+		return view;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -97,13 +91,25 @@ public class BidController {
 
 	// andrew
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
-	public String sendMoney(@PathVariable("id") Area area,
-			HttpSession session, Model model) {
-		
-		model.addAttribute("areabids", bidService.findBidsByArea(area, BidStatus.ACCEPTED));
+	public String sendMoney(@PathVariable("id") Area area, HttpSession session,
+			Model model) {
+
+		model.addAttribute("areabids",
+				bidService.findBidsByArea(area, BidStatus.ACCEPTED));
 		model.addAttribute("area", area.getName());
 
 		return "area.bids";
 	}
+
+	public void getAreaList(Model model) {
+		Map<String, String> areaList = new LinkedHashMap<String, String>();
+
+		List<Area> areas = areaService.findAllAreas();
+		for (Area a : areas) {
+			areaList.put(a.getId().toString(), a.getName());
+		}
+		model.addAttribute("arealist", areaList);
+	}
+	
 
 }

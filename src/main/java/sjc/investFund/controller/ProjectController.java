@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
+import sjc.investFund.model.Bid;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Project;
+import sjc.investFund.model.User;
 import sjc.investFund.repository.AreaRepository;
 import sjc.investFund.service.AreaService;
 import sjc.investFund.service.BidService;
@@ -139,17 +144,35 @@ public class ProjectController {
 	public String editProject(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
 		
-//		Map<String, String> areaList = new LinkedHashMap<String, String>();
-//
-//		List<Area> areas = areaService.findAllAreas();
-//		for (Area a : areas) {
-//			areaList.put(a.getId().toString(), a.getName());
-//		}
-//		model.addAttribute("arealist", areaList);
+		getAreaList(model);
 		model.addAttribute("project", project);
+		//model.addAttribute("action", "edit");
 		model.addAttribute("action", project.getId());
 				
 		return "bid";
+	}
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public String addBid(@ModelAttribute("project") @Valid Project project,
+			BindingResult br, Authentication auth, Model model) {
+		String view = "redirect:/projects/{id}";
+
+		if (br.hasErrors()) {
+			getAreaList(model);
+			view = "bid";
+		} else {
+				projectService.updateProject(project);
+		}		
+		return view;
+	}
+	
+	public void getAreaList(Model model) {
+		Map<String, String> areaList = new LinkedHashMap<String, String>();
+
+		List<Area> areas = areaService.findAllAreas();
+		for (Area a : areas) {
+			areaList.put(a.getId().toString(), a.getName());
+		}
+		model.addAttribute("arealist", areaList);
 	}
 		
 	

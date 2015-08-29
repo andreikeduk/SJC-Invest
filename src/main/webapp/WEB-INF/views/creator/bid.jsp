@@ -36,7 +36,7 @@
 		</form:select>
 		<form:errors path="area" cssClass="error"></form:errors>
 		<br />
-		<input type="submit" value="Add" />
+		<input type="submit" value="Save" />
 	</form:form>
 </body>
 

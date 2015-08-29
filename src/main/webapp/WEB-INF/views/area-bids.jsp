@@ -12,6 +12,7 @@
 		<th>Name</th>
 		<th>Balance/Amount</th>
 		<th>Status</th>
+		<th>Creator</th>
 	</tr>
 	<c:forEach var="bid" items="${areabids}">
 		<c:url value="/projects/${bid.project.id}" var="viewProjectUrl" />
@@ -20,7 +21,9 @@
 			<td>${bid.project.requiredAmount}/
 				${bid.project.account.balance}
 				(${bid.project.account.balance/bid.project.requiredAmount}%)</td>
-			<td>${bid.status}To: ${bid.periodConsideration.getTime()}</td>
+			<td>${bid.status}To:${bid.periodConsideration.getTime()}</td>
+			<td>${bid.project.user.firstName} ${bid.project.user.lastName}
+				(${bid.project.user.login})</td>
 		</tr>
 		<br />
 	</c:forEach>

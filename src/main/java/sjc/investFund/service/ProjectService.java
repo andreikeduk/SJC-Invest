@@ -14,6 +14,6 @@ public interface ProjectService {
 	Integer howManyMoney(Project project);
 	
 	public Project getProjectById(int id);
-	void saveProject(Project project);
+	void updateProject(Project project);
 	void changeStatus(boolean status);
 }

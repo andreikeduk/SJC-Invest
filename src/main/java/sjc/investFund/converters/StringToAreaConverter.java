@@ -15,7 +15,10 @@ public class StringToAreaConverter implements Converter<String, Area> {
 
 	@Override
 	public Area convert(String id) {
-		return areaService.findAreaById(Integer.parseInt(id));
+		Area area = null;
+		if (!id.equals("NONE")) {
+			area = areaService.findAreaById(Integer.parseInt(id));
+		}
+		return area;
 	}
-
 }

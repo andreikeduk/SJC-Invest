@@ -39,7 +39,7 @@ public class Project {
 	@NotNull(message = "You do not need money?")
 	@Column(name = "requiredAmount")
 	private int requiredAmount;
-	
+	@NotNull(message = "ololo")
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id")
 	private Area area;
