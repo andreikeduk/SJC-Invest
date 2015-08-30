@@ -42,12 +42,12 @@ public class Project {
 	@Column(name = "deadline")
 	private Calendar deadline;
 	
-	@Max(value = 6, message = "Too much")
-	@Min(value = 3, message = "Really?")
+	@Max(value = 1000000, message = "Too much")
+	@Min(value = 99, message = "Really?")
 	@Column(name = "requiredAmount")
 	private Integer requiredAmount;
 
-	@NotNull(message = "ololo")
+	@NotNull(message = "You need to choise an area.")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id")
 	private Area area;

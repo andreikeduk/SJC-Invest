@@ -15,7 +15,7 @@
 		<th>Status</th>
 	</tr>
 	<c:forEach var="bid" items="${bidslist}">
-		<!--<c:url value="/projects/${bid.project.id}" var="viewProjectUrl" />
+		<c:url value="/projects/${bid.project.id}" var="viewProjectUrl" />
 		<c:url value="/bid/area/${bid.project.area.id}" var="viewAreaUrl" />
 		<tr>
 			<td><a href="${viewProjectUrl}">${bid.project.name}</a></td>
@@ -25,11 +25,8 @@
 			<td><a href="${viewAreaUrl}">${bid.project.area.name}</a></td>
 			<td>${bid.status}To: ${bid.periodConsideration.getTime()}</td>
 		</tr>
-		<br />-->
-		<tr>
-			<td>${bid.id},${bid.status}</td>
-			<br />
-		</tr>
+		<br />
+		
 	</c:forEach>
 </table>
 <br />
