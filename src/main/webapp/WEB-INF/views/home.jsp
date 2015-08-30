@@ -10,7 +10,7 @@
 </head>
 
 <body>	
-		<h1>Здрасьте. Это тело!</h1>
+		<h1><spring:message code ="label.body"/></h1>
 </body>
 
 </html>
