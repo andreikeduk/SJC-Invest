@@ -27,7 +27,7 @@ public class Bid {
 	private Calendar periodConsideration;
 	@Enumerated(EnumType.STRING)
 	private BidStatus status;
-	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "project_id")
 	private Project project;
 

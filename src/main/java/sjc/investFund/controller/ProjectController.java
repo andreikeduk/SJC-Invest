@@ -48,7 +48,7 @@ public class ProjectController {
 
 	@Autowired
 	private TransactionService transactionService;
-	
+
 	@Autowired
 	private AreaService areaService;
 
@@ -139,20 +139,20 @@ public class ProjectController {
 	 * session.setAttribute("user", user); mav.addObject("user", user);
 	 * mav.setViewName("home"); return mav; }
 	 */
-	
-	//andrew
+
+	// andrew
 	@PreAuthorize("hasRole('ROLE_CREATOR')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editProject(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
-		
+
 		getAreaList(model);
 		model.addAttribute("project", project);
-		//model.addAttribute("action", "edit");
 		model.addAttribute("action", project.getId());
-				
+
 		return "bid";
 	}
+
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String addBid(@ModelAttribute("project") @Valid Project project,
 			BindingResult br, Authentication auth, Model model) {
@@ -162,11 +162,12 @@ public class ProjectController {
 			getAreaList(model);
 			view = "bid";
 		} else {
-				projectService.updateProject(project);
-		}		
+			
+			projectService.updateProject(project);
+		}
 		return view;
 	}
-	
+
 	public void getAreaList(Model model) {
 		Map<String, String> areaList = new LinkedHashMap<String, String>();
 
@@ -176,6 +177,5 @@ public class ProjectController {
 		}
 		model.addAttribute("arealist", areaList);
 	}
-		
-	
+
 }

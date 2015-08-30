@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("comment")
+@DiscriminatorValue("COMMENT")
 public class Comment extends Feedback {
 	
 	@Column(name = "comment")

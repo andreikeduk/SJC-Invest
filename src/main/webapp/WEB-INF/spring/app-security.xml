@@ -19,7 +19,7 @@
 			 	
 		<form-login
                 login-page="/login"
-            	default-target-url="/creator"
+            	default-target-url="/redirector"
                 authentication-failure-url="/login/failure"
                 username-parameter="login"
                 password-parameter="password" />

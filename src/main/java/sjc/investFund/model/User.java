@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DiscriminatorOptions;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -31,12 +34,13 @@ public class User {
 	private String firstName;
 	@Column(name = "lastName")
 	private String lastName;
-	@NotNull(message = "Login required")
+	@Length(min=2, max=20, message = "Login must have 2-20 char")
 	@Column(name = "login")
 	private String login;
-	@NotNull(message = "Password required")
+	@Length(min=4, max=20, message = "Password must have 4-20 char")
 	@Column(name = "password")
 	private String password;
+	@NotNull(message = "Not null email")
 	@Email(message = "Please, enter valid email")
 	@Column(name = "email")
 	private String email;

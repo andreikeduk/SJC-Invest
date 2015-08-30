@@ -13,7 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -36,9 +41,11 @@ public class Project {
 
 	@Column(name = "deadline")
 	private Calendar deadline;
-	@NotNull(message = "You do not need money?")
+	
+	@Max(value = 6, message = "Too much")
+	@Min(value = 3, message = "Really?")
 	@Column(name = "requiredAmount")
-	private int requiredAmount;
+	private Integer requiredAmount;
 
 	@NotNull(message = "ololo")
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -107,11 +114,11 @@ public class Project {
 		this.deadline =deadline;
 	}
 
-	public int getRequiredAmount() {
+	public Integer getRequiredAmount() {
 		return requiredAmount;
 	}
 
-	public void setRequiredAmount(int requiredAmount) {
+	public void setRequiredAmount(Integer requiredAmount) {
 		this.requiredAmount = requiredAmount;
 	}
 

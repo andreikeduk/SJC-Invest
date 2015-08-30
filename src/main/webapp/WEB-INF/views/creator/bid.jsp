@@ -17,6 +17,7 @@
 		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
 		<form:input path="requiredAmount" />
+		<form:errors path="requiredAmount" cssClass="error"></form:errors>
 		<br />
 		<form:label path="description">Description: </form:label>
 		<form:textarea rows="5" cols="100" path="description" />

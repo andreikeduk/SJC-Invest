@@ -5,6 +5,7 @@ import javax.servlet.http.HttpUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.model.Role;
 import sjc.investFund.model.User;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.UserService;
@@ -41,7 +43,7 @@ public class LoginController {
 		//mav.addObject("user", user);
 		// mav.addObject("projectlist",
 		// projectService.findProjectsByUser(user));
-		mav.setViewName("redirect:/creator");
+		mav.setViewName("redirect:/redirector");
 		return mav;
 	}
 
@@ -51,4 +53,6 @@ public class LoginController {
 				"This combination user and password not found");
 		return "login";
 	}
+	
+	
 }

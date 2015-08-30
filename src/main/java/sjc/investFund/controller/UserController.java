@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,25 +58,26 @@ public class UserController {
 	public String addUser(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("action", "add");
-		//model.addAttribute("roleOptions", Role.values());
+		// model.addAttribute("roleOptions", Role.values());
 
 		return "user";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute("user") User user,
-			@RequestParam("role") String role, BindingResult result, Model model) {
-		
+			BindingResult result,/* @RequestParam("role") String role,*/ Model model) {
+
 		String view = "home";
 		if (result.hasErrors()) {
 			view = "user";
 		} else {
 			if (user != null) {
-				if (role.equals("INV") ) {		
+				String role = user.getRole().toString();
+				if (role.equals("INVESTOR")) {
 					user = new Investor(user);
-				} else if(role.equals("CRE")) {					
+				} else if (role.equals("CREATOR")) {
 					user = new Creator(user);
-				}else if(role.equals("DIR")) {				
+				} else if (role.equals("DIRECTOR")) {
 					user = new Director(user);
 				}
 				userService.create(user);
@@ -83,14 +85,36 @@ public class UserController {
 		}
 		return view;
 	}
-	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String editUser(Model model) {
-		model.addAttribute("user", new User());
-		model.addAttribute("action", "edit");
-		//model.addAttribute("roleOptions", Role.values());
 
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editUser(Model model, Authentication auth) {
+
+		User user = userService.findByLogin(auth.getName());
+		model.addAttribute("user", user);
+		model.addAttribute("action", "edit");
+		// model.addAttribute("roleOptions", Role.values());
 		return "user";
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String editClientSubmit( @ModelAttribute("user") @Valid User user,
+			BindingResult br, @RequestParam("id") String id, Model model) {
+		String view = "profile";
+		if (br.hasErrors()) {
+			
+			view = "user";
+		} else {
+			User oldUser = userService.findById(Integer.parseInt(id));
+			if (user != null) {
+				oldUser.setFirstName(user.getFirstName());
+				oldUser.setLastName(user.getLastName());
+				oldUser.setLogin(user.getLogin());
+				oldUser.setPassword(user.getPassword());
+				oldUser.setEmail(user.getEmail());
+				userService.update(oldUser);
+				model.addAttribute("user", oldUser);
+			}
+		}
+		return view;
+	}
 }

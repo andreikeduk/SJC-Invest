@@ -21,7 +21,7 @@
 				<c:url var="logoutUrl" value='/j_spring_security_logout' />
 				<a href="${logoutUrl}">Logout</a>
 				<a href="<c:url value="/profile/"/>">${login}</a>
-				<a href="<c:url value="/creator" />">User projects</a>
+				<a href="<c:url value="/redirector" />">User projects</a>
 			</security:authorize>
 			<security:authorize access="isAnonymous()">
 				<a href="<c:url value="/login"/>">Log In</a>
