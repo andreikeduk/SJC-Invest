@@ -6,5 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("DATACHECK")
 public class Datacheck extends Transaction {
+	public Datacheck() {
 
+	}
 }

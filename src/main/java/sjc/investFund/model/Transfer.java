@@ -6,5 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("TRANSFER")
 public class Transfer extends Transaction {
+	public Transfer() {
 
+	}
 }

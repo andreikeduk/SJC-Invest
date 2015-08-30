@@ -6,5 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("BANKCARD")
 public class Bankcard extends Transaction {
+	public Bankcard() {
 
+	}
 }
