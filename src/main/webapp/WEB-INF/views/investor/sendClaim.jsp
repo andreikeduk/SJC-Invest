@@ -11,8 +11,7 @@
 	<form:form method="post" modelAttribute="claim" action="${claimaction}">
 
 		<form:label path="claim">Your Claim: </form:label>
-		<form:input path="claim" />
-		<br />
-		<input type="submit" value="Add" />
+		<form:textarea rows="5" cols="50" path="claim" /><br><br>
+		<input type="submit" value="Send Claim" />
 	</form:form>
 </security:authorize>

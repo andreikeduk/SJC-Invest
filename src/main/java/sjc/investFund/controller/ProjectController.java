@@ -18,21 +18,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
-import sjc.investFund.model.Bid;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
-import sjc.investFund.repository.AreaRepository;
 import sjc.investFund.service.AreaService;
-import sjc.investFund.service.BidService;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
+import sjc.investFund.service.UserService;
 
 @Controller
 @RequestMapping(value = "/projects")
@@ -51,6 +47,9 @@ public class ProjectController {
 
 	@Autowired
 	private AreaService areaService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView listProjects(HttpSession session) {
@@ -96,8 +95,13 @@ public class ProjectController {
 	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.POST)
 	public String sendClaim(@PathVariable("id") Project project,
 			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
-			HttpSession session, Model model) {
-		claimService.createClaim(claim);
+			HttpSession session, Model model, Authentication auth) {
+		User user = userService.findByLogin(auth.getName());
+		if ((user!= null) && (user instanceof User)) {			
+			claim.setUser(user);
+			claim.setProject(project);
+			claimService.createClaim(claim);
+		}		
 		model.asMap().remove("claim");
 		String view = "infoSendingClaim";
 		return view;
