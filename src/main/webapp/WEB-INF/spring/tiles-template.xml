@@ -49,6 +49,12 @@
 			value="/WEB-INF/views/investor/sendClaim.jsp" />
 	</definition>
 	
+	<definition name="sendComment" extends="base">
+		<put-attribute name="title" expression="Send Comment" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/investor/sendComment.jsp" />
+	</definition>
+	
 	<definition name="infoSendingClaim" extends="base">
 		<put-attribute name="title" expression="Info Send Claim" />
 		<put-attribute name="content"

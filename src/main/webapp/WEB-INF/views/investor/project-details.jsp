@@ -31,6 +31,10 @@ Area: ${project.area.name}<br>
 		<input type="button" value="Complain"
 			onClick='location.href="/invest/projects/${project.id}/sendClaim"'>
 	</form>
+	<form>
+		<input type="button" value="Add Comment"
+			onClick='location.href="/invest/projects/${project.id}/sendComment"'>
+	</form>
 </security:authorize><br>
 <h2>Comments:</h2>
 <c:forEach items="${comments}" var="comment">
@@ -38,12 +42,4 @@ Area: ${project.area.name}<br>
 	${comment.comment}
 	<hr />
 </c:forEach>
-<security:authorize access="isAuthenticated()">
-	<form:form method="post" commandName="comment" modelAttribute="comment"
-		action="${action}">
-		<form:label path="comment">Your Comment: </form:label>
-		<form:textarea rows="5" cols="50" path="comment" /><br>
-		<input type="submit" value="Add" />
-	</form:form>
-</security:authorize>
 

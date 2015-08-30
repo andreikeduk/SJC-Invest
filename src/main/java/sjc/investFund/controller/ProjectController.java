@@ -47,16 +47,16 @@ public class ProjectController {
 
 	@Autowired
 	private AreaService areaService;
-	
+
 	@Autowired
 	private UserService userService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView listProjects(HttpSession session) {
-
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("projectslist", projectService.findAllBids());
 		mav.setViewName("projects");
+
 		return mav;
 	}
 
@@ -64,21 +64,34 @@ public class ProjectController {
 	public String showProject(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
-		model.addAttribute("comment", new Comment());
 		List<Comment> comments = commentService.getCommentsByProject(project);
 		model.addAttribute("comments", comments);
-		model.addAttribute("action");
 
 		return "project.details";
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.GET)
+	public String addComment(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+		model.addAttribute("project", project);
+		model.addAttribute("comment", new Comment());
+		model.addAttribute("action");
+
+		return "sendComment";
+	}
+
+	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.POST)
 	public String addComment(@PathVariable("id") Project project,
 			@ModelAttribute("comment") Comment comment,
-			BindingResult bindingResult, Model model, HttpSession session) {
+			BindingResult bindingResult, Model model, HttpSession session,
+			Authentication auth) {
+		User user = userService.findByLogin(auth.getName());
+		comment.setUser(user);
+		comment.setProject(project);
 		commentService.createComment(comment);
 		model.asMap().remove("comment");
-		String view = "project.details";
+		String view = "infoSendingClaim";
+		
 		return view;
 	}
 
@@ -97,11 +110,10 @@ public class ProjectController {
 			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
 			HttpSession session, Model model, Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
-		if ((user!= null) && (user instanceof User)) {			
-			claim.setUser(user);
-			claim.setProject(project);
-			claimService.createClaim(claim);
-		}		
+		System.out.println(user.getRole());
+		claim.setUser(user);
+		claim.setProject(project);
+		claimService.createClaim(claim);
 		model.asMap().remove("claim");
 		String view = "infoSendingClaim";
 		return view;
@@ -166,7 +178,7 @@ public class ProjectController {
 			getAreaList(model);
 			view = "bid";
 		} else {
-			
+
 			projectService.updateProject(project);
 		}
 		return view;
