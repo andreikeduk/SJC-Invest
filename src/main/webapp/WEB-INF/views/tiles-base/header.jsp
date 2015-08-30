@@ -4,8 +4,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/home.css"/>" />
 <div class="nav nav-pills">
 	<div class="container">
 		<div class="navbar-header">

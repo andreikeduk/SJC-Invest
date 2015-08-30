@@ -3,12 +3,12 @@
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="base"	template="/WEB-INF/spring/tiles-base/base-template.jsp">
+	<definition name="base"	template="/WEB-INF/views/tiles-base/base-template.jsp">
 		<put-attribute name="title" value=""/>
-		<put-attribute name="header" value="/WEB-INF/spring/tiles-base/header.jsp"/>
-		<put-attribute name="navigation" value="/WEB-INF/spring/tiles-base/navigation.jsp"/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles-base/header.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/views/tiles-base/navigation.jsp"/>
 		<put-attribute name="content" value=""/>
-		<put-attribute name="footer" value="/WEB-INF/spring/tiles-base/footer.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles-base/footer.jsp"/>
 	</definition>
 
 	<definition name="home" extends="base">
