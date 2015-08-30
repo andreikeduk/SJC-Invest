@@ -1,38 +1,55 @@
 package sjc.investFund.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Transactions")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Transaction {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	
 	@Column(name = "time")
-	private Date time;
-	@Enumerated(EnumType.STRING)
-	private TypeTransaction type;
+	private Calendar time;
+	
 	@Column(name = "amount")
 	private Integer amount;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "investor_account_id")
 	private Account investorAccount;
-	@ManyToOne(fetch=FetchType.LAZY)
+	
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "goal_account_id")
 	private Account goalAccount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type", updatable=false, insertable = false)
+	private TypeTransaction type;
+	
+	public Transaction() {
+		
+	}
 	
 	public Integer getId() {
 		return id;
@@ -42,11 +59,11 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public Date getTime() {
+	public Calendar getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(Calendar time) {
 		this.time = time;
 	}
 
@@ -64,10 +81,6 @@ public class Transaction {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public Transaction() {
-		super();
 	}
 
 	public Account getInvestorAccount() {
