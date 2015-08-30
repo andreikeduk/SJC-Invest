@@ -8,7 +8,6 @@
 <h4><spring:message code = "label.userroom"/></h4>
 <table id="projectsTable" border="1" cellpadding="10" cellspacing="0"
 	class="table table-striped table-bordered">
-	
 	<tr>
 		<th><spring:message code = "label.projectName"/></th>
 		<th><spring:message code = "label.balance"/></th>

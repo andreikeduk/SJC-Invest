@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,9 @@ public class BidController {
 	@Autowired
 	private AreaService areaService;
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(BidController.class);
+
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String newBidForm(Model model) {
 
@@ -74,6 +79,8 @@ public class BidController {
 				project.setAccount(acc);
 				projectService.createProject(project);
 				bidService.create(bid);
+				logger.debug("New bid with name:" + project.getName()
+						+ " created ");
 			}
 		}
 		return view;
@@ -110,6 +117,5 @@ public class BidController {
 		}
 		model.addAttribute("arealist", areaList);
 	}
-	
 
 }
