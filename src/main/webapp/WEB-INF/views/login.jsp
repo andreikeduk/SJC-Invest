@@ -6,6 +6,15 @@
 
 <h3>Please sign in</h3>
 
+<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+	<div class="danger">
+		<p class="alert alert-danger">
+		Your login attempt was not successful, try again.  
+ 		Reason: ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		</p>
+	</div>
+</c:if>
+
 <c:url value="/j_spring_security_check" var="loginUrl" />
 <form name='loginForm' action="${loginUrl}" method='POST'
 	class="form-horizontal">

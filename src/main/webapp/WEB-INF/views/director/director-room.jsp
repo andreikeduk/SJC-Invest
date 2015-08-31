@@ -5,14 +5,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<h4>User Room:</h4>
-<table id="projectsTable" border="1" cellpadding="10" cellspacing="0"
-	class="table table-striped table-bordered">
+<c:if test="${empty bidslist}">
+	<h4>You do not have bids.</h4>
+</c:if>
+
+<c:if test="${!empty bidslist}">
+<h4>
+	<spring:message code="label.userroom" />
+</h4>
+<table id="projectsTable" class="table table-striped table-bordered">
 	<tr>
-		<th>Name</th>
-		<th>Balance/Amount</th>
-		<th>Area</th>
-		<th>Status</th>
+		<th><spring:message code="label.projectName" /></th>
+		<th><spring:message code="label.balance" /></th>
+		<th><spring:message code="label.area" /></th>
+		<th><spring:message code="label.status" /></th>
 	</tr>
 	<c:forEach var="bid" items="${bidslist}">
 		<c:url value="/projects/${bid.project.id}" var="viewProjectUrl" />
@@ -23,11 +29,8 @@
 				${bid.project.account.balance}
 				(${bid.project.account.balance/bid.project.requiredAmount}%)</td>
 			<td><a href="${viewAreaUrl}">${bid.project.area.name}</a></td>
-			<td>${bid.status}To: ${bid.periodConsideration.getTime()}</td>
+			<td>${bid.status}To:${bid.periodConsideration.getTime()}</td>
 		</tr>
-		<br />
-		
 	</c:forEach>
 </table>
-<br />
-<br />
+</c:if>

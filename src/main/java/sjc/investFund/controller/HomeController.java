@@ -42,9 +42,10 @@ public class HomeController {
 		}
 		session.setAttribute("arealist", areaList);
 		
+		
 		return "home";
 	}
-	@RequestMapping(value = { "/access-denied" }, method = { RequestMethod.GET })
+	@RequestMapping(value = "/access-denied", method = { RequestMethod.GET })
 	public String denied() {
 		return "denied";
 	}
@@ -53,8 +54,7 @@ public class HomeController {
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("login");
-		session.setAttribute("user", null);
-		session.invalidate();
+		//session.invalidate();
 		return model;
 	}
 	@RequestMapping(value = "/redirector")

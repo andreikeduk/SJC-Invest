@@ -7,25 +7,34 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<security:authorize
-	access="isAuthenticated() and hasRole('ROLE_CREATOR')">
+<c:set var="login">
+	<security:authentication property="principal.username" />
+</c:set>
+<security:authorize access="${project.user.login == login } ">
 	<a href="<c:url value="/projects/edit/${project.id}"/>"
 		title="projects">Edit</a>
 </security:authorize>
 <h1>Name: ${project.name}</h1>
-Description: ${project.description}<br>
-Status: ${project.status.toString()}<br>
-Deadline: ${project.deadline}<br>
-Required Amount: ${project.requiredAmount.toString()}<br>
-Creator: ${project.user.firstName} ${project.user.lastName}<br>
-Area: ${project.area.name}<br>
+Description: ${project.description}
+<br>
+Status: ${project.status.toString()}
+<br>
+Deadline: ${project.deadline}
+<br>
+Required Amount: ${project.requiredAmount.toString()}
+<br>
+Creator: ${project.user.firstName} ${project.user.lastName}
+<br>
+Area: ${project.area.name}
+<br>
 <security:authorize
 	access="hasRole('ROLE_INVESTOR') and isAuthenticated()">
 	<form>
 		<input type="button" value="Send Money"
 			onClick='location.href="/invest/projects/${project.id}/sendMoney"'>
 	</form>
-</security:authorize><br>
+</security:authorize>
+<br>
 <security:authorize access="isAuthenticated()">
 	<form>
 		<input type="button" value="Complain"
@@ -35,10 +44,12 @@ Area: ${project.area.name}<br>
 		<input type="button" value="Add Comment"
 			onClick='location.href="/invest/projects/${project.id}/sendComment"'>
 	</form>
-</security:authorize><br>
+</security:authorize>
+<br>
 <h2>Comments:</h2>
 <c:forEach items="${comments}" var="comment">
-	<b>${comment.user.firstName} ${comment.user.lastName}</b><br>
+	<b>${comment.user.firstName} ${comment.user.lastName}</b>
+	<br>
 	${comment.comment}
 	<hr />
 </c:forEach>

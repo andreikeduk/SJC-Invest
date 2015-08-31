@@ -11,11 +11,13 @@
 
 	<http auto-config="true" use-expressions="true">
 		 
-		<intercept-url pattern="/login" access="permitAll"></intercept-url>
+		
 		<intercept-url pattern="/logout" access="permitAll"></intercept-url>
 		<intercept-url pattern="/access-denied" access="permitAll"></intercept-url>
 		<!--<intercept-url pattern="/index" access="permitAll"></intercept-url>-->
-		<intercept-url pattern="/creator" access="hasRole('ROLE_CREATOR')"></intercept-url>
+		<intercept-url pattern="/creator*" access="hasRole('ROLE_CREATOR')"></intercept-url>
+		<intercept-url pattern="/bid/new*" access="hasRole('ROLE_CREATOR')"></intercept-url>
+		<intercept-url pattern="/director*" access="hasRole('ROLE_DIRECTOR')"></intercept-url>
 			 	
 		<form-login
                 login-page="/login"

@@ -11,15 +11,24 @@
 	<form:form method="post" modelAttribute="project" action="${action}">
 
 		<form:label path="name">Project name: </form:label>
+		<br />
 		<form:input path="name" />
-		<form:errors path="name" cssClass="error"></form:errors>
+		<form:errors path="name" cssClass="errorblock"></form:errors>
 		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
-		<form:input path="requiredAmount" />
-		<form:errors path="requiredAmount" cssClass="error"></form:errors>
+		<br />
+		<form:input type = "number" path="requiredAmount" />
+		<form:errors path="requiredAmount" cssClass="errorblock"></form:errors>
 		<br />
 		<form:label path="description">Description: </form:label>
-		<form:textarea rows="5" cols="100" path="description" />
+		<br />
+		<form:textarea rows="5" cols="120" path="description" />
+		<br />
+		<form:label path="deadline">Period implementation: </form:label>
+		<br />
+		<form:input type = "number" path="deadline" />
+		<form:label path="deadline"> days </form:label>
+		<form:errors path="deadline" cssClass="errorblock"></form:errors>
 		<br />
 		<form:label path="area">Area:</form:label>
 		<br />
@@ -34,7 +43,7 @@
 				</c:if>
 			</c:forEach>
 		</form:select>
-		<form:errors path="area" cssClass="error"></form:errors>
+		<form:errors path="area" cssClass="errorblock"></form:errors>
 		<br />
 		<input type="submit" value="Save" />
 	</form:form>

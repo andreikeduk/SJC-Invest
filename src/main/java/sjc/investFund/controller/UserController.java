@@ -65,7 +65,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute("user") User user,
-			BindingResult result,/* @RequestParam("role") String role,*/ Model model) {
+			BindingResult result, Model model) {
 
 		String view = "home";
 		if (result.hasErrors()) {

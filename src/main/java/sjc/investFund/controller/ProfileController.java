@@ -26,7 +26,7 @@ public class ProfileController {
 
 		User user = userService.findByLogin(auth.getName());
 		
-		if ((user!= null) && (user instanceof User)) {
+		if (user!= null) {
 			mav.addObject("user", user);
 		}
 		return mav;

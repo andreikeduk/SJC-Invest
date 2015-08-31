@@ -35,7 +35,7 @@ public class User {
 	@Column(name = "lastName")
 	private String lastName;
 	@Length(min=2, max=20, message = "Login must have 2-20 char")
-	@Column(name = "login")
+	@Column(name = "login", unique = true)
 	private String login;
 	@Length(min=4, max=20, message = "Password must have 4-20 char")
 	@Column(name = "password")

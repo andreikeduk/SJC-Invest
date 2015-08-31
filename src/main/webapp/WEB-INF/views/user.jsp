@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -6,9 +7,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 
+<html>
 <body>
 	<form:form method="post" action="${action}" modelAttribute="user">
 		<input type="hidden" name="id" value="${user.id}">

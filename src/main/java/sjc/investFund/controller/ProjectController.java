@@ -157,10 +157,10 @@ public class ProjectController {
 	 */
 
 	// andrew
-	@PreAuthorize("hasRole('ROLE_CREATOR')")
+	@PreAuthorize("project.user.login == login")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editProject(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
+			HttpSession session,Authentication auth, Model model) {
 
 		getAreaList(model);
 		model.addAttribute("project", project);
@@ -168,6 +168,7 @@ public class ProjectController {
 
 		return "bid";
 	}
+	
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String addBid(@ModelAttribute("project") @Valid Project project,
