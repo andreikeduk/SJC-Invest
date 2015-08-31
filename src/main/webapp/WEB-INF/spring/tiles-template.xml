@@ -61,6 +61,12 @@
 			value="/WEB-INF/views/investor/infoSendingClaim.jsp" />
 	</definition>
 	
+	<definition name="aboutUs" extends="base">
+		<put-attribute name="title" expression="About Us" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/aboutUs.jsp" />
+	</definition>
+	
 	<definition name="login" extends="base">
 		<put-attribute name="title" value="View: login"/>
 		<put-attribute name="content" value="/WEB-INF/views/login.jsp"/>

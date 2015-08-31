@@ -19,5 +19,6 @@
 		<li><a href="<c:url value="/projects"/>" title="projects"><spring:message
 					code="label.projects" /></a></li>
 	</security:authorize>
-
+	<li><a href="<c:url value="/aboutUs"/>" title="aboutUs"><spring:message
+				code="label.aboutUs" /></a></li>
 </ul>

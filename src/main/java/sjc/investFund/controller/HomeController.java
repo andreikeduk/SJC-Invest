@@ -63,4 +63,9 @@ public class HomeController {
 		User user = userService.findByLogin(auth.getName());
 		return "redirect:/" + user.getRole().toString().toLowerCase();
 	}
+	
+	@RequestMapping(value = "/aboutUs", method = RequestMethod.GET)
+	public String aboutUs() {
+		return "aboutUs";
+	}
 }
