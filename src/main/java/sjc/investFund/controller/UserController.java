@@ -100,8 +100,7 @@ public class UserController {
 	public String editClientSubmit( @ModelAttribute("user") @Valid User user,
 			BindingResult br, @RequestParam("id") String id, Model model) {
 		String view = "profile";
-		if (br.hasErrors()) {
-			
+		if (br.hasErrors()) {		
 			view = "user";
 		} else {
 			User oldUser = userService.findById(Integer.parseInt(id));

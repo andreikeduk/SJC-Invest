@@ -22,7 +22,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Projects")
-public class Project {
+public class Project { 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -88,15 +89,18 @@ public class Project {
 		this.description = description;
 	}
 
-	public String getStatus() {
-		String stringStatus;
-		if (status == true) {
-			stringStatus = "Project ready";
-		} else {
-			stringStatus = "Project not ready";
-		}
-		return stringStatus;
+	public Boolean getStatus() {
+		return status;
 	}
+//	public String getStringStatus() {
+//		String stringStatus;
+//		if (status == true) {
+//			stringStatus = "Project ready";
+//		} else {
+//			stringStatus = "Project not ready";
+//		}
+//		return stringStatus;
+//	}
 
 	public void setStatus(Boolean status) {
 		this.status = status;

@@ -14,6 +14,8 @@
 		<br />
 		<form:input path="name" />
 		<form:errors path="name" cssClass="errorblock"></form:errors>
+		<form:label path="status">status: </form:label>
+		<form:checkbox path="status"/>
 		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
 		<br />

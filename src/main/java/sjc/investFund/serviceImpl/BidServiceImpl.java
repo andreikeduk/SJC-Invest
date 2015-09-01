@@ -1,6 +1,7 @@
 package sjc.investFund.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,17 +52,17 @@ public class BidServiceImpl implements BidService {
 		return bidRepository.getProjectBid(project);
 	}
 	
-	//unused
-	@Override
-	public List<Bid> findBidsByUser(User user) {
-
-		List<Project> projects = projectRepository.findProjectsByUser(user);
-		List<Bid> bids = new ArrayList<Bid>();
-		for (Project project : projects) {
-			bids.add(getProjectBid(project));
-		}
-		return bids;
-	}
+//	//unused
+//	@Override
+//	public List<Bid> findBidsByUser(User user) {
+//
+//		List<Project> projects = projectRepository.findProjectsByUser(user);
+//		List<Bid> bids = new ArrayList<Bid>();
+//		for (Project project : projects) {
+//			bids.add(getProjectBid(project));
+//		}
+//		return bids;
+//	}
 	public List<Bid> getBidsByUser(User user){
 		return bidRepository.getBidsByUser(user);
 	}
@@ -70,5 +71,20 @@ public class BidServiceImpl implements BidService {
 	public List<Bid> findBidsByArea(Area area, BidStatus status) {
 		return bidRepository.getBidsByArea(area, status);
 	}
+
+	@Override
+	public void acceptBid(Bid bid) {		
+		bid.setStatus(BidStatus.ACCEPTED);
+		bid.setPeriodConsideration(Calendar.getInstance());	
+		bidRepository.update(bid);
+	}
+
+	@Override
+	public void denyBid(Bid bid) {
+		bid.setStatus(BidStatus.DENIED);
+		bid.setPeriodConsideration(Calendar.getInstance());	
+		bidRepository.update(bid);
+	}
+	
 
 }

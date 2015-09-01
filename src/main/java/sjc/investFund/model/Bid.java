@@ -19,6 +19,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Bids")
 public class Bid {
+	
+	private final static Integer PERIOD_CONSIDERATION = 10;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -34,7 +37,7 @@ public class Bid {
 	public Bid() {
 		status = BidStatus.UNDER_CONSIDERATION;
 		periodConsideration = Calendar.getInstance() ;
-		periodConsideration.add(Calendar.DAY_OF_YEAR, 10);
+		periodConsideration.add(Calendar.DAY_OF_YEAR, PERIOD_CONSIDERATION);
 	}
 
 	public Integer getId() {

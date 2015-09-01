@@ -14,8 +14,10 @@ public interface BidService {
 	void delete(Bid bid);
 	void update(Bid bid);
 	List<Bid> findAllBids();
-	List<Bid> findBidsByUser(User user);
+	//List<Bid> findBidsByUser(User user);
 	List<Bid> getBidsByUser(User user);
 	List<Bid> findBidsByArea(Area area, BidStatus status);
 	Bid getProjectBid(Project project);
+	void acceptBid(Bid bid);
+	void denyBid(Bid bid);
 }
