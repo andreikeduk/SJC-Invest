@@ -3,17 +3,17 @@ package sjc.investFund.hibernate;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import sjc.investFund.base.GenericDao;
+
 @Repository
-public abstract class AbstractHibernateDao<T, PK extends Serializable> implements HibernateDao<T, PK> {
+public abstract class AbstractHibernateDao<T, PK extends Serializable> implements GenericDao<T, PK> {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -48,14 +48,6 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findByCriteria(Criterion criterion) {
-		Criteria crit = getSession().createCriteria(this.getGenericEntityClass());
-		crit.add(criterion);
-		return (List<T>) crit.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public T findById(PK id) {
 		return (T) getSession().get(this.getGenericEntityClass(), id);
 	}
@@ -67,21 +59,16 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 		try {
 			getSession().delete(persistentObject);
 		} catch (NonUniqueObjectException e) {
-//			// in a case of detached object
-//			T instance = (T) getSession().merge(persistentObject);
-//			getSession().delete(instance);
+			e.printStackTrace();
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void delete(T persistentObject) {
 		try {
 			getSession().delete(persistentObject);
 		} catch (NonUniqueObjectException e) {
-//			// in a case of detached object
-//			T instance = (T) getSession().merge(persistentObject);
-//			getSession().delete(instance);
+			e.printStackTrace();
 		}
 	}
 }
