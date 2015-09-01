@@ -17,6 +17,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Transactions")
@@ -31,7 +34,10 @@ public class Transaction {
 
 	@Column(name = "time")
 	private Calendar time;
-
+	
+	@Digits(integer = 6, fraction = 0, message = "Only numbers")
+	@Min(value = 10, message = "Can you give more money for this project?")
+	@NotNull(message = "Need  to enter amount")
 	@Column(name = "amount")
 	private Integer amount;
 

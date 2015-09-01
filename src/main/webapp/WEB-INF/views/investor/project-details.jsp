@@ -50,6 +50,10 @@ Area: ${project.area.name}
 		<input type="button" value="Add Comment"
 			onClick='location.href="/invest/projects/${project.id}/sendComment"'>
 	</form>
+	<form>
+		<input type="button" value="Like"
+			onClick='location.href="/invest/projects/${project.id}/popularity"'>
+	</form>
 </security:authorize>
 <br>
 <h2>Comments:</h2>
