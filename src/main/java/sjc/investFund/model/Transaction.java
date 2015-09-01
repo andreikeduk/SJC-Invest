@@ -23,34 +23,33 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Transaction {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "time")
 	private Calendar time;
-	
+
 	@Column(name = "amount")
 	private Integer amount;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "investor_account_id")
 	private Account investorAccount;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "goal_account_id")
 	private Account goalAccount;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name = "type", updatable=false, insertable = false)
+	@Column(name = "type", updatable = false, insertable = false)
 	private TypeTransaction type;
-	
+
 	public Transaction() {
-		
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -98,7 +97,5 @@ public class Transaction {
 	public void setGoalAccount(Account goalAccount) {
 		this.goalAccount = goalAccount;
 	}
-	
-	
-	
+
 }

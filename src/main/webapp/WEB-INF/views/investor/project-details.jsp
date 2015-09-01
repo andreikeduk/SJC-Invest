@@ -7,19 +7,25 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="login">
-	<security:authentication property="principal.username" />
-</c:set>
-<security:authorize access="${project.user.login == login } ">
-	<a href="<c:url value="/projects/edit/${project.id}"/>"
-		title="projects">Edit</a>
+<c:set var="creator" value="${project.user.login }" />
+<security:authorize access="isAuthenticated()">
+	<c:set var="login">
+		<security:authentication property="principal.username" />
+	</c:set>
+	<security:authorize access="${creator == login }">
+		<a href="<c:url value="/projects/edit/${project.id}"/>"
+			title="projects">Edit</a>
+		<a href="<c:url value="/projects/${project.id}/transactions"/>"
+			title="transactions">Transactions</a>	
+	</security:authorize>
 </security:authorize>
+
 <h1>Name: ${project.name}</h1>
 Description: ${project.description}
 <br>
-Status: ${project.status.toString()}
+Ready?: ${project.status}
 <br>
-Deadline: ${project.deadline}
+Deadline: <c:if test="${!empty deadline}">${deadline} </c:if> (${project.deadline} days)
 <br>
 Required Amount: ${project.requiredAmount.toString()}
 <br>

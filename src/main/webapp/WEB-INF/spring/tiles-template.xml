@@ -101,5 +101,10 @@
 		<put-attribute name="title" value="View: Area bids"/>
 		<put-attribute name="content" value="/WEB-INF/views/area-bids.jsp"/>
 	</definition>
+	
+	<definition name="project.transactions" extends="base">
+		<put-attribute name="title" value="View: Transactions"/>
+		<put-attribute name="content" value="/WEB-INF/views/creator/project-trans.jsp"/>
+	</definition>
 
 </tiles-definitions>
