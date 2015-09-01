@@ -1,5 +1,6 @@
 package sjc.investFund.controller;
 
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
@@ -59,10 +61,15 @@ public class ProjectController {
 
 		return mav;
 	}
-
+	//andrew. this method must be rewrite
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showProject(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
+		
+		Calendar expirationDate = projectService.getExpirationDate(project);
+		if(expirationDate != null){
+			model.addAttribute("deadline",expirationDate.getTime());
+		}
 		model.addAttribute("project", project);
 		List<Comment> comments = commentService.getCommentsByProject(project);
 		model.addAttribute("comments", comments);
@@ -91,7 +98,7 @@ public class ProjectController {
 		commentService.createComment(comment);
 		model.asMap().remove("comment");
 		String view = "infoSendingClaim";
-		
+
 		return view;
 	}
 
@@ -157,10 +164,10 @@ public class ProjectController {
 	 */
 
 	// andrew
-	@PreAuthorize("project.user.login == login")
+	@PreAuthorize("creator == login")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editProject(@PathVariable("id") Project project,
-			HttpSession session,Authentication auth, Model model) {
+			HttpSession session, Authentication auth, Model model) {
 
 		getAreaList(model);
 		model.addAttribute("project", project);
@@ -168,21 +175,36 @@ public class ProjectController {
 
 		return "bid";
 	}
-	
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String addBid(@ModelAttribute("project") @Valid Project project,
-			BindingResult br, Authentication auth, Model model) {
+			BindingResult br, Authentication auth, Model model,
+			@PathVariable("id") Integer id) {
 		String view = "redirect:/projects/{id}";
 
 		if (br.hasErrors()) {
 			getAreaList(model);
 			view = "bid";
 		} else {
-
-			projectService.updateProject(project);
+			Project oldProject = projectService.getProjectById(id);
+			oldProject.setArea(project.getArea());
+			oldProject.setDeadline(project.getDeadline());
+			oldProject.setDescription(project.getDescription());
+			oldProject.setName(project.getName());
+			oldProject.setRequiredAmount(project.getRequiredAmount());
+			oldProject.setStatus(project.getStatus());
+			projectService.updateProject(oldProject);
 		}
 		return view;
+	}
+
+	@RequestMapping(value = "/{id}/transactions", method = RequestMethod.GET)
+	public String getTransactions(Model model, @PathVariable("id") Integer id) {
+		Project project = projectService.getProjectById(id);
+		model.addAttribute("transactionsList",
+				transactionService.findTransactionsOfProject(project));
+
+		return "project.transactions";
 	}
 
 	public void getAreaList(Model model) {

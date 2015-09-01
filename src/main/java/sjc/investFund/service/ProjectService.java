@@ -1,4 +1,5 @@
 package sjc.investFund.service;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,5 +18,6 @@ public interface ProjectService {
 	public Project getProjectById(int id);
 	void updateProject(Project project);
 	void changeStatus(boolean status);
+	Calendar getExpirationDate(Project project);
 	
 }
