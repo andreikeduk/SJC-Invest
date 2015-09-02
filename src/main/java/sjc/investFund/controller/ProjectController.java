@@ -26,6 +26,7 @@ import sjc.investFund.model.Bid;
 import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
+import sjc.investFund.model.Investor;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
 import sjc.investFund.model.User;
@@ -33,6 +34,7 @@ import sjc.investFund.service.AreaService;
 import sjc.investFund.service.BidService;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
+import sjc.investFund.service.InvestorService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
 import sjc.investFund.service.UserService;
@@ -59,6 +61,9 @@ public class ProjectController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private InvestorService investorService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
@@ -102,11 +107,13 @@ public class ProjectController {
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
+		Investor investor = investorService.findByLogin(auth.getName());
 		comment.setUser(user);
 		comment.setProject(project);
 		commentService.createComment(comment);
 		model.asMap().remove("comment");
 		String view = "infoSendingClaim";
+		System.out.println(investor.getAccount());
 
 		return view;
 	}
@@ -132,7 +139,6 @@ public class ProjectController {
 		claimService.createClaim(claim);
 		model.asMap().remove("claim");
 		String view = "infoSendingClaim";
-
 		return view;
 	}
 
