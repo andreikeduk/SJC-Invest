@@ -9,4 +9,8 @@ public class Datacheck extends Transaction {
 	public Datacheck() {
 
 	}
+	
+	public Datacheck(Transaction transaction) {
+
+	}
 }

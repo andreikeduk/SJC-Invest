@@ -9,4 +9,8 @@ public class Transfer extends Transaction {
 	public Transfer() {
 
 	}
+	
+	public Transfer(Transaction transaction) {
+
+	}
 }

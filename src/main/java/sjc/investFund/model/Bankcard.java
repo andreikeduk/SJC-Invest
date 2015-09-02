@@ -9,4 +9,8 @@ public class Bankcard extends Transaction {
 	public Bankcard() {
 
 	}
+	
+	public Bankcard(Transaction transaction) {
+		
+	}
 }
