@@ -17,27 +17,27 @@
 	<br />
 	<form:label path="amount">Enter amount: </form:label>
 	<form:input path="amount" />
-	<input type="submit" value="Next Step" />
 
 	<div id='DATACHECK' style='display: none;'>
-		Выберите ещё что-нибудь: <select>
-			<option value="" selected="selected">-</option>
-			<option value="a">Вариант 1</option>
-			<option value="b">Вариант 2</option>
-			<option value="c">Вариант 3</option>
-		</select>
+		In the next step you have to provide data check <br />
+		<input type="button" value="Enter data check"
+			onClick='location.href="/invest/projects/${project.id}/sendMoney/datacheck"'>
 	</div>
 
-	<div id='TRANSFER' style='display: none;'>Текст обычного скрытого
-		блока</div>
+	<div id='TRANSFER' style='display: none;'>
+		In the next step you have to provide details of transfer money <br />
+		<input type="button" value="Enter details of transfer"
+			onClick='location.href="/invest/projects/${project.id}/sendMoney/transfer"'>
+	</div>
 
-	<p></p>
-	<div>Текст не в скрытом блоке</div>
-	<form:label path="amount">Enter amount: </form:label>
-	<input type="submit" value="Next Step" />
+	<div id='BANKCARD' style='display: none;'>
+		In the next step you have to provide details of bank card <br /> <input
+			type="button" value="Enter details of bank card"
+			onClick='location.href="/invest/projects/${project.id}/sendMoney/bankcard"'>
+	</div>
+	<br />
+
 </form:form>
-
-
 
 <script>
 	function Selected(a) {

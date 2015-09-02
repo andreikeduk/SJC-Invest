@@ -67,6 +67,24 @@
 			value="/WEB-INF/views/aboutUs.jsp" />
 	</definition>
 	
+	<definition name="datacheck" extends="base">
+		<put-attribute name="title" expression="Data Check" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/investor/datachek.jsp" />
+	</definition>
+	
+	<definition name="bankcard" extends="base">
+		<put-attribute name="title" expression="Details from Bank Card" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/investor/bankcard.jsp" />
+	</definition>
+	
+	<definition name="transfer" extends="base">
+		<put-attribute name="title" expression="Transfer" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/investor/transfer.jsp" />
+	</definition>
+	
 	<definition name="login" extends="base">
 		<put-attribute name="title" value="View: login"/>
 		<put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
