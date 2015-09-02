@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.User;
 import sjc.investFund.service.BidService;
 import sjc.investFund.service.ProjectService;
@@ -31,7 +32,30 @@ public class DirectorController {
 		mav.setViewName("director.room");
 		mav.addObject("bidslist", bidService.findAllBids());
 		return mav;
+	}
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ModelAndView getAllBids() {
 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("director.room");
+		mav.addObject("bidslist", bidService.findAllBids());
+		return mav;
+	}
+	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
+	public ModelAndView getAcceptedProjects() {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("director.room");
+		mav.addObject("bidslist", bidService.findBidsByStatus(BidStatus.ACCEPTED));
+		return mav;
+	}
+	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	public ModelAndView getDeniedProjects() {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("director.room");
+		mav.addObject("bidslist",  bidService.findBidsByStatus(BidStatus.DENIED));
+		return mav;
 	}
 	
 }

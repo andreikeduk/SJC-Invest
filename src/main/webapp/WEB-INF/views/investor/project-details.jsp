@@ -16,7 +16,14 @@
 		<a href="<c:url value="/projects/edit/${project.id}"/>"
 			title="projects">Edit</a>
 		<a href="<c:url value="/projects/${project.id}/transactions"/>"
-			title="transactions">Transactions</a>	
+			title="transactions">Transactions</a>
+	</security:authorize>
+
+	<security:authorize access="hasRole('ROLE_DIRECTOR')">
+		<a href="<c:url value="/projects/${project.id}/accept"/>"
+			title="projects">accept</a>
+		<a href="<c:url value="/projects/${project.id}/deny"/>"
+			title="projects">deny</a>
 	</security:authorize>
 </security:authorize>
 
@@ -25,7 +32,9 @@ Description: ${project.description}
 <br>
 Ready?: ${project.status}
 <br>
-Deadline: <c:if test="${!empty deadline}">${deadline} </c:if> (${project.deadline} days)
+Deadline:
+<c:if test="${!empty deadline}">${deadline} </c:if>
+(${project.deadline} days)
 <br>
 Required Amount: ${project.requiredAmount.toString()}
 <br>
