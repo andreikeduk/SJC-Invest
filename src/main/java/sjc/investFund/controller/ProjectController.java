@@ -24,6 +24,7 @@ import sjc.investFund.model.Area;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Project;
+import sjc.investFund.model.Transaction;
 import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
 import sjc.investFund.service.ClaimService;
@@ -123,36 +124,21 @@ public class ProjectController {
 		claimService.createClaim(claim);
 		model.asMap().remove("claim");
 		String view = "infoSendingClaim";
+		
 		return view;
 	}
-
-	/*
-	 * @RequestMapping(value = "/new", method = RequestMethod.GET) public String
-	 * newBidForm(Model model) {
-	 * 
-	 * model.addAttribute("project", new Project());
-	 * model.addAttribute("action", "new");
-	 * 
-	 * Map<String, String> areaList = new LinkedHashMap<String, String>();
-	 * 
-	 * List<Area> areas = areaService.findAllAreas(); for (Area a : areas) {
-	 * areaList.put(a.getId().toString(), a.getName()); }
-	 * model.addAttribute("arealist", areaList);
-	 * 
-	 * return "bid"; }
-	 */
 
 	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.GET)
 	public String sendMoney(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
-
+		model.addAttribute("transaction", new Transaction());
 		return "sendMoney";
 	}
 	
 	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)
 	public String sendMoney(@PathVariable("id") Project project,
-			@ModelAttribute("transaction") Claim claim, BindingResult bindingResult,
+			@ModelAttribute("transaction") Transaction transaction, BindingResult bindingResult,
 			HttpSession session, Model model, Authentication auth) {
 		model.addAttribute("project", project);
 
@@ -193,6 +179,22 @@ public class ProjectController {
 	 * ModelAndView(); User user = userService.findByName(login);
 	 * session.setAttribute("user", user); mav.addObject("user", user);
 	 * mav.setViewName("home"); return mav; }
+	 */
+	
+	/*
+	 * @RequestMapping(value = "/new", method = RequestMethod.GET) public String
+	 * newBidForm(Model model) {
+	 * 
+	 * model.addAttribute("project", new Project());
+	 * model.addAttribute("action", "new");
+	 * 
+	 * Map<String, String> areaList = new LinkedHashMap<String, String>();
+	 * 
+	 * List<Area> areas = areaService.findAllAreas(); for (Area a : areas) {
+	 * areaList.put(a.getId().toString(), a.getName()); }
+	 * model.addAttribute("arealist", areaList);
+	 * 
+	 * return "bid"; }
 	 */
 
 	// andrew
