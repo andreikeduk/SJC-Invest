@@ -5,8 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <h3>Registration transaction</h3>
-<form:label path="type">Choose Type of Transaction:</form:label>
-<br />
-<form:select path="type">
-	<form:option value="NONE" label="--- Select ---" />
-</form:select>
+<form:form method="post" modelAttribute="project" action="${action}">
+	<form:label path="type">Choose Type of Transaction:</form:label>
+	<br />
+	<form:select path="type">
+		<form:option value="NONE" label="--- Select ---" />
+	</form:select>
+	<br />
+	<input type="submit" value="Save" />
+</form:form>

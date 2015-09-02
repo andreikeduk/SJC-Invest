@@ -149,7 +149,39 @@ public class ProjectController {
 
 		return "sendMoney";
 	}
+	
+	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)
+	public String sendMoney(@PathVariable("id") Project project,
+			@ModelAttribute("transaction") Claim claim, BindingResult bindingResult,
+			HttpSession session, Model model, Authentication auth) {
+		model.addAttribute("project", project);
 
+		return "sendMoney";
+	}
+
+	@RequestMapping(value = "/{id}/sendMoney/datacheck", method = RequestMethod.GET)
+	public String sendMoneyDatacheck(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+		model.addAttribute("project", project);
+
+		return "sendMoney";
+	}
+	
+	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
+	public String sendMoneyTransfer(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+		model.addAttribute("project", project);
+
+		return "sendMoney";
+	}
+	
+	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.GET)
+	public String sendMoneyBankcard(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+		model.addAttribute("project", project);
+
+		return "sendMoney";
+	}
 	/*
 	 * @RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)
 	 * public ModelAndView sendMoney(@ModelAttribute Transaction transaction,
