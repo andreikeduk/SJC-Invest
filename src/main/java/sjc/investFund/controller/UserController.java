@@ -99,7 +99,7 @@ public class UserController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String editClientSubmit( @ModelAttribute("user") @Valid User user,
 			BindingResult br, @RequestParam("id") String id, Model model) {
-		String view = "profile";
+		String view = "redirect:/profile";
 		if (br.hasErrors()) {		
 			view = "user";
 		} else {

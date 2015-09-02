@@ -54,7 +54,7 @@ public class BidController {
 
 		model.addAttribute("project", new Project());
 		model.addAttribute("action", "new");
-		getAreaList(model);
+		model.addAttribute("arealist", areaService.getAreaMap());
 		return "bid";
 	}
 
@@ -64,7 +64,7 @@ public class BidController {
 		String view = "redirect:/creator";
 
 		if (br.hasErrors()) {
-			getAreaList(model);
+			model.addAttribute("arealist", areaService.getAreaMap());
 			view = "bid";
 		} else {
 			if (project != null) {
@@ -72,7 +72,6 @@ public class BidController {
 				Account acc = new Account();
 				Bid bid = new Bid();
 				bid.setProject(project);
-
 				project.setUser(user);
 				project.setAccount(acc);
 				projectService.createProject(project);
@@ -91,27 +90,15 @@ public class BidController {
 		mav.addObject("bidslist", bidService.findAllBids());
 		mav.setViewName("bidlist");
 		return mav;
-
 	}
 
 	// andrew
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
 	public String getAreaBids(@PathVariable("id") Area area, Model model) {
 
-		model.addAttribute("areabids",
-				bidService.findBidsByArea(area, BidStatus.ACCEPTED));
+		model.addAttribute("areabids", bidService.findBidsByAreaStatus(area,
+				BidStatus.UNDER_CONSIDERATION));
 		model.addAttribute("area", area.getName());
 		return "area.bids";
 	}
-
-	public void getAreaList(Model model) {
-		Map<String, String> areaList = new LinkedHashMap<String, String>();
-
-		List<Area> areas = areaService.findAllAreas();
-		for (Area a : areas) {
-			areaList.put(a.getId().toString(), a.getName());
-		}
-		model.addAttribute("arealist", areaList);
-	}
-
 }

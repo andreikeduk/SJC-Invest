@@ -1,5 +1,7 @@
 package sjc.investFund.serviceImpl;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,17 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public Area findAreaById(Integer id) {
 		return areaRepository.findById(id);
+	}
+
+	@Override
+	public Map<String, String> getAreaMap() {
+		Map<String, String> areaList = new LinkedHashMap<String, String>();
+
+		List<Area> areas = findAllAreas();
+		for (Area a : areas) {
+			areaList.put(a.getId().toString(), a.getName());
+		}
+		return areaList;
 	}
 
 }

@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -14,7 +14,7 @@
 		<br />
 		<form:input path="name" />
 		<form:errors path="name" cssClass="errorblock"></form:errors>
-		<form:label path="status">status: </form:label>
+		<form:label path="status">Ready?: </form:label>
 		<form:checkbox path="status"/>
 		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
