@@ -68,8 +68,17 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public List<Bid> findBidsByArea(Area area, BidStatus status) {
-		return bidRepository.getBidsByArea(area, status);
+	public List<Bid> findBidsByAreaStatus(Area area, BidStatus status) {
+		return bidRepository.getBidsByAreaStatus(area, status);
+	}
+	@Override
+	public List<Bid> findBidsByStatus(BidStatus status) {
+		return bidRepository.getBidsByStatus(status);
+	}
+
+	@Override
+	public List<Bid> findBidsByArea(Area area) {
+		return bidRepository.getBidsByArea(area);
 	}
 
 	@Override
@@ -85,6 +94,8 @@ public class BidServiceImpl implements BidService {
 		bid.setPeriodConsideration(Calendar.getInstance());	
 		bidRepository.update(bid);
 	}
+
+	
 	
 
 }

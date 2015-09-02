@@ -47,7 +47,7 @@ public class BidRepository extends AbstractHibernateDao<Bid, Integer> implements
 	}
 
 	@Override
-	public List<Bid> getBidsByArea(Area area, BidStatus status) {
+	public List<Bid> getBidsByAreaStatus(Area area, BidStatus status) {
 		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
 		criteria.add(Restrictions.eq("Bids.status", status));
 		criteria.createAlias("project", "bid_project", JoinType.LEFT_OUTER_JOIN);
@@ -57,4 +57,20 @@ public class BidRepository extends AbstractHibernateDao<Bid, Integer> implements
 		return (List<Bid>) criteria.list();
 	}
 
+	@Override
+	public List<Bid> getBidsByArea(Area area) {
+		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
+		criteria.createAlias("project", "bid_project", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("bid_project.area", "project_area",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("project_area.id", area.getId()));
+		return (List<Bid>) criteria.list();
+	}
+
+	@Override
+	public List<Bid> getBidsByStatus(BidStatus status) {
+		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
+		criteria.add(Restrictions.eq("Bids.status", status));
+		return (List<Bid>) criteria.list();
+	}
 }

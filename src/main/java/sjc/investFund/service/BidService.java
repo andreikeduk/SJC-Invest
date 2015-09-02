@@ -13,11 +13,12 @@ public interface BidService {
 	void create(Bid bid);
 	void delete(Bid bid);
 	void update(Bid bid);
-	List<Bid> findAllBids();
-	//List<Bid> findBidsByUser(User user);
-	List<Bid> getBidsByUser(User user);
-	List<Bid> findBidsByArea(Area area, BidStatus status);
-	Bid getProjectBid(Project project);
 	void acceptBid(Bid bid);
 	void denyBid(Bid bid);
+	List<Bid> findAllBids();
+	List<Bid> getBidsByUser(User user);
+	List<Bid> findBidsByAreaStatus(Area area, BidStatus status);
+	List<Bid> findBidsByStatus(BidStatus status);
+	List<Bid> findBidsByArea(Area area);
+	Bid getProjectBid(Project project);
 }
