@@ -18,4 +18,10 @@ public class AccountServiceImpl implements AccountService {
 	public Account getAccountById(int id) {
 		return accountRepository.findById(id);
 	}
+
+	@Override
+	public void update(Account account) {
+		accountRepository.update(account);
+	}
+
 }

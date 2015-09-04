@@ -5,17 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 
 @Entity
-@DiscriminatorValue("DATACHECK")
-public class Datacheck extends Transaction {
+@DiscriminatorValue("DATACHEK")
+public class Datachek extends Transaction {
 	
-	@JoinColumn(name = "numbercheck")
-	private String numbercheck;
+	@JoinColumn(name = "numberchek")
+	private String numberchek;
 	
-	public Datacheck() {
+	public Datachek() {
 
 	}
 
-	public Datacheck(Transaction transaction) {
+	public Datachek(Transaction transaction) {
 		this.setId(transaction.getId());
 		this.setTime(transaction.getTime());
 		this.setAmount(transaction.getAmount());
@@ -23,11 +23,11 @@ public class Datacheck extends Transaction {
 		this.setGoalAccount(transaction.getGoalAccount());
 	}
 
-	public String getNumbercheck() {
-		return numbercheck;
+	public String getNumberchek() {
+		return numberchek;
 	}
 
-	public void setNumbercheck(String numbercheck) {
-		this.numbercheck = numbercheck;
+	public void setNumberchek(String numberchek) {
+		this.numberchek = numberchek;
 	}
 }

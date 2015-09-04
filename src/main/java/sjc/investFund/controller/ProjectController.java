@@ -26,6 +26,7 @@ import sjc.investFund.model.Bid;
 import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
+import sjc.investFund.model.Datachek;
 import sjc.investFund.model.Investor;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
@@ -107,13 +108,11 @@ public class ProjectController {
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
-		Investor investor = investorService.findByLogin(auth.getName());
 		comment.setUser(user);
 		comment.setProject(project);
 		commentService.createComment(comment);
 		model.asMap().remove("comment");
 		String view = "infoSendingClaim";
-		System.out.println(investor.getAccount());
 
 		return view;
 	}
@@ -133,7 +132,6 @@ public class ProjectController {
 			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
 			HttpSession session, Model model, Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
-		System.out.println(user.getRole());
 		claim.setUser(user);
 		claim.setProject(project);
 		claimService.createClaim(claim);
@@ -146,27 +144,32 @@ public class ProjectController {
 	public String sendMoney(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
-		model.addAttribute("transaction", new Transaction());
 		return "sendMoney";
 	}
 
-	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)
-	public String sendMoney(@PathVariable("id") Project project,
-			@ModelAttribute("transaction") Transaction transaction,
-			BindingResult bindingResult, HttpSession session, Model model,
-			Authentication auth) {
-		model.addAttribute("project", project);
-
-		return "sendMoney";
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/datacheck", method = RequestMethod.GET)
-	public String sendMoneyDatacheck(@PathVariable("id") Project project,
+	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.GET)
+	public String sendMoneyDatachek(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
+		model.addAttribute("datachek", new Datachek());
+		model.addAttribute("action");
 
-		return "sendMoney";
+		return "datachek";
 	}
+	
+	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.POST)
+	public String sendMoneyDatachek(@PathVariable("id") Project project,
+			@ModelAttribute("datachek") Datachek datachek, BindingResult bindingResult,
+			HttpSession session, Model model, Authentication auth) {
+		Investor user = investorService.findByLogin(auth.getName());
+		datachek.setUser(user);
+		claim.setProject(project);
+		claimService.createClaim(claim);
+		model.asMap().remove("claim");
+		String view = "infoSendingClaim";
+		return view;
+	}
+
 
 	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
 	public String sendMoneyTransfer(@PathVariable("id") Project project,

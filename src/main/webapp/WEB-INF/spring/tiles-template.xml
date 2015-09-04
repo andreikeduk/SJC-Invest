@@ -67,8 +67,8 @@
 			value="/WEB-INF/views/aboutUs.jsp" />
 	</definition>
 	
-	<definition name="datacheck" extends="base">
-		<put-attribute name="title" expression="Data Check" />
+	<definition name="datachek" extends="base">
+		<put-attribute name="title" expression="Data Chek" />
 		<put-attribute name="content"
 			value="/WEB-INF/views/investor/datachek.jsp" />
 	</definition>
