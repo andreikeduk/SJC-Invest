@@ -1,7 +1,6 @@
 package sjc.investFund.controller;
 
 import java.util.Calendar;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
 import sjc.investFund.model.BidStatus;
@@ -214,11 +214,11 @@ public class ProjectController {
 	 */
 
 	// andrew
-	// @PreAuthorize("#p.user.login == a.name")
-	@PreAuthorize("hasRole('ROLE_CREATOR')")
+	@PreAuthorize("project.user.login.equals(auth.name)")
+	//@PreAuthorize("hasRole('ROLE_CREATOR')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String editProject(@PathVariable("id") @P("p") Project project,
-			HttpSession session, @P("a") Authentication auth, Model model) {
+	public String editProject(@PathVariable("id") Project project,
+			HttpSession session,Authentication auth, Model model) {
 
 		model.addAttribute("arealist", areaService.getAreaMap());
 		model.addAttribute("project", project);
@@ -227,11 +227,11 @@ public class ProjectController {
 		return "bid";
 	}
 
-	@PreAuthorize("#p.user.login == #a.name")
+	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String addBid(@ModelAttribute("project") @Valid Project project,
+	public String addBid(@ModelAttribute("project") @Valid Project newProject,
 			BindingResult br, Authentication auth, Model model,
-			@PathVariable("id") Integer id) {
+			@PathVariable("id") Integer id) throws AlredyExistException {
 		String view = "redirect:/projects/{id}";
 
 		if (br.hasErrors()) {
@@ -239,13 +239,8 @@ public class ProjectController {
 			view = "bid";
 		} else {
 			Project oldProject = projectService.getProjectById(id);
-			oldProject.setArea(project.getArea());
-			oldProject.setDeadline(project.getDeadline());
-			oldProject.setDescription(project.getDescription());
-			oldProject.setName(project.getName());
-			oldProject.setRequiredAmount(project.getRequiredAmount());
-			oldProject.setStatus(project.getStatus());
-			projectService.updateProject(oldProject);
+			
+			projectService.updateProject(oldProject, newProject);
 		}
 		return view;
 	}
@@ -268,15 +263,24 @@ public class ProjectController {
 	// }
 	// model.addAttribute("arealist", areaList);
 	// }
-
 	// andrew
+		@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
+		public String getAreaBids(@PathVariable("id") Area area, Model model) {
+
+			model.addAttribute("areabids", bidService.findBidsByAreaStatus(area,
+					BidStatus.ACCEPTED));
+			model.addAttribute("area", area.getName());
+			return "area.bids";
+		}
+	// andrew
+	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@RequestMapping(value = "/{id}/accept", method = RequestMethod.GET)
 	public String acceptBid(@PathVariable("id") Project project, Model model) {
 		Bid bid = bidService.getProjectBid(project);
 		bidService.acceptBid(bid);
 		return "redirect:/projects/{id}";
 	}
-
+	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@RequestMapping(value = "/{id}/deny", method = RequestMethod.GET)
 	public String denyBid(@PathVariable("id") Project project, Model model) {
 		Bid bid = bidService.getProjectBid(project);

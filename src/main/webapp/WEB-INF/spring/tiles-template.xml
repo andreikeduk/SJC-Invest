@@ -124,5 +124,15 @@
 		<put-attribute name="title" value="View: Transactions"/>
 		<put-attribute name="content" value="/WEB-INF/views/creator/project-trans.jsp"/>
 	</definition>
+	
+	<definition name="error" extends="base">
+		<put-attribute name="title" value="View: error"/>
+		<put-attribute name="content" value="/WEB-INF/views/error.jsp"/>
+	</definition>
+	
+	<definition name="denied" extends="base">
+		<put-attribute name="title" value="View: access denied"/>
+		<put-attribute name="content" value="/WEB-INF/views/denied.jsp"/>
+	</definition>
 
 </tiles-definitions>
