@@ -37,7 +37,7 @@ public class User {
 	@Length(min=2, max=20, message = "Login must have 2-20 char")
 	@Column(name = "login", unique = true)
 	private String login;
-	@Length(min=4, max=20, message = "Password must have 4-20 char")
+	@Length(min=4, max=80, message = "Password must have 4-80 char")
 	@Column(name = "password")
 	private String password;
 	@NotNull(message = "Not null email")

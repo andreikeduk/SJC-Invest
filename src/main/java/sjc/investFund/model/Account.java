@@ -22,7 +22,6 @@ public class Account {
 	private int balance;
 	
 	public Account() {
-		
 	}
 
 	public int getNumber() {

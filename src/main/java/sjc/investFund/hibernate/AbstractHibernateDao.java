@@ -28,15 +28,14 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public PK save(T obj) {
-		return (PK) getSession().save(obj);
+	public void save(T obj) {
+		getSession().save(obj);
 	}
 
 	@Override
-	public void update(T o) {
-		getSession().update(o);		
+	public void update(T obj) {
+		getSession().update(obj);		
 	}
 
 	@SuppressWarnings("unchecked")

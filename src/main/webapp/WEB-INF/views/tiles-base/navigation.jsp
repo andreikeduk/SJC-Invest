@@ -7,7 +7,7 @@
 
 <ul class="nav nav-pills nav-stacked">
 	<c:forEach var="area" items="${arealist}">
-		<li><a href="<c:url value="/bid/area/${area.key}"/>">${area.value}</a></li>
+		<li><a href="<c:url value="/projects/area/${area.key}"/>">${area.value}</a></li>
 	</c:forEach>
 	
 </ul>

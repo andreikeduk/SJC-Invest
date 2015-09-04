@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import freemarker.core.Comment;
 import sjc.investFund.dao.BidDao;
 import sjc.investFund.dao.ProjectDao;
+import sjc.investFund.exception.AlredyExistException;
+import sjc.investFund.model.Account;
 import sjc.investFund.model.Bid;
 import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Project;
@@ -33,12 +35,23 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Project> findAllBids() {
 		return projectRepository.findAll();
 	}
-
+	
 	@Override
-	public void createProject(Project project) {
-		projectRepository.save(project);
-		
-	}
+	public void createProject(Project project, User user) throws AlredyExistException {
+		if (findProjectByName(project.getName()) != null) {
+			throw new AlredyExistException("Project with name '"
+					+ project.getName() + "'alredy exist. Choose Another name");
+		} else {
+			Account acc = new Account();
+			//acc.setNumber(1000000 + acc.getId());
+			project.setAccount(acc);
+			project.setUser(user);
+			Bid bid = new Bid(BidStatus.UNDER_CONSIDERATION);
+			bid.setProject(project);
+			bidRepository.save(bid);
+			projectRepository.save(project);
+		}
+	}	
 
 	@Override
 	public List<Project> findProjectsByUser(User user) {
@@ -46,30 +59,37 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Integer howManyMoney(Project project) {
+	public void updateProject(Project oldProject, Project newProject) throws AlredyExistException {
+				
 		
-		return project.getAccount().getBalance();
-	}
-	
-	@Override
-	public void changeStatus(boolean status) {	
-	}
-
-	@Override
-	public void updateProject(Project project) {
-		projectRepository.update(project);
+//		if (foundProject != null && foundProject.getId()!=oldProject.getId())   {
+//			throw new AlredyExistException("Project with name '"
+//					+ oldProject.getName() + "'alredy exist. Choose Another name");
+//		} else {
+			oldProject.setArea(newProject.getArea());
+			oldProject.setDeadline(newProject.getDeadline());
+			oldProject.setDescription(newProject.getDescription());
+			oldProject.setName(newProject.getName());
+			oldProject.setRequiredAmount(newProject.getRequiredAmount());
+			oldProject.setStatus(newProject.getStatus());
+			projectRepository.update(oldProject);
+		
 	}
 
 	@Override
 	public Calendar getExpirationDate(Project project) {
 		Calendar expirationDate = null;
 		Bid bid = bidRepository.getProjectBid(project);
-		if(bid.getStatus().equals(BidStatus.ACCEPTED)){
+		if (bid.getStatus().equals(BidStatus.ACCEPTED)) {
 			expirationDate = bid.getPeriodConsideration();
 			expirationDate.add(Calendar.DATE, project.getDeadline());
 		}
 		return expirationDate;
 	}
-	
-	
+
+	@Override
+	public Project findProjectByName(String name) {
+		return projectRepository.findProjectsByName(name);
+	}
+
 }

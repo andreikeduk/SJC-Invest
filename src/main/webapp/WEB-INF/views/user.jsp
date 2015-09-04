@@ -44,7 +44,7 @@
 				<tr>
 					<td>What do you want to be:</td>
 					<!-- <td><form:radiobutton path="role" items="${roleOptions}" /></td> -->
-					<td>Investor:<form:radiobutton checked = "checked" path="role"
+					<td>Investor:<form:radiobutton checked="checked" path="role"
 							value="INVESTOR" /></td>
 					<td>Creator:<form:radiobutton path="role" value="CREATOR" /></td>
 					<!-- dead block, may change - andrew  -->
@@ -53,9 +53,9 @@
 					</security:authorize>
 					<td><form:errors path="role" cssClass="errorblock" /></td>
 				</tr>
-				
+
 			</security:authorize>
-			
+
 			<tr>
 				<td colspan="2"><input type="submit" value="Save" /></td>
 			</tr>

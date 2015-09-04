@@ -7,8 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
@@ -36,18 +35,12 @@ public class LoginController {
 	@Autowired
 	private AreaService areaService;
 	
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginController.class);
+	private static final Logger logger = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = { "", "/"}, method = RequestMethod.GET)
 	public String login(HttpSession session) {
-		Map<Integer, String> areaList = new LinkedHashMap<Integer, String>();
-
-		List<Area> areas = areaService.findAllAreas();
-		for (Area a : areas) {
-			areaList.put(a.getId(), a.getName());
-		}
-		session.setAttribute("arealist", areaList);
+		
+		session.setAttribute("arealist", areaService.getAreaMap());
 		return "login";
 	}
 
@@ -58,12 +51,9 @@ public class LoginController {
 			HttpRequest request, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		User user = userService.findByLoginAndPassword(login, password);
-		//session.setAttribute("user", user.getLogin());
-		//mav.addObject("user", user);
-		// mav.addObject("projectlist",
-		// projectService.findProjectsByUser(user));
+		//User user = userService.findByLoginAndPassword(login, password);
 		mav.setViewName("redirect:/redirector");
+		logger.debug("User '" + login + "' enter.");
 		return mav;
 	}
 

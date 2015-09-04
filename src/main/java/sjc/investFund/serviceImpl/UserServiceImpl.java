@@ -3,10 +3,12 @@ package sjc.investFund.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sjc.investFund.dao.UserDao;
+import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.User;
 import sjc.investFund.service.UserService;
 
@@ -33,9 +35,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void create(User user) {
-		userRepository.save(user);
-
+	public void create(User user) throws AlredyExistException {
+		if (findByLogin(user.getLogin()) != null) {
+			throw new AlredyExistException("User with login '" + user.getLogin()
+					+ "' alredy exist. Enter another login");
+		} else {
+			userRepository.save(user);
+		}
 	}
 
 	@Override
@@ -44,8 +50,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User user) {
-		userRepository.update(user);
+	public void update(User oldUser, User newUser) throws AlredyExistException {
+//		if (findByLogin(user.getLogin()) != null) {
+//			throw new AlredyExistException("User with login '" + user.getLogin()
+//					+ "' alredy exist. Enter another login");
+//		} else {
+		oldUser.setFirstName(newUser.getFirstName());
+		oldUser.setLastName(newUser.getLastName());
+		oldUser.setLogin(newUser.getLogin());
+		oldUser.setPassword(newUser.getPassword());
+		oldUser.setEmail(newUser.getEmail());
+		userRepository.update(oldUser);
+//		}
 	}
 
 	@Override

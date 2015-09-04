@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface GenericDao<T, PK extends Serializable> {
 	
-	PK save(T obj);
+	void save(T obj);
 	
 	void update(T obj);
 	

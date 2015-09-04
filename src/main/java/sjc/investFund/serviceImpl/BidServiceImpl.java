@@ -51,18 +51,7 @@ public class BidServiceImpl implements BidService {
 	public Bid getProjectBid(Project project) {
 		return bidRepository.getProjectBid(project);
 	}
-	
-//	//unused
-//	@Override
-//	public List<Bid> findBidsByUser(User user) {
-//
-//		List<Project> projects = projectRepository.findProjectsByUser(user);
-//		List<Bid> bids = new ArrayList<Bid>();
-//		for (Project project : projects) {
-//			bids.add(getProjectBid(project));
-//		}
-//		return bids;
-//	}
+	@Override
 	public List<Bid> getBidsByUser(User user){
 		return bidRepository.getBidsByUser(user);
 	}

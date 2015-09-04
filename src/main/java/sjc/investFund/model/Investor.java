@@ -23,8 +23,7 @@ public class Investor extends User {
 		this.setId(user.getId());
 		this.setLastName(user.getLastName());
 		this.setLogin(user.getLogin());
-		this.setPassword(user.getPassword());
-		
+		this.setPassword(user.getPassword());		
 	}
 
 	public Account getAccount() {

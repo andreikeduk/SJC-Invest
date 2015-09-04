@@ -7,4 +7,5 @@ import sjc.investFund.model.User;
 
 public interface ProjectDao extends GenericDao<Project, Integer> {
 	List<Project> findProjectsByUser(User user);
+	Project findProjectsByName(String name);
 }

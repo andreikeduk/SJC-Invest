@@ -23,6 +23,12 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("user", user));
 		return (List<Project>)cr.list();
 	}
+	
+	@Override
+	public Project findProjectsByName(String name) {
+		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("name", name));
+		return (Project)cr.uniqueResult();
+	}
 	/*
 	 * @Autowired private DataSource ds;
 	 * 
@@ -30,6 +36,4 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 	 * 
 	 * public ProjectRepository(DataSource ds) { this.ds = ds; }
 	 */
-	
-	
 }

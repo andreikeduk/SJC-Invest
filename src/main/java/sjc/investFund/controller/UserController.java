@@ -7,19 +7,23 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Creator;
 import sjc.investFund.model.Director;
 import sjc.investFund.model.Investor;
@@ -45,7 +49,6 @@ public class UserController {
 	public String listUsers(Map<String, Object> map) {
 
 		map.put("userList", userService.findAllUsers());
-
 		return "users.list";
 	}
 
@@ -65,7 +68,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid @ModelAttribute("user") User user,
-			BindingResult result, Model model) {
+			BindingResult result, Model model) throws AlredyExistException {
 
 		String view = "home";
 		if (result.hasErrors()) {
@@ -97,23 +100,23 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String editClientSubmit( @ModelAttribute("user") @Valid User user,
-			BindingResult br, @RequestParam("id") String id, Model model) {
+	public ModelAndView editClientSubmit(@ModelAttribute("user") @Valid User newUser,
+			BindingResult br, @RequestParam("id") String id, Authentication auth)
+			throws AlredyExistException {
+		ModelAndView mav = new ModelAndView();
 		String view = "redirect:/profile";
-		if (br.hasErrors()) {		
+		if (br.hasErrors()) {
 			view = "user";
 		} else {
 			User oldUser = userService.findById(Integer.parseInt(id));
-			if (user != null) {
-				oldUser.setFirstName(user.getFirstName());
-				oldUser.setLastName(user.getLastName());
-				oldUser.setLogin(user.getLogin());
-				oldUser.setPassword(user.getPassword());
-				oldUser.setEmail(user.getEmail());
-				userService.update(oldUser);
-				model.addAttribute("user", oldUser);
+			System.out.println(newUser.getFirstName());
+			userService.update(oldUser, newUser);
+			mav.addObject("user", oldUser);
+			if(!oldUser.getLogin().equals(auth.getName())){
+				view = "redirect:/j_spring_security_logout";
 			}
-		}
-		return view;
+		}		
+		mav.setViewName(view);
+		return mav;
 	}
 }

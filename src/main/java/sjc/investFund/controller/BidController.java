@@ -8,8 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bid;
@@ -46,39 +46,30 @@ public class BidController {
 	@Autowired
 	private AreaService areaService;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(BidController.class);
-
+	private static final Logger logger = Logger.getLogger(BidController.class);
+	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String newBidForm(Model model) {
 
 		model.addAttribute("project", new Project());
 		model.addAttribute("action", "new");
-		model.addAttribute("arealist", areaService.getAreaMap());
+		// model.addAttribute("arealist", areaService.getAreaMap());
 		return "bid";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String addBid(@ModelAttribute("project") @Valid Project project,
-			BindingResult br, Authentication auth, Model model) {
+			BindingResult br, Authentication auth, Model model)
+			throws AlredyExistException {
 		String view = "redirect:/creator";
 
 		if (br.hasErrors()) {
 			model.addAttribute("arealist", areaService.getAreaMap());
 			view = "bid";
 		} else {
-			if (project != null) {
-				User user = userService.findByLogin(auth.getName());
-				Account acc = new Account();
-				Bid bid = new Bid();
-				bid.setProject(project);
-				project.setUser(user);
-				project.setAccount(acc);
-				projectService.createProject(project);
-				bidService.create(bid);
-				logger.debug("New bid with name:" + project.getName()
-						+ " created ");
-			}
+			User user = userService.findByLogin(auth.getName());
+			projectService.createProject(project, user);
+			logger.debug("New bid with name:" + project.getName() + " created ");
 		}
 		return view;
 	}
