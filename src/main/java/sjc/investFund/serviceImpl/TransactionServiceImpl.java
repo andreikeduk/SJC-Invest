@@ -23,14 +23,14 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public void saveTransaction(Transaction transaction) {
-		Account goalAcc = transaction.getGoalAccount();
+		/*Account goalAcc = transaction.getGoalAccount();
 		Account investorAcc = transaction.getInvestorAccount();
 		
 		goalAcc.setBalance(goalAcc.getBalance() + transaction.getAmount());
 		investorAcc.setBalance(investorAcc.getBalance() - transaction.getAmount());
 		
 		accountRepository.update(goalAcc);
-		accountRepository.update(investorAcc);
+		accountRepository.update(investorAcc);*/
 		
 		transactionRepository.save(transaction);
 	}

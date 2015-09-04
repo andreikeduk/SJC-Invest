@@ -5,5 +5,6 @@ import sjc.investFund.model.Account;
 
 @Service
 public interface AccountService {
+	void update(Account account);
 	public Account getAccountById(int id);
 }

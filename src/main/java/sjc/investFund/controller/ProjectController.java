@@ -107,13 +107,11 @@ public class ProjectController {
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
-		Investor investor = investorService.findByLogin(auth.getName());
-		comment.setUser(user);
+				comment.setUser(user);
 		comment.setProject(project);
 		commentService.createComment(comment);
 		model.asMap().remove("comment");
 		String view = "infoSendingClaim";
-		System.out.println(investor.getAccount());
 
 		return view;
 	}
@@ -133,7 +131,6 @@ public class ProjectController {
 			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
 			HttpSession session, Model model, Authentication auth) {
 		User user = userService.findByLogin(auth.getName());
-		System.out.println(user.getRole());
 		claim.setUser(user);
 		claim.setProject(project);
 		claimService.createClaim(claim);
@@ -147,6 +144,8 @@ public class ProjectController {
 			HttpSession session, Model model) {
 		model.addAttribute("project", project);
 		model.addAttribute("transaction", new Transaction());
+		model.addAttribute("action");
+		
 		return "sendMoney";
 	}
 
@@ -155,8 +154,11 @@ public class ProjectController {
 			@ModelAttribute("transaction") Transaction transaction,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-		model.addAttribute("project", project);
-
+		Investor investor = investorService.findByLogin(auth.getName());
+		transaction.setInvestorAccount(investor.getAccount());
+		transaction.setGoalAccount(project.getAccount());
+		transactionService.saveTransaction(transaction);
+		
 		return "sendMoney";
 	}
 

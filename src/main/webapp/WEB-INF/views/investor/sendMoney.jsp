@@ -6,7 +6,7 @@
 
 <h3>Registration transaction</h3>
 <form:form method="post" modelAttribute="transaction" action="${action}">
-	<form:label path="type">Choose Type of Transaction:</form:label>
+	Choose Type of Transaction:
 	<select id="actSelect" class="Validate_Required " name="actSelect"
 		aria-required="true" onChange="Selected(this)">
 		<option value="" selected="selected">-</option>
