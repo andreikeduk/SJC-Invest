@@ -15,11 +15,11 @@
 	<a href="<c:url value="/director/ready"/>" title="readyProjects">Ready</a>
 </security:authorize>
 
-<c:if test="${empty bidslist}">
+<c:if test="${empty projectslist}">
 	<h4>There is no projects.</h4>
 </c:if>
 
-<c:if test="${!empty bidslist}">
+<c:if test="${!empty projectslist}">
 	<h4>
 		<spring:message code="label.userroom" />
 	</h4>
@@ -30,7 +30,7 @@
 			<th><spring:message code="label.area" /></th>
 			<th><spring:message code="label.status" /></th>
 		</tr>
-		<c:forEach var="bid" items="${projectslist}">
+		<c:forEach var="project" items="${projectslist}">
 			<c:url value="/projects/${project.id}" var="viewProjectUrl" />
 			<c:url value="/bid/area/${project.area.id}" var="viewAreaUrl" />
 			<tr>

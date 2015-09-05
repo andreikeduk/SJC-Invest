@@ -24,6 +24,9 @@ public class DirectorController {
 	
 	@Autowired
 	private BidService bidService;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public ModelAndView directorRoom() {
@@ -57,5 +60,12 @@ public class DirectorController {
 		mav.addObject("bidslist",  bidService.findBidsByStatus(BidStatus.DENIED));
 		return mav;
 	}
-	
+	@RequestMapping(value = "/ready", method = RequestMethod.GET)
+	public ModelAndView getReadyProjects() {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("director.projects");
+		mav.addObject("projectslist",  projectService.findReadyProjects(true));
+		return mav;
+	}
 }

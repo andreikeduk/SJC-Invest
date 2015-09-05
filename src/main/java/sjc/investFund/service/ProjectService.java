@@ -18,5 +18,6 @@ public interface ProjectService {
 	void createProject(Project project, User user) throws AlredyExistException;
 	void updateProject(Project oldProject, Project newProject) throws AlredyExistException;
 	Calendar getExpirationDate(Project project);
+	List<Project> findReadyProjects(Boolean status);
 	
 }

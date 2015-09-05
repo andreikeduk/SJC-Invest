@@ -62,9 +62,12 @@ public class Project {
 	private Account account;
 
 	public Project() {
-		status = false;
 	}
-
+	
+	public Project(Boolean status) {
+		this.status = false;
+	}
+	
 	public int getId() {
 		return id;
 	}

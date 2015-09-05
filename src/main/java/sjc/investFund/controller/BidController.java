@@ -1,5 +1,7 @@
 package sjc.investFund.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.common.io.Files;
 
 import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Account;
@@ -47,7 +52,7 @@ public class BidController {
 	private AreaService areaService;
 
 	private static final Logger logger = Logger.getLogger(BidController.class);
-	
+
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String newBidForm(Model model) {
 
@@ -58,20 +63,24 @@ public class BidController {
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String addBid(@ModelAttribute("project") @Valid Project project,
-			BindingResult br, Authentication auth, Model model)
+	public ModelAndView addBid(
+			@ModelAttribute("project") @Valid Project project,
+			BindingResult br, Authentication auth)
 			throws AlredyExistException {
+		ModelAndView mav = new ModelAndView();
 		String view = "redirect:/creator";
 
 		if (br.hasErrors()) {
-			model.addAttribute("arealist", areaService.getAreaMap());
+			mav.addObject("arealist", areaService.getAreaMap());
 			view = "bid";
 		} else {
 			User user = userService.findByLogin(auth.getName());
 			projectService.createProject(project, user);
 			logger.debug("New bid with name:" + project.getName() + " created ");
 		}
-		return view;
+
+		mav.setViewName(view);
+		return mav;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

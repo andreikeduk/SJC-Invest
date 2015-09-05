@@ -72,8 +72,7 @@ public class ProjectServiceImpl implements ProjectService {
 			oldProject.setName(newProject.getName());
 			oldProject.setRequiredAmount(newProject.getRequiredAmount());
 			oldProject.setStatus(newProject.getStatus());
-			projectRepository.update(oldProject);
-		
+			projectRepository.update(oldProject);		
 	}
 
 	@Override
@@ -90,6 +89,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project findProjectByName(String name) {
 		return projectRepository.findProjectsByName(name);
+	}
+
+	@Override
+	public List<Project> findReadyProjects(Boolean status) {
+		return projectRepository.findReadyProjects(true);
 	}
 
 }

@@ -1,5 +1,6 @@
 package sjc.investFund.repository;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -36,4 +37,16 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 	 * 
 	 * public ProjectRepository(DataSource ds) { this.ds = ds; }
 	 */
+
+	@Override
+	public List<Project> findReadyProjects(Boolean status) {
+		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("status", status));
+		return (List<Project>)cr.list();
+	}
+
+	@Override
+	public List<Project> findOverdueProjects(Calendar date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -36,6 +36,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void create(User user) throws AlredyExistException {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		user.setPassword(encoder.encode(user.getPassword()));
 		if (findByLogin(user.getLogin()) != null) {
 			throw new AlredyExistException("User with login '" + user.getLogin()
 					+ "' alredy exist. Enter another login");
@@ -51,6 +53,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(User oldUser, User newUser) throws AlredyExistException {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		newUser.setPassword(encoder.encode(newUser.getPassword()));
 //		if (findByLogin(user.getLogin()) != null) {
 //			throw new AlredyExistException("User with login '" + user.getLogin()
 //					+ "' alredy exist. Enter another login");
