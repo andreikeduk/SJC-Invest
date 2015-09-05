@@ -32,6 +32,7 @@ import sjc.investFund.model.Mark;
 import sjc.investFund.model.Popularity;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
+import sjc.investFund.model.Transfer;
 import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
 import sjc.investFund.service.BidService;
@@ -43,6 +44,7 @@ import sjc.investFund.service.MarkService;
 import sjc.investFund.service.PopularityService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
+import sjc.investFund.service.TransferService;
 import sjc.investFund.service.UserService;
 
 @Controller
@@ -79,6 +81,9 @@ public class ProjectController {
 
 	@Autowired
 	private DatachekService datachekService;
+	
+	@Autowired
+	private TransferService transferService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
@@ -248,14 +253,31 @@ public class ProjectController {
 		return view;
 	}
 	
-
-
 	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
 	public String sendMoneyTransfer(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
-		model.addAttribute("project", project);
 
-		return "sendMoney";
+		model.addAttribute("transfer", new Transfer());
+		model.addAttribute("action");
+
+		return "transfer";
+	}
+
+	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.POST)
+	public String sendMoneyTransfer(@PathVariable("id") Project project,
+			@ModelAttribute("transfer") Transfer transfer,
+			BindingResult bindingResult, HttpSession session, Model model,
+			Authentication auth) {
+
+		String view = "redirect:/projects/{id}";
+
+		Investor investor = investorService.findByLogin(auth.getName());
+		transfer.setInvestorAccount(investor.getAccount());
+		transfer.setGoalAccount(project.getAccount());
+		transferService.createTransfer(transfer);
+		model.asMap().remove("transfer");
+
+		return view;
 	}
 
 	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.GET)
