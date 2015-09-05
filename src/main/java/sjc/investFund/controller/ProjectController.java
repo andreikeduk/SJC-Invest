@@ -52,9 +52,12 @@ import sjc.investFund.service.UserService;
 @Controller
 @RequestMapping(value = "/projects")
 public class ProjectController {
+	
 	private String view = "redirect:/projects/{id}";
+	
 	@Autowired
 	private ProjectService projectService;
+	
 	@Autowired
 	private BidService bidService;
 
@@ -143,6 +146,7 @@ public class ProjectController {
 		if (bindingResult.hasErrors()) {
 			view = "sendMark";
 		} else {
+			view = "redirect:/projects/{id}";
 			User user = userService.findByLogin(auth.getName());
 			mark.setUser(user);
 			mark.setProject(project);
@@ -168,6 +172,8 @@ public class ProjectController {
 			@ModelAttribute("popularity") Popularity popularity,
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
+
+		view = "redirect:/projects/{id}";
 
 		User user = userService.findByLogin(auth.getName());
 		popularity.setUser(user);
@@ -197,6 +203,7 @@ public class ProjectController {
 		if (bindingResult.hasErrors()) {
 			view = "sendComment";
 		} else {
+			view = "redirect:/projects/{id}";
 			User user = userService.findByLogin(auth.getName());
 			comment.setUser(user);
 			comment.setProject(project);
@@ -226,6 +233,7 @@ public class ProjectController {
 		if (bindingResult.hasErrors()) {
 			view = "sendClaim";
 		} else {
+			view = "redirect:/projects/{id}";
 			User user = userService.findByLogin(auth.getName());
 			claim.setUser(user);
 			claim.setProject(project);
@@ -264,6 +272,7 @@ public class ProjectController {
 		if (bindingResult.hasErrors()) {
 			view = "datachek";
 		} else {
+			view = "redirect:/projects/{id}";
 			Investor investor = investorService.findByLogin(auth.getName());
 			datachek.setInvestorAccount(investor.getAccount());
 			datachek.setGoalAccount(project.getAccount());
@@ -289,10 +298,11 @@ public class ProjectController {
 			@ModelAttribute("transfer") @Valid Transfer transfer,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-		
+
 		if (bindingResult.hasErrors()) {
 			view = "transfer";
 		} else {
+			view = "redirect:/projects/{id}";
 			Investor investor = investorService.findByLogin(auth.getName());
 			transfer.setInvestorAccount(investor.getAccount());
 			transfer.setGoalAccount(project.getAccount());
@@ -318,10 +328,11 @@ public class ProjectController {
 			@ModelAttribute("bankcard") @Valid Bankcard bankcard,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-		
+
 		if (bindingResult.hasErrors()) {
 			view = "bankcard";
 		} else {
+			view = "redirect:/projects/{id}";
 			Investor investor = investorService.findByLogin(auth.getName());
 			bankcard.setInvestorAccount(investor.getAccount());
 			bankcard.setGoalAccount(project.getAccount());

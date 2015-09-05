@@ -16,10 +16,12 @@
 		<form:label path="amount">Amount: </form:label>
 		<br />
 		<form:input type="number" path="amount" />
+		<form:errors path="amount" cssClass="errorblock"></form:errors>
 		<br />
 		<form:label path="numberchek">Number of chek: </form:label>
 		<br />
 		<form:input type="number" path="numberchek" />
+		<form:errors path="numberchek" cssClass="errorblock"></form:errors>
 		
 		<input type="submit" value="Invest" />
 	</form:form>

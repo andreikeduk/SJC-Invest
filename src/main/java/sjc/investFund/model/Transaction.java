@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -35,8 +36,8 @@ public class Transaction {
 	@Column(name = "time")
 	private Calendar time;
 	
-	@Digits(integer = 6, fraction = 0, message = "Only numbers")
 	@Min(value = 10, message = "Can you give more money for this project?")
+	@Max(value = 500000, message = "You don't have that amount!!!")
 	@NotNull(message = "Need  to enter amount")
 	@Column(name = "amount")
 	private Integer amount;

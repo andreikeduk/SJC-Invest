@@ -3,14 +3,19 @@ package sjc.investFund.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @DiscriminatorValue("TRANSFER")
 public class Transfer extends Transaction {
-	
+
+	@Pattern(regexp="\\d{6}", message = "Format of number of transfer's operation - 6 digits")
 	@JoinColumn(name = "numbertransfer")
 	private String numbertransfer;
-	
+
 	public Transfer() {
 
 	}
