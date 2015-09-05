@@ -13,7 +13,6 @@ import org.hibernate.validator.constraints.Range;
 @DiscriminatorValue("MARK")
 public class Mark extends Feedback {
 	
-	@Digits(integer = 1, fraction = 0, message = "Only numbers")
 	@NotNull(message = "Need  to enter mark")
 	@Range(min=1, max=5, message = "Mark must be in diapason 1-5")	
 	@Column(name = "mark")

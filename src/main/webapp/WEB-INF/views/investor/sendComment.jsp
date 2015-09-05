@@ -9,9 +9,9 @@
 
 <security:authorize access="isAuthenticated()">
 	<form:form method="post" modelAttribute="comment" action="${action}">
-
 		<form:label path="comment">Your Comment: </form:label>
-		<form:textarea rows="5" cols="50" path="comment" /><br><br>
+		<br />
+		<form:textarea rows="5" cols="50" path="comment" />
 		<form:errors path="comment" cssClass="errorblock"></form:errors>
 		<br />
 		<input type="submit" value="Send Comment" />

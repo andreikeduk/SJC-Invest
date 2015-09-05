@@ -11,6 +11,7 @@
 	<form:form method="post" modelAttribute="claim" action="${claimaction}">
 
 		<form:label path="claim">Your Claim: </form:label>
+		<br />
 		<form:textarea rows="5" cols="50" path="claim" />
 		<form:errors path="claim" cssClass="errorblock"></form:errors>
 		<br />

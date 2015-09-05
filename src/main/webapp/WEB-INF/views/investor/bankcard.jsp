@@ -16,11 +16,13 @@
 		<form:label path="amount">Amount: </form:label>
 		<br />
 		<form:input type="number" path="amount" />
+		<form:errors path="amount" cssClass="errorblock"></form:errors>
 		<br />
 		<form:label path="numberCard">Number of card: </form:label>
 		<br />
 		<form:input type="number" path="numberCard" />
-		
+		<form:errors path="numberCard" cssClass="errorblock"></form:errors>
+		<br />
 		<input type="submit" value="Invest" />
 	</form:form>
 </security:authorize>

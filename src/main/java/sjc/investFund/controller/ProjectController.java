@@ -52,6 +52,7 @@ import sjc.investFund.service.UserService;
 @Controller
 @RequestMapping(value = "/projects")
 public class ProjectController {
+	private String view = "redirect:/projects/{id}";
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -138,7 +139,6 @@ public class ProjectController {
 			@ModelAttribute("mark") @Valid Mark mark,
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
-		String view = "redirect:/projects/{id}";
 
 		if (bindingResult.hasErrors()) {
 			view = "sendMark";
@@ -168,7 +168,6 @@ public class ProjectController {
 			@ModelAttribute("popularity") Popularity popularity,
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
-		String view = "redirect:/projects/{id}";
 
 		User user = userService.findByLogin(auth.getName());
 		popularity.setUser(user);
@@ -194,7 +193,6 @@ public class ProjectController {
 			@ModelAttribute("comment") @Valid Comment comment,
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
-		String view = "redirect:/projects/{id}";
 
 		if (bindingResult.hasErrors()) {
 			view = "sendComment";
@@ -224,8 +222,6 @@ public class ProjectController {
 			@ModelAttribute("claim") @Valid Claim claim,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-
-		String view = "redirect:/projects/{id}";
 
 		if (bindingResult.hasErrors()) {
 			view = "sendClaim";
@@ -261,17 +257,19 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.POST)
 	public String sendMoneyDatachek(@PathVariable("id") Project project,
-			@ModelAttribute("datachek") Datachek datachek,
+			@ModelAttribute("datachek") @Valid Datachek datachek,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
 
-		String view = "redirect:/projects/{id}";
-
-		Investor investor = investorService.findByLogin(auth.getName());
-		datachek.setInvestorAccount(investor.getAccount());
-		datachek.setGoalAccount(project.getAccount());
-		datachekService.createDatachek(datachek);
-		model.asMap().remove("datachek");
+		if (bindingResult.hasErrors()) {
+			view = "datachek";
+		} else {
+			Investor investor = investorService.findByLogin(auth.getName());
+			datachek.setInvestorAccount(investor.getAccount());
+			datachek.setGoalAccount(project.getAccount());
+			datachekService.createDatachek(datachek);
+			model.asMap().remove("datachek");
+		}
 
 		return view;
 	}
@@ -288,17 +286,19 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.POST)
 	public String sendMoneyTransfer(@PathVariable("id") Project project,
-			@ModelAttribute("transfer") Transfer transfer,
+			@ModelAttribute("transfer") @Valid Transfer transfer,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-
-		String view = "redirect:/projects/{id}";
-
-		Investor investor = investorService.findByLogin(auth.getName());
-		transfer.setInvestorAccount(investor.getAccount());
-		transfer.setGoalAccount(project.getAccount());
-		transferService.createTransfer(transfer);
-		model.asMap().remove("transfer");
+		
+		if (bindingResult.hasErrors()) {
+			view = "transfer";
+		} else {
+			Investor investor = investorService.findByLogin(auth.getName());
+			transfer.setInvestorAccount(investor.getAccount());
+			transfer.setGoalAccount(project.getAccount());
+			transferService.createTransfer(transfer);
+			model.asMap().remove("transfer");
+		}
 
 		return view;
 	}
@@ -315,17 +315,19 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.POST)
 	public String sendMoneyBankcard(@PathVariable("id") Project project,
-			@ModelAttribute("bankcard") Bankcard bankcard,
+			@ModelAttribute("bankcard") @Valid Bankcard bankcard,
 			BindingResult bindingResult, HttpSession session, Model model,
 			Authentication auth) {
-
-		String view = "redirect:/projects/{id}";
-
-		Investor investor = investorService.findByLogin(auth.getName());
-		bankcard.setInvestorAccount(investor.getAccount());
-		bankcard.setGoalAccount(project.getAccount());
-		bankcardService.createBankcardTransaction(bankcard);
-		model.asMap().remove("bankcard");
+		
+		if (bindingResult.hasErrors()) {
+			view = "bankcard";
+		} else {
+			Investor investor = investorService.findByLogin(auth.getName());
+			bankcard.setInvestorAccount(investor.getAccount());
+			bankcard.setGoalAccount(project.getAccount());
+			bankcardService.createBankcardTransaction(bankcard);
+			model.asMap().remove("bankcard");
+		}
 
 		return view;
 	}
