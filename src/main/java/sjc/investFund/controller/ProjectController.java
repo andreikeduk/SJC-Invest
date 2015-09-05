@@ -85,15 +85,6 @@ public class ProjectController {
 	@Autowired
 	private PopularityService popularityService;
 
-	@Autowired
-	private DatachekService datachekService;
-
-	@Autowired
-	private TransferService transferService;
-
-	@Autowired
-	private BankcardService bankcardService;
-
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
 	public ModelAndView listProjects(HttpSession session) {
@@ -244,104 +235,7 @@ public class ProjectController {
 		return view;
 	}
 
-	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.GET)
-	public String sendMoney(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("project", project);
-		return "sendMoney";
-
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.GET)
-	public String sendMoneyDatachek(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("datachek", new Datachek());
-		model.addAttribute("action");
-
-		return "datachek";
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.POST)
-	public String sendMoneyDatachek(@PathVariable("id") Project project,
-			@ModelAttribute("datachek") @Valid Datachek datachek,
-			BindingResult bindingResult, HttpSession session, Model model,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "datachek";
-		} else {
-			view = "redirect:/projects/{id}";
-			Investor investor = investorService.findByLogin(auth.getName());
-			datachek.setInvestorAccount(investor.getAccount());
-			datachek.setGoalAccount(project.getAccount());
-			datachekService.createDatachek(datachek);
-			model.asMap().remove("datachek");
-		}
-
-		return view;
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
-	public String sendMoneyTransfer(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("transfer", new Transfer());
-		model.addAttribute("action");
-
-		return "transfer";
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.POST)
-	public String sendMoneyTransfer(@PathVariable("id") Project project,
-			@ModelAttribute("transfer") @Valid Transfer transfer,
-			BindingResult bindingResult, HttpSession session, Model model,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "transfer";
-		} else {
-			view = "redirect:/projects/{id}";
-			Investor investor = investorService.findByLogin(auth.getName());
-			transfer.setInvestorAccount(investor.getAccount());
-			transfer.setGoalAccount(project.getAccount());
-			transferService.createTransfer(transfer);
-			model.asMap().remove("transfer");
-		}
-
-		return view;
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.GET)
-	public String sendMoneyBankcard(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("bankcard", new Bankcard());
-		model.addAttribute("action");
-
-		return "bankcard";
-	}
-
-	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.POST)
-	public String sendMoneyBankcard(@PathVariable("id") Project project,
-			@ModelAttribute("bankcard") @Valid Bankcard bankcard,
-			BindingResult bindingResult, HttpSession session, Model model,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "bankcard";
-		} else {
-			view = "redirect:/projects/{id}";
-			Investor investor = investorService.findByLogin(auth.getName());
-			bankcard.setInvestorAccount(investor.getAccount());
-			bankcard.setGoalAccount(project.getAccount());
-			bankcardService.createBankcardTransaction(bankcard);
-			model.asMap().remove("bankcard");
-		}
-
-		return view;
-	}
+	
 
 	/*
 	 * @RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)

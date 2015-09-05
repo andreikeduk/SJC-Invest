@@ -22,7 +22,7 @@
 		<br />
 		<form:input type="number" path="numberchek" />
 		<form:errors path="numberchek" cssClass="errorblock"></form:errors>
-		
+		<br />
 		<input type="submit" value="Invest" />
 	</form:form>
 </security:authorize>
