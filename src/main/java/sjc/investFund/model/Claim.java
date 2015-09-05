@@ -12,8 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @DiscriminatorValue("CLAIM")
 public class Claim extends Feedback {
 	
-	@NotEmpty(message = "Need  to enter claim")
-	@Size(min = 20, max = 250, message = "Comment must be in diapason 20-250")
+	@Size(min = 20, max = 250, message = "Claim must be in diapason 20-250")
 	@Column(name = "claim")
 	private String claim;
 

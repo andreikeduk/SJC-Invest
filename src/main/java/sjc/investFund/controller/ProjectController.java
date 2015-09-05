@@ -53,8 +53,6 @@ import sjc.investFund.service.UserService;
 @RequestMapping(value = "/projects")
 public class ProjectController {
 	
-	private String view = "redirect:/projects/{id}";
-	
 	@Autowired
 	private ProjectService projectService;
 	
@@ -65,19 +63,10 @@ public class ProjectController {
 	private CommentService commentService;
 
 	@Autowired
-	private ClaimService claimService;
-
-	@Autowired
 	private TransactionService transactionService;
 
 	@Autowired
 	private AreaService areaService;
-
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private InvestorService investorService;
 
 	@Autowired
 	private MarkService markService;
@@ -117,154 +106,6 @@ public class ProjectController {
 
 		return "project.details";
 	}
-
-	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.GET)
-	public String addMark(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("mark", new Mark());
-		model.addAttribute("action");
-
-		return "sendMark";
-	}
-
-	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.POST)
-	public String addMark(@PathVariable("id") Project project,
-			@ModelAttribute("mark") @Valid Mark mark,
-			BindingResult bindingResult, Model model, HttpSession session,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "sendMark";
-		} else {
-			view = "redirect:/projects/{id}";
-			User user = userService.findByLogin(auth.getName());
-			mark.setUser(user);
-			mark.setProject(project);
-			markService.createMark(mark);
-			model.asMap().remove("mark");
-		}
-
-		return view;
-	}
-
-	@RequestMapping(value = "/{id}/sendLike", method = RequestMethod.GET)
-	public String addLike(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-
-		model.addAttribute("popularity", new Popularity());
-		model.addAttribute("action");
-
-		return "sendLike";
-	}
-
-	@RequestMapping(value = "/{id}/sendLike", method = RequestMethod.POST)
-	public String addLike(@PathVariable("id") Project project,
-			@ModelAttribute("popularity") Popularity popularity,
-			BindingResult bindingResult, Model model, HttpSession session,
-			Authentication auth) {
-
-		view = "redirect:/projects/{id}";
-
-		User user = userService.findByLogin(auth.getName());
-		popularity.setUser(user);
-		popularity.setProject(project);
-		popularityService.addLike(popularity);
-		model.asMap().remove("popularity");
-
-		return view;
-	}
-
-	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.GET)
-	public String addComment(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-		model.addAttribute("project", project);
-		model.addAttribute("comment", new Comment());
-		model.addAttribute("action");
-
-		return "sendComment";
-	}
-
-	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.POST)
-	public String addComment(@PathVariable("id") Project project,
-			@ModelAttribute("comment") @Valid Comment comment,
-			BindingResult bindingResult, Model model, HttpSession session,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "sendComment";
-		} else {
-			view = "redirect:/projects/{id}";
-			User user = userService.findByLogin(auth.getName());
-			comment.setUser(user);
-			comment.setProject(project);
-			commentService.createComment(comment);
-			model.asMap().remove("comment");
-		}
-
-		return view;
-	}
-
-	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.GET)
-	public String sendClaim(@PathVariable("id") Project project,
-			HttpSession session, Model model) {
-		model.addAttribute("project", project);
-		model.addAttribute("claim", new Claim());
-		model.addAttribute("claimaction");
-
-		return "sendClaim";
-	}
-
-	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.POST)
-	public String sendClaim(@PathVariable("id") Project project,
-			@ModelAttribute("claim") @Valid Claim claim,
-			BindingResult bindingResult, HttpSession session, Model model,
-			Authentication auth) {
-
-		if (bindingResult.hasErrors()) {
-			view = "sendClaim";
-		} else {
-			view = "redirect:/projects/{id}";
-			User user = userService.findByLogin(auth.getName());
-			claim.setUser(user);
-			claim.setProject(project);
-			claimService.createClaim(claim);
-			model.asMap().remove("claim");
-		}
-
-		return view;
-	}
-
-	
-
-	/*
-	 * @RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.POST)
-	 * public ModelAndView sendMoney(@ModelAttribute Transaction transaction,
-	 * 
-	 * @RequestParam(value = "country") String countryCode,
-	 * 
-	 * @RequestParam(value = "multipleOptions") String[] options, Model model) {
-	 * transactionService.saveTransaction(transaction); ModelAndView mav = new
-	 * ModelAndView(); User user = userService.findByName(login);
-	 * session.setAttribute("user", user); mav.addObject("user", user);
-	 * mav.setViewName("home"); return mav; }
-	 */
-
-	/*
-	 * @RequestMapping(value = "/new", method = RequestMethod.GET) public String
-	 * newBidForm(Model model) {
-	 * 
-	 * model.addAttribute("project", new Project());
-	 * model.addAttribute("action", "new");
-	 * 
-	 * Map<String, String> areaList = new LinkedHashMap<String, String>();
-	 * 
-	 * List<Area> areas = areaService.findAllAreas(); for (Area a : areas) {
-	 * areaList.put(a.getId().toString(), a.getName()); }
-	 * model.addAttribute("arealist", areaList);
-	 * 
-	 * return "bid"; }
-	 */
 
 	// andrew
 	@PreAuthorize("project.user.login.equals(auth.name)")
