@@ -37,6 +37,7 @@ import sjc.investFund.service.AreaService;
 import sjc.investFund.service.BidService;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
+import sjc.investFund.service.DatachekService;
 import sjc.investFund.service.InvestorService;
 import sjc.investFund.service.MarkService;
 import sjc.investFund.service.PopularityService;
@@ -76,6 +77,9 @@ public class ProjectController {
 	@Autowired
 	private PopularityService popularityService;
 
+	@Autowired
+	private DatachekService datachekService;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
 	public ModelAndView listProjects(HttpSession session) {
@@ -211,18 +215,37 @@ public class ProjectController {
 	@RequestMapping(value = "/{id}/sendMoney", method = RequestMethod.GET)
 	public String sendMoney(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
+
 		model.addAttribute("project", project);
 		return "sendMoney";
+
 	}
 
 	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.GET)
 	public String sendMoneyDatachek(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
-		model.addAttribute("project", project);
+
 		model.addAttribute("datachek", new Datachek());
 		model.addAttribute("action");
 
 		return "datachek";
+	}
+
+	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.POST)
+	public String sendMoneyDatachek(@PathVariable("id") Project project,
+			@ModelAttribute("datachek") Datachek datachek,
+			BindingResult bindingResult, HttpSession session, Model model,
+			Authentication auth) {
+
+		String view = "redirect:/projects/{id}";
+
+		Investor investor = investorService.findByLogin(auth.getName());
+		datachek.setInvestorAccount(investor.getAccount());
+		datachek.setGoalAccount(project.getAccount());
+		datachekService.createDatachek(datachek);
+		model.asMap().remove("datachek");
+
+		return view;
 	}
 	
 
