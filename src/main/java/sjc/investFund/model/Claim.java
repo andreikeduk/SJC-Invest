@@ -3,11 +3,17 @@ package sjc.investFund.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @DiscriminatorValue("CLAIM")
 public class Claim extends Feedback {
-
+	
+	@NotEmpty(message = "Need  to enter claim")
+	@Size(min = 20, max = 250, message = "Comment must be in diapason 20-250")
 	@Column(name = "claim")
 	private String claim;
 

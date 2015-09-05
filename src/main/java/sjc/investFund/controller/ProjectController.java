@@ -74,22 +74,22 @@ public class ProjectController {
 
 	@Autowired
 	private InvestorService investorService;
-	
+
 	@Autowired
 	private MarkService markService;
-	
+
 	@Autowired
 	private PopularityService popularityService;
 
 	@Autowired
 	private DatachekService datachekService;
-	
+
 	@Autowired
 	private TransferService transferService;
-	
+
 	@Autowired
 	private BankcardService bankcardService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
 	public ModelAndView listProjects(HttpSession session) {
@@ -112,7 +112,7 @@ public class ProjectController {
 		model.addAttribute("project", project);
 		List<Comment> comments = commentService.getCommentsByProject(project);
 		model.addAttribute("comments", comments);
-		
+
 		List<Popularity> popularities = popularityService
 				.getLikesByProject(project);
 		model.addAttribute("countLikes", popularities.size());
@@ -122,7 +122,7 @@ public class ProjectController {
 
 		return "project.details";
 	}
-	
+
 	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.GET)
 	public String addMark(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
@@ -135,15 +135,20 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.POST)
 	public String addMark(@PathVariable("id") Project project,
-			@ModelAttribute("mark") Mark mark, BindingResult bindingResult,
-			Model model, HttpSession session, Authentication auth) {
+			@ModelAttribute("mark") @Valid Mark mark,
+			BindingResult bindingResult, Model model, HttpSession session,
+			Authentication auth) {
 		String view = "redirect:/projects/{id}";
 
-		User user = userService.findByLogin(auth.getName());
-		mark.setUser(user);
-		mark.setProject(project);
-		markService.createMark(mark);
-		model.asMap().remove("mark");
+		if (bindingResult.hasErrors()) {
+			view = "sendMark";
+		} else {
+			User user = userService.findByLogin(auth.getName());
+			mark.setUser(user);
+			mark.setProject(project);
+			markService.createMark(mark);
+			model.asMap().remove("mark");
+		}
 
 		return view;
 	}
@@ -173,7 +178,7 @@ public class ProjectController {
 
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.GET)
 	public String addComment(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
@@ -186,15 +191,20 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.POST)
 	public String addComment(@PathVariable("id") Project project,
-			@ModelAttribute("comment") Comment comment,
+			@ModelAttribute("comment") @Valid Comment comment,
 			BindingResult bindingResult, Model model, HttpSession session,
 			Authentication auth) {
-		User user = userService.findByLogin(auth.getName());
-		comment.setUser(user);
-		comment.setProject(project);
-		commentService.createComment(comment);
-		model.asMap().remove("comment");
-		String view = "infoSendingClaim";
+		String view = "redirect:/projects/{id}";
+
+		if (bindingResult.hasErrors()) {
+			view = "sendComment";
+		} else {
+			User user = userService.findByLogin(auth.getName());
+			comment.setUser(user);
+			comment.setProject(project);
+			commentService.createComment(comment);
+			model.asMap().remove("comment");
+		}
 
 		return view;
 	}
@@ -211,14 +221,22 @@ public class ProjectController {
 
 	@RequestMapping(value = "/{id}/sendClaim", method = RequestMethod.POST)
 	public String sendClaim(@PathVariable("id") Project project,
-			@ModelAttribute("claim") Claim claim, BindingResult bindingResult,
-			HttpSession session, Model model, Authentication auth) {
-		User user = userService.findByLogin(auth.getName());
-		claim.setUser(user);
-		claim.setProject(project);
-		claimService.createClaim(claim);
-		model.asMap().remove("claim");
-		String view = "infoSendingClaim";
+			@ModelAttribute("claim") @Valid Claim claim,
+			BindingResult bindingResult, HttpSession session, Model model,
+			Authentication auth) {
+
+		String view = "redirect:/projects/{id}";
+
+		if (bindingResult.hasErrors()) {
+			view = "sendClaim";
+		} else {
+			User user = userService.findByLogin(auth.getName());
+			claim.setUser(user);
+			claim.setProject(project);
+			claimService.createClaim(claim);
+			model.asMap().remove("claim");
+		}
+
 		return view;
 	}
 
@@ -257,7 +275,7 @@ public class ProjectController {
 
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
 	public String sendMoneyTransfer(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
@@ -343,10 +361,10 @@ public class ProjectController {
 
 	// andrew
 	@PreAuthorize("project.user.login.equals(auth.name)")
-	//@PreAuthorize("hasRole('ROLE_CREATOR')")
+	// @PreAuthorize("hasRole('ROLE_CREATOR')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editProject(@PathVariable("id") Project project,
-			HttpSession session,Authentication auth, Model model) {
+			HttpSession session, Authentication auth, Model model) {
 
 		model.addAttribute("arealist", areaService.getAreaMap());
 		model.addAttribute("project", project);
@@ -355,7 +373,6 @@ public class ProjectController {
 		return "bid";
 	}
 
-	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public String addBid(@ModelAttribute("project") @Valid Project newProject,
 			BindingResult br, Authentication auth, Model model,
@@ -367,7 +384,7 @@ public class ProjectController {
 			view = "bid";
 		} else {
 			Project oldProject = projectService.getProjectById(id);
-			
+
 			projectService.updateProject(oldProject, newProject);
 		}
 		return view;
@@ -392,14 +409,15 @@ public class ProjectController {
 	// model.addAttribute("arealist", areaList);
 	// }
 	// andrew
-		@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
-		public String getAreaBids(@PathVariable("id") Area area, Model model) {
+	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
+	public String getAreaBids(@PathVariable("id") Area area, Model model) {
 
-			model.addAttribute("areabids", bidService.findBidsByAreaStatus(area,
-					BidStatus.ACCEPTED));
-			model.addAttribute("area", area.getName());
-			return "area.bids";
-		}
+		model.addAttribute("areabids",
+				bidService.findBidsByAreaStatus(area, BidStatus.ACCEPTED));
+		model.addAttribute("area", area.getName());
+		return "area.bids";
+	}
+
 	// andrew
 	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@RequestMapping(value = "/{id}/accept", method = RequestMethod.GET)
@@ -408,6 +426,7 @@ public class ProjectController {
 		bidService.acceptBid(bid);
 		return "redirect:/projects/{id}";
 	}
+
 	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@RequestMapping(value = "/{id}/deny", method = RequestMethod.GET)
 	public String denyBid(@PathVariable("id") Project project, Model model) {

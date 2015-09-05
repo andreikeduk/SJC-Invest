@@ -12,6 +12,8 @@
 
 		<form:label path="mark">Your Mark: </form:label>
 		<form:input type="number" path="mark" />
+		<form:errors path="mark" cssClass="errorblock"></form:errors>
+		<br />
 		<input type="submit" value="Send Mark" />
 	</form:form>
 </security:authorize>

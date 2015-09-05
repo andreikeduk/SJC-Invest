@@ -12,6 +12,8 @@
 
 		<form:label path="comment">Your Comment: </form:label>
 		<form:textarea rows="5" cols="50" path="comment" /><br><br>
+		<form:errors path="comment" cssClass="errorblock"></form:errors>
+		<br />
 		<input type="submit" value="Send Comment" />
 	</form:form>
 </security:authorize>
