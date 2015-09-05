@@ -42,6 +42,10 @@ Creator: ${project.user.firstName} ${project.user.lastName}
 <br>
 Area: ${project.area.name}
 <br>
+Popularity: ${countLikes}
+<br>
+Average value: ${averageValue}
+<br>
 <security:authorize
 	access="hasRole('ROLE_INVESTOR') and isAuthenticated()">
 	<form>
@@ -61,7 +65,7 @@ Area: ${project.area.name}
 	</form>
 	<form>
 		<input type="button" value="Like"
-			onClick='location.href="/invest/projects/${project.id}/popularity"'>
+			onClick='location.href="/invest/projects/${project.id}/sendLike"'>
 	</form>
 	<form>
 		<input type="button" value="Add Mark"

@@ -29,6 +29,7 @@ import sjc.investFund.model.Comment;
 import sjc.investFund.model.Datachek;
 import sjc.investFund.model.Investor;
 import sjc.investFund.model.Mark;
+import sjc.investFund.model.Popularity;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
 import sjc.investFund.model.User;
@@ -38,6 +39,7 @@ import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
 import sjc.investFund.service.InvestorService;
 import sjc.investFund.service.MarkService;
+import sjc.investFund.service.PopularityService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
 import sjc.investFund.service.UserService;
@@ -70,6 +72,9 @@ public class ProjectController {
 	
 	@Autowired
 	private MarkService markService;
+	
+	@Autowired
+	private PopularityService popularityService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
@@ -93,6 +98,13 @@ public class ProjectController {
 		model.addAttribute("project", project);
 		List<Comment> comments = commentService.getCommentsByProject(project);
 		model.addAttribute("comments", comments);
+		
+		List<Popularity> popularities = popularityService
+				.getLikesByProject(project);
+		model.addAttribute("countLikes", popularities.size());
+
+		List<Mark> marks = markService.getMarksByProject(project);
+		model.addAttribute("averageValue", marks.size());
 
 		return "project.details";
 	}
@@ -122,6 +134,32 @@ public class ProjectController {
 		return view;
 	}
 
+	@RequestMapping(value = "/{id}/sendLike", method = RequestMethod.GET)
+	public String addLike(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+
+		model.addAttribute("popularity", new Popularity());
+		model.addAttribute("action");
+
+		return "sendLike";
+	}
+
+	@RequestMapping(value = "/{id}/sendLike", method = RequestMethod.POST)
+	public String addLike(@PathVariable("id") Project project,
+			@ModelAttribute("popularity") Popularity popularity,
+			BindingResult bindingResult, Model model, HttpSession session,
+			Authentication auth) {
+		String view = "redirect:/projects/{id}";
+
+		User user = userService.findByLogin(auth.getName());
+		popularity.setUser(user);
+		popularity.setProject(project);
+		popularityService.addLike(popularity);
+		model.asMap().remove("popularity");
+
+		return view;
+	}
+	
 	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.GET)
 	public String addComment(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
