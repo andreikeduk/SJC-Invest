@@ -28,6 +28,7 @@ import sjc.investFund.model.Claim;
 import sjc.investFund.model.Comment;
 import sjc.investFund.model.Datachek;
 import sjc.investFund.model.Investor;
+import sjc.investFund.model.Mark;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
 import sjc.investFund.model.User;
@@ -36,6 +37,7 @@ import sjc.investFund.service.BidService;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
 import sjc.investFund.service.InvestorService;
+import sjc.investFund.service.MarkService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.TransactionService;
 import sjc.investFund.service.UserService;
@@ -65,6 +67,9 @@ public class ProjectController {
 
 	@Autowired
 	private InvestorService investorService;
+	
+	@Autowired
+	private MarkService markService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
@@ -90,6 +95,31 @@ public class ProjectController {
 		model.addAttribute("comments", comments);
 
 		return "project.details";
+	}
+	
+	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.GET)
+	public String addMark(@PathVariable("id") Project project,
+			HttpSession session, Model model) {
+
+		model.addAttribute("mark", new Mark());
+		model.addAttribute("action");
+
+		return "sendMark";
+	}
+
+	@RequestMapping(value = "/{id}/sendMark", method = RequestMethod.POST)
+	public String addMark(@PathVariable("id") Project project,
+			@ModelAttribute("mark") Mark mark, BindingResult bindingResult,
+			Model model, HttpSession session, Authentication auth) {
+		String view = "redirect:/projects/{id}";
+
+		User user = userService.findByLogin(auth.getName());
+		mark.setUser(user);
+		mark.setProject(project);
+		markService.createMark(mark);
+		model.asMap().remove("mark");
+
+		return view;
 	}
 
 	@RequestMapping(value = "/{id}/sendComment", method = RequestMethod.GET)
@@ -157,18 +187,6 @@ public class ProjectController {
 		return "datachek";
 	}
 	
-	@RequestMapping(value = "/{id}/sendMoney/datachek", method = RequestMethod.POST)
-	public String sendMoneyDatachek(@PathVariable("id") Project project,
-			@ModelAttribute("datachek") Datachek datachek, BindingResult bindingResult,
-			HttpSession session, Model model, Authentication auth) {
-		Investor user = investorService.findByLogin(auth.getName());
-		datachek.setUser(user);
-		claim.setProject(project);
-		claimService.createClaim(claim);
-		model.asMap().remove("claim");
-		String view = "infoSendingClaim";
-		return view;
-	}
 
 
 	@RequestMapping(value = "/{id}/sendMoney/transfer", method = RequestMethod.GET)
