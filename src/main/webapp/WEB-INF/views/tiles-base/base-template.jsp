@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="expires" content="0" />
@@ -18,6 +17,11 @@
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/bootstrap.css"/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/bootstrap-theme.css"/>" />
+
+<script src="<c:url value="/resources/js/bootstrap.js" />"></script>
+
 </head>
 
 <body>
