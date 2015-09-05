@@ -18,8 +18,7 @@ import sjc.investFund.service.TransactionService;
 public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionDao transactionRepository;
-	@Autowired
-	private AccountDao accountRepository;
+	
 
 	@Override
 	public void saveTransaction(Transaction transaction) {
