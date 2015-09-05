@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Area;
+import sjc.investFund.model.Bankcard;
 import sjc.investFund.model.Bid;
 import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Claim;
@@ -35,6 +36,7 @@ import sjc.investFund.model.Transaction;
 import sjc.investFund.model.Transfer;
 import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
+import sjc.investFund.service.BankcardService;
 import sjc.investFund.service.BidService;
 import sjc.investFund.service.ClaimService;
 import sjc.investFund.service.CommentService;
@@ -84,6 +86,9 @@ public class ProjectController {
 	
 	@Autowired
 	private TransferService transferService;
+	
+	@Autowired
+	private BankcardService bankcardService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_INVESTOR')")
@@ -283,9 +288,28 @@ public class ProjectController {
 	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.GET)
 	public String sendMoneyBankcard(@PathVariable("id") Project project,
 			HttpSession session, Model model) {
-		model.addAttribute("project", project);
 
-		return "sendMoney";
+		model.addAttribute("bankcard", new Bankcard());
+		model.addAttribute("action");
+
+		return "bankcard";
+	}
+
+	@RequestMapping(value = "/{id}/sendMoney/bankcard", method = RequestMethod.POST)
+	public String sendMoneyBankcard(@PathVariable("id") Project project,
+			@ModelAttribute("bankcard") Bankcard bankcard,
+			BindingResult bindingResult, HttpSession session, Model model,
+			Authentication auth) {
+
+		String view = "redirect:/projects/{id}";
+
+		Investor investor = investorService.findByLogin(auth.getName());
+		bankcard.setInvestorAccount(investor.getAccount());
+		bankcard.setGoalAccount(project.getAccount());
+		bankcardService.createBankcardTransaction(bankcard);
+		model.asMap().remove("bankcard");
+
+		return view;
 	}
 
 	/*
