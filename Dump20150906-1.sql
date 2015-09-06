@@ -27,7 +27,7 @@ CREATE TABLE `accounts` (
   `balance` int(11) DEFAULT NULL,
   `number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,60,123),(2,0,345),(3,40,234),(4,200,100),(5,0,101),(6,0,102),(7,0,1000),(8,0,1000),(9,0,0),(10,0,0);
+INSERT INTO `accounts` VALUES (1,0,1100001),(2,0,1100002),(3,0,1100003),(4,-200,1100004),(5,200,1000000),(6,0,1000000),(7,0,0),(8,0,0),(9,0,1000000),(10,0,1000000),(11,0,1000000),(12,0,1000000),(13,0,1000467),(14,0,1000488),(15,0,1000930),(16,0,1300091),(17,0,1000432);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,12 +49,12 @@ DROP TABLE IF EXISTS `areas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `areas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_g0rrdklhpnrkcq4latjxskulm` (`account_id`),
   CONSTRAINT `FK_g0rrdklhpnrkcq4latjxskulm` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `areas` (
 
 LOCK TABLES `areas` WRITE;
 /*!40000 ALTER TABLE `areas` DISABLE KEYS */;
-INSERT INTO `areas` VALUES (1,'medicine',2),(2,'foundation',5),(3,'education',6),(4,'talent',6);
+INSERT INTO `areas` VALUES (1,'medicine',1),(2,'foundation',2),(3,'talents',3),(4,'education',4);
 /*!40000 ALTER TABLE `areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,12 +77,12 @@ DROP TABLE IF EXISTS `bids`;
 CREATE TABLE `bids` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `periodConsideration` datetime DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_quh9mmwd40rhawdlbigdvxxdd` (`project_id`),
   CONSTRAINT `FK_quh9mmwd40rhawdlbigdvxxdd` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `bids` (
 
 LOCK TABLES `bids` WRITE;
 /*!40000 ALTER TABLE `bids` DISABLE KEYS */;
-INSERT INTO `bids` VALUES (1,'2020-05-20 15:00:00','UNDER_CONSIDERATION',1),(4,NULL,'UNDER_CONSIDERATION',6),(5,'2015-08-23 16:50:51','UNDER_CONSIDERATION',7);
+INSERT INTO `bids` VALUES (1,'2020-01-27 19:14:34','ACCEPTED',2),(2,'2046-06-09 00:00:00','ACCEPTED',1),(3,'2015-09-06 07:26:50','DENIED',3),(4,'2015-09-16 07:27:11','UNDER_CONSIDERATION',4),(5,'2015-09-16 08:52:21','UNDER_CONSIDERATION',5),(6,'2015-09-06 14:52:14','DENIED',6),(7,'2015-09-16 11:26:49','UNDER_CONSIDERATION',7),(8,'2015-09-16 11:34:43','UNDER_CONSIDERATION',8),(9,'2016-07-26 15:27:32','ACCEPTED',9),(10,'2015-09-16 13:55:09','UNDER_CONSIDERATION',10),(11,'2015-09-16 14:00:07','UNDER_CONSIDERATION',11),(12,'2015-09-16 14:14:35','UNDER_CONSIDERATION',12);
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,14 +103,20 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feedback` (
-  `type` varchar(31) NOT NULL,
+  `type` varchar(31) COLLATE utf8_unicode_ci NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `claim` varchar(255) DEFAULT NULL,
-  `comment` varchar(255) DEFAULT NULL,
+  `claim` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mark` int(11) DEFAULT NULL,
   `popularity` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `project_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_oe3168svue76i6k4mktwxj3q3` (`project_id`),
+  KEY `FK_6jf5hidmotiulto96dwp6n23g` (`user_id`),
+  CONSTRAINT `FK_6jf5hidmotiulto96dwp6n23g` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_oe3168svue76i6k4mktwxj3q3` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,6 +125,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES ('COMMENT',1,NULL,'bla-bla\r\n',NULL,NULL,1,3),('POPULARITY',2,NULL,NULL,NULL,0,1,3),('MARK',3,NULL,NULL,5,NULL,1,3),('MARK',4,NULL,NULL,5,NULL,1,3),('CLAIM',5,'baaad project dghrtjrtethrthrthwreh\r\n',NULL,NULL,NULL,1,3),('POPULARITY',6,NULL,NULL,NULL,0,2,2),('COMMENT',7,NULL,'uaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\r\n',NULL,NULL,2,2),('COMMENT',8,NULL,'jeeeeetcc\r\n',NULL,NULL,1,1),('POPULARITY',9,NULL,NULL,NULL,0,6,1);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,22 +138,23 @@ DROP TABLE IF EXISTS `projects`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `deadline` datetime DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `requiredAmount` int(11) DEFAULT NULL,
+  `deadline` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requiredAmount` int(11) NOT NULL,
   `status` tinyint(1) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
-  `area_id` int(11) DEFAULT NULL,
+  `area_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ffpvorr4p0uqsls04kj9bf5bi` (`name`),
   KEY `FK_p2b1phxi9ebg8hnkwl29neg9j` (`account_id`),
   KEY `FK_5uyqb7djaydn1l5d6dmm73e8u` (`area_id`),
   KEY `FK_8f9vj96r6wdii8iypivtrt5x0` (`user_id`),
   CONSTRAINT `FK_5uyqb7djaydn1l5d6dmm73e8u` FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`),
   CONSTRAINT `FK_8f9vj96r6wdii8iypivtrt5x0` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_p2b1phxi9ebg8hnkwl29neg9j` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +163,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (1,'2030-12-20 15:00:00','deeescription','project1',400,0,3,1,1),(2,'2015-10-10 00:00:00','des2','pr2',1000,1,4,1,1),(3,NULL,'ddd','prprpr',2000,0,3,2,1),(4,NULL,'srghrjryj','asb',5,NULL,7,NULL,4),(5,NULL,'wryhryut5ryj','aaaa',124,NULL,8,NULL,1),(6,NULL,'wwwwww','asdf',4000,NULL,9,NULL,1),(7,NULL,'sdghgj','ged',400,NULL,10,NULL,1);
+INSERT INTO `projects` VALUES (1,321,'Project description','Project',3000,0,5,3,2),(2,321,'ProPro','Pro',123,0,6,1,6),(3,123,'123','123',123,1,7,4,2),(4,123,'123','1234',1234,0,8,1,2),(5,356,'aerfksjgelkhjfl;hgj','ready',457,0,9,1,2),(6,321,'2123154264767267456735ERGT','12345',12,0,10,1,2),(7,24,'bid deccr','bid',123,0,11,2,2),(8,213,'2523rgergh','rtyu',14541,0,12,1,2),(9,324,'2523414','Proj',14,0,13,1,2),(10,123,'eeferyhryjhhg','Prrprpr',124,0,14,1,2),(11,4322,'1231234451','bid2',123,0,15,1,2),(12,133,'wtgefhrfujghetyh','mack',2562,0,17,1,2);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,10 +175,13 @@ DROP TABLE IF EXISTS `transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transactions` (
+  `type` varchar(31) COLLATE utf8_unicode_ci NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `amount` int(11) DEFAULT NULL,
+  `amount` int(11) NOT NULL,
   `time` datetime DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
+  `numberCard` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numberchek` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numbertransfer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `goal_account_id` int(11) DEFAULT NULL,
   `investor_account_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -178,7 +189,7 @@ CREATE TABLE `transactions` (
   KEY `FK_skownwsbmdgay9ra1thcth306` (`investor_account_id`),
   CONSTRAINT `FK_9ig5a48ccfwnfd373mibhlxo4` FOREIGN KEY (`goal_account_id`) REFERENCES `accounts` (`id`),
   CONSTRAINT `FK_skownwsbmdgay9ra1thcth306` FOREIGN KEY (`investor_account_id`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,6 +198,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES ('TRANSFER',1,400,'2015-09-06 00:00:00',NULL,NULL,NULL,1,2),('TRANSFER',2,500,'2015-09-06 00:00:01',NULL,NULL,NULL,1,3),('TRANSFER',3,200,NULL,NULL,NULL,'123456',5,4);
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,18 +210,19 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `role` varchar(31) NOT NULL,
+  `role` varchar(31) COLLATE utf8_unicode_ci NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) DEFAULT NULL,
-  `lastName` varchar(255) DEFAULT NULL,
-  `login` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `firstName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `login` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ow0gan20590jrb00upg3va2fn` (`login`),
   KEY `FK_1yov8c5ew74vlt8qra6cewq99` (`account_id`),
   CONSTRAINT `FK_1yov8c5ew74vlt8qra6cewq99` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +231,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('CREATOR',1,'andrew','keduk','mack','1111',2,'aaa@aa.com'),('INVESTOR',2,'anton','levchuk','lev','2222',1,'bbb@b.com'),('User',3,'IVAN','IVANOV',NULL,'3333',NULL,'aaa@bb.com'),('User',4,'petrov','petr','pp','4444',NULL,'aas@bs.ss'),('User',5,'','','bbb','1234',NULL,''),('User',6,'','','fff','1111',NULL,'aa@a.a'),('User',7,'','','fff','1111',NULL,'aa@a.a');
+INSERT INTO `users` VALUES ('DIRECTOR',1,'dir@di.d','Artem','Cherny','cher','$2a$10$..hi9dQOM2APD7jd.VBFceQ/lAalrcW1B3rAdEIQykk6Ina3a2qKu',NULL),('CREATOR',2,'anke@mail.ru','Андрей','Keduk','mack','$2a$10$Kl7CAL8CvhuyT2S2BeZ82.iAjG5ReaM.ZoZhGvwnoyurBShwBPGDe',NULL),('INVESTOR',3,'lev@le.le','Anton','Levchuk','lev','$2a$10$yjDpNEhfhQ/mz/505OZcYetzO19aZjkmpUfIeytaScZX28c7Rvt1G',4),('CREATOR',4,'','Андрей','Кедук','мак','$2a$10$3Ck0Jon5wkTFN.1mXz76/.gV.Unwseer99S.g6XkyECVp2.3xT3k6',NULL),('CREATOR',5,'','','','мама','$2a$10$p4hLrF0L6RDud2qSbdCRGuNUq/d483PPqulk6oWM5gsMMOAvx2GCC',NULL),('CREATOR',6,'aaa@a.a','ku','ka','mack2','$2a$10$MNS0IYt//e9fMSVmhfb.UO.ehsSCsd.JOhi1S3zFwYtySqBSq2b02',NULL),('INVESTOR',7,'','','','lev2','$2a$10$CWqaLwo9XG9pUraWQR64OefWL2ea.1hL6ioMKAZ//LsucvgxIUYHu',16);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -231,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-24  0:52:33
+-- Dump completed on 2015-09-06 22:30:59
