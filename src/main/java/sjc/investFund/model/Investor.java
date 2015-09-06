@@ -23,7 +23,9 @@ public class Investor extends User {
 		this.setId(user.getId());
 		this.setLastName(user.getLastName());
 		this.setLogin(user.getLogin());
-		this.setPassword(user.getPassword());		
+		this.setPassword(user.getPassword());
+		Account acc = generateAccount();
+		this.setAccount(acc);
 	}
 
 	public Account getAccount() {
@@ -34,4 +36,10 @@ public class Investor extends User {
 		this.account = account;
 	}
 
+	private Account generateAccount() {
+		Integer number = 1300000 + (int) (Math.random() * 1000);
+		Account acc = new Account();
+		acc.setNumber(number);
+		return acc;
+	}
 }

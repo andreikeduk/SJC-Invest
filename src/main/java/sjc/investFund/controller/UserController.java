@@ -61,7 +61,6 @@ public class UserController {
 	public String addUser(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("action", "add");
-		// model.addAttribute("roleOptions", Role.values());
 
 		return "user";
 	}
@@ -77,7 +76,7 @@ public class UserController {
 			if (user != null) {
 				String role = user.getRole().toString();
 				if (role.equals("INVESTOR")) {
-					user = new Investor(user);
+					user = new Investor(user);					
 				} else if (role.equals("CREATOR")) {
 					user = new Creator(user);
 				} else if (role.equals("DIRECTOR")) {

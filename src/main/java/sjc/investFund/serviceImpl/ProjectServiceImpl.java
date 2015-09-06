@@ -42,8 +42,7 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new AlredyExistException("Project with name '"
 					+ project.getName() + "'alredy exist. Choose Another name");
 		} else {
-			Account acc = new Account();
-			//acc.setNumber(1000000 + acc.getId());
+			Account acc = generateAccount();
 			project.setAccount(acc);
 			project.setUser(user);
 			Bid bid = new Bid(BidStatus.UNDER_CONSIDERATION);
@@ -60,12 +59,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void updateProject(Project oldProject, Project newProject) throws AlredyExistException {
-				
-		
-//		if (foundProject != null && foundProject.getId()!=oldProject.getId())   {
-//			throw new AlredyExistException("Project with name '"
-//					+ oldProject.getName() + "'alredy exist. Choose Another name");
-//		} else {
 			oldProject.setArea(newProject.getArea());
 			oldProject.setDeadline(newProject.getDeadline());
 			oldProject.setDescription(newProject.getDescription());
@@ -94,6 +87,13 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<Project> findReadyProjects(Boolean status) {
 		return projectRepository.findReadyProjects(true);
+	}
+	
+	private Account generateAccount() {
+		Integer number = 1000000 + (int) (Math.random() * 1000);
+		Account acc = new Account();
+		acc.setNumber(number);
+		return acc;
 	}
 
 }
