@@ -24,4 +24,8 @@ public class AccountServiceImpl implements AccountService {
 		accountRepository.update(account);
 	}
 
+	@Override
+	public Long getAccountBalance(Account acc) {
+		return accountRepository.getAccountBalance(acc);
+	}
 }

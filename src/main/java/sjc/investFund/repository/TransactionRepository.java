@@ -3,6 +3,8 @@ package sjc.investFund.repository;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -20,11 +22,8 @@ public class TransactionRepository extends AbstractHibernateDao<Transaction, Int
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Transaction> findTransactionsOfProject(Account acc) {
+	public List<Transaction> findTransactionsOfAccount(Account acc) {
 		Criteria cr = getSession().createCriteria(Transaction.class, "transactions").add(Restrictions.eq("goalAccount", acc));
 		return (List<Transaction>)cr.list();
 	}
-		
-
-
 }

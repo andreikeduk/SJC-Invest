@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjc.investFund.dto.AreaInfoDto;
+import sjc.investFund.dto.service.AreaInfoDtoService;
 import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Area;
 import sjc.investFund.model.Bankcard;
@@ -52,10 +54,10 @@ import sjc.investFund.service.UserService;
 @Controller
 @RequestMapping(value = "/projects")
 public class ProjectController {
-	
+
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private BidService bidService;
 
@@ -132,7 +134,6 @@ public class ProjectController {
 			view = "bid";
 		} else {
 			Project oldProject = projectService.getProjectById(id);
-
 			projectService.updateProject(oldProject, newProject);
 		}
 		return view;
@@ -143,7 +144,6 @@ public class ProjectController {
 		Project project = projectService.getProjectById(id);
 		model.addAttribute("transactionsList",
 				transactionService.findTransactionsOfProject(project));
-
 		return "project.transactions";
 	}
 
@@ -160,6 +160,7 @@ public class ProjectController {
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
 	public String getAreaBids(@PathVariable("id") Area area, Model model) {
 
+		//model.addAttribute("areainfo", areaDto.getAreaInfo(area));
 		model.addAttribute("areabids",
 				bidService.findBidsByAreaStatus(area, BidStatus.ACCEPTED));
 		model.addAttribute("area", area.getName());

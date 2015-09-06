@@ -10,5 +10,5 @@ import sjc.investFund.model.Transaction;
 import sjc.investFund.model.User;
 
 public interface TransactionDao extends GenericDao<Transaction, Integer> {
-	List<Transaction> findTransactionsOfProject(Account acc);
+	List<Transaction> findTransactionsOfAccount(Account acc);
 }
