@@ -28,11 +28,11 @@ public class Feedback {
 	@Column(name = "id")
 	private int id;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "project_id")
 	private Project project;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
