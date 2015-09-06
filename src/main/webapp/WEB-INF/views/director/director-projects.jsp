@@ -10,6 +10,7 @@
 <security:authorize
 	access="isAuthenticated() and hasRole('ROLE_DIRECTOR')">
 	<a href="<c:url value="/director/all"/>" title="deniedBids">All</a>
+	<a href="<c:url value="/director/underconsideration"/>" title="ucProjects">Under consideration</a>
 	<a href="<c:url value="/director/accepted"/>" title="acceptedBids">Accepted</a>
 	<a href="<c:url value="/director/denied"/>" title="deniedBids">Denied</a>
 	<a href="<c:url value="/director/ready"/>" title="readyProjects">Ready</a>

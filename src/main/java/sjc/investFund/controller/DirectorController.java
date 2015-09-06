@@ -21,10 +21,10 @@ import sjc.investFund.service.UserService;
 public class DirectorController {
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private BidService bidService;
-	
+
 	@Autowired
 	private ProjectService projectService;
 
@@ -36,6 +36,7 @@ public class DirectorController {
 		mav.addObject("bidslist", bidService.findAllBids());
 		return mav;
 	}
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public ModelAndView getAllBids() {
 
@@ -44,28 +45,43 @@ public class DirectorController {
 		mav.addObject("bidslist", bidService.findAllBids());
 		return mav;
 	}
+
 	@RequestMapping(value = "/accepted", method = RequestMethod.GET)
 	public ModelAndView getAcceptedProjects() {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("director.room");
-		mav.addObject("bidslist", bidService.findBidsByStatus(BidStatus.ACCEPTED));
+		mav.addObject("bidslist",
+				bidService.findBidsByStatus(BidStatus.ACCEPTED));
 		return mav;
 	}
+
 	@RequestMapping(value = "/denied", method = RequestMethod.GET)
 	public ModelAndView getDeniedProjects() {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("director.room");
-		mav.addObject("bidslist",  bidService.findBidsByStatus(BidStatus.DENIED));
+		mav.addObject("bidslist", bidService.findBidsByStatus(BidStatus.DENIED));
 		return mav;
 	}
+
+	@RequestMapping(value = "/underconsideration", method = RequestMethod.GET)
+	public ModelAndView getConsiderationProjects() {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("director.room");
+		mav.addObject("bidslist",
+				bidService.findBidsByStatus(BidStatus.UNDER_CONSIDERATION));
+		return mav;
+	}
+
 	@RequestMapping(value = "/ready", method = RequestMethod.GET)
 	public ModelAndView getReadyProjects() {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("director.projects");
-		mav.addObject("projectslist",  projectService.findReadyProjects(true));
+		mav.addObject("projectslist", projectService.findReadyProjects(true));
 		return mav;
 	}
+
 }
