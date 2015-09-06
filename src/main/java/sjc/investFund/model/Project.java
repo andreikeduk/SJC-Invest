@@ -43,7 +43,7 @@ public class Project {
 	private Integer deadline;
 	
 	@Digits(integer = 6, fraction = 0, message = "Only numbers")
-	@Min(value = 99, message = "Really?")
+	@Min(value = 10, message = "Really?")
 	@NotNull(message = "Need  to enter required amount")
 	@Column(name = "requiredAmount")
 	private Integer requiredAmount;
@@ -65,7 +65,7 @@ public class Project {
 	}
 	
 	public Project(Boolean status) {
-		this.status = false;
+		this.status = status;
 	}
 	
 	public int getId() {
@@ -148,5 +148,5 @@ public class Project {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-
 }
+

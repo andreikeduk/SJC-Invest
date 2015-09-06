@@ -21,7 +21,8 @@
 	<context:component-scan base-package="sjc.investFund.repository" />
 	<context:component-scan base-package="sjc.investFund.serviceImpl" />
 	<context:component-scan base-package="sjc.investFund.controller" />	
-	<context:component-scan base-package="sjc.investFund.converters" />		
+	<context:component-scan base-package="sjc.investFund.converters" />
+	<context:component-scan base-package="sjc.investFund.dto" />				
 				
 	<import resource="app-data.xml" />
 	<import resource="app-security.xml" />

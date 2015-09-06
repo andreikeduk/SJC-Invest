@@ -13,14 +13,14 @@
 		<form:label path="name">Project name: </form:label>
 		<br />
 		<form:input path="name" />
-		<form:errors path="name" cssClass="errorblock"></form:errors>
+		<form:errors path="name" class="alert alert-danger"></form:errors>
 		<form:label path="status">Ready?: </form:label>
 		<form:checkbox path="status"/>
 		<br />
 		<form:label path="requiredAmount">Required Amount: </form:label>
 		<br />
 		<form:input type = "number" path="requiredAmount" />
-		<form:errors path="requiredAmount" cssClass="errorblock"></form:errors>
+		<form:errors path="requiredAmount" class="alert alert-danger"></form:errors>
 		<br />
 		<form:label path="description">Description: </form:label>
 		<br />
@@ -30,7 +30,7 @@
 		<br />
 		<form:input type = "number" path="deadline" />
 		<form:label path="deadline"> days </form:label>
-		<form:errors path="deadline" cssClass="errorblock"></form:errors>
+		<form:errors path="deadline" class="alert alert-danger"></form:errors>
 		<br />
 		<form:label path="area">Area:</form:label>
 		<br />
@@ -45,9 +45,9 @@
 				</c:if>
 			</c:forEach>
 		</form:select>
-		<form:errors path="area" cssClass="errorblock"></form:errors>
+		<form:errors path="area" class="alert alert-danger"></form:errors>
 		<br />
-		<input type="submit" value="Save" />
+		<input type="submit" value="Save" class="btn btn-primary" />
 	</form:form>
 </body>
 

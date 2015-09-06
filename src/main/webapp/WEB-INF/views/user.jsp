@@ -51,9 +51,7 @@
 					</security:authorize>
 					<td><form:errors path="role" cssClass="alert alert-danger" /></td>
 				</tr>
-
 			</security:authorize>
-
 			<tr>
 				<td colspan="2"><input type="submit" value="Save" /></td>
 			</tr>
