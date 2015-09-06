@@ -23,6 +23,7 @@
 			<list>
 				<bean class="sjc.investFund.converters.StringToProjectConverter" />
 				<bean class="sjc.investFund.converters.StringToAreaConverter" />
+				<bean class="sjc.investFund.converters.StringToAccountConverter" />
 			</list>
 		</property>
 	</bean>

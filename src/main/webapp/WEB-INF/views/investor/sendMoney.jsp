@@ -18,19 +18,22 @@
 <div id='DATACHEK' style='display: none;'>
 	In the next step you have to provide data chek <br /> <input
 		type="button" value="Enter data chek"
-		onClick='location.href="/invest/projects/${project.id}/sendMoney/datachek"'>
+		onClick='location.href="/invest/sendMoney/${account.id}/datachek"'
+		class="btn btn-primary">
 </div>
 
 <div id='TRANSFER' style='display: none;'>
 	In the next step you have to provide details of transfer money <br />
 	<input type="button" value="Enter details of transfer"
-		onClick='location.href="/invest/projects/${project.id}/sendMoney/transfer"'>
+		onClick='location.href="/invest/sendMoney/${account.id}/transfer"'
+		class="btn btn-primary">
 </div>
 
 <div id='BANKCARD' style='display: none;'>
 	In the next step you have to provide details of bank card <br /> <input
 		type="button" value="Enter details of bank card"
-		onClick='location.href="/invest/projects/${project.id}/sendMoney/bankcard"'>
+		onClick='location.href="/invest/sendMoney/${account.id}/bankcard" '
+		class="btn btn-primary">
 </div>
 <br />
 

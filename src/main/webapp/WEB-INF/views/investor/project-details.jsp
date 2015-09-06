@@ -50,7 +50,7 @@ Average value: ${averageValue}
 	access="hasRole('ROLE_INVESTOR') and isAuthenticated()">
 	<form>
 		<input type="button" value="Send Money"
-			onClick='location.href="/invest/projects/${project.id}/sendMoney"'>
+			onClick='location.href="/invest/sendMoney/${project.account.id}"'>
 	</form>
 </security:authorize>
 <br>
