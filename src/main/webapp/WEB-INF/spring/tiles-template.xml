@@ -122,6 +122,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/director/director-projects.jsp"/>
 	</definition>
 	
+	<definition name="investor.room" extends="base">
+		<put-attribute name="title" value="Investor Room"/>
+		<put-attribute name="content" value="/WEB-INF/views/investor/investor-room.jsp"/>
+	</definition>
+	
 	<definition name="users.list" extends="base">
 		<put-attribute name="title" value="View: Users list"/>
 		<put-attribute name="content" value="/WEB-INF/views/userslist.jsp"/>

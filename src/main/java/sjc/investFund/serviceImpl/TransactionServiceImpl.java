@@ -10,6 +10,7 @@ import sjc.investFund.dao.AccountDao;
 import sjc.investFund.dao.TransactionDao;
 import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
+import sjc.investFund.model.Investor;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.Transaction;
 import sjc.investFund.service.TransactionService;
@@ -34,5 +35,10 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public List<Transaction> findTransactionsOfArea(Area area) {
 		return transactionRepository.findTransactionsOfAccount(area.getAccount());
+	}
+	
+	@Override
+	public List<Transaction> findTransactionsOfInvestor(Investor investor) {
+		return transactionRepository.findTransactionsOfInvestor(investor.getAccount());
 	}
 }

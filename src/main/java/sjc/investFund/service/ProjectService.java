@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import freemarker.core.Comment;
 import sjc.investFund.exception.AlredyExistException;
+import sjc.investFund.model.Account;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 
@@ -19,5 +20,6 @@ public interface ProjectService {
 	void updateProject(Project oldProject, Project newProject) throws AlredyExistException;
 	Calendar getExpirationDate(Project project);
 	List<Project> findReadyProjects(Boolean status);
+	Project findProjectByAccount(Account account);
 	
 }
