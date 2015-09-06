@@ -12,4 +12,5 @@ public interface AreaService {
 	List<Area> findAllAreas();
 	Area findAreaById(Integer id);
 	Map<String, String> getAreaMap();
+	Long getProjectsCount(Area area);
 }

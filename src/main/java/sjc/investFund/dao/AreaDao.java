@@ -8,5 +8,5 @@ import sjc.investFund.model.Bid;
 import sjc.investFund.model.User;
 
 public interface AreaDao extends GenericDao<Area, Integer> {
-	
+	Long getProjectsCount(Area area);
 }
