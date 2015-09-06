@@ -51,15 +51,14 @@ public class LoginController {
 			HttpRequest request, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		//User user = userService.findByLoginAndPassword(login, password);
 		mav.setViewName("redirect:/redirector");
-		logger.debug("User '" + login + "' enter.");
+		logger.info("User '" + login + "' entered.");
 		return mav;
 	}
 
 	@RequestMapping(value = "/failure", method = RequestMethod.GET)
 	public String loginError(ModelMap model) {
-		logger.debug("Failed login");
+		logger.info("Failed login");
 		return "login";
 	}
 	

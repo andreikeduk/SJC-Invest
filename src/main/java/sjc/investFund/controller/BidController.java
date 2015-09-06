@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.io.Files;
 
+import sjc.investFund.dto.service.AreaInfoDtoService;
 import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
@@ -50,6 +51,8 @@ public class BidController {
 	private ProjectService projectService;
 	@Autowired
 	private AreaService areaService;
+	@Autowired
+	private AreaInfoDtoService areaDto;
 
 	private static final Logger logger = Logger.getLogger(BidController.class);
 
@@ -65,27 +68,26 @@ public class BidController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ModelAndView addBid(
 			@ModelAttribute("project") @Valid Project project,
-			BindingResult br, Authentication auth)
-			throws AlredyExistException {
+			BindingResult br, Authentication auth) throws AlredyExistException {
 		ModelAndView mav = new ModelAndView();
 		String view = "redirect:/creator";
 
 		if (br.hasErrors()) {
 			mav.addObject("arealist", areaService.getAreaMap());
 			view = "bid";
+			logger.info("New bid with name:" + project.getName()
+					+ " has error ");
 		} else {
 			User user = userService.findByLogin(auth.getName());
 			projectService.createProject(project, user);
-			logger.debug("New bid with name:" + project.getName() + " created ");
+			logger.info("New bid with name:" + project.getName() + " created ");
 		}
-
 		mav.setViewName(view);
 		return mav;
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listBid() {
-
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bidslist", bidService.findAllBids());
 		mav.setViewName("bidlist");
@@ -95,10 +97,9 @@ public class BidController {
 	// andrew
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
 	public String getAreaBids(@PathVariable("id") Area area, Model model) {
-
-		model.addAttribute("areabids", bidService.findBidsByAreaStatus(area,
-				BidStatus.UNDER_CONSIDERATION));
-		model.addAttribute("area", area.getName());
+		model.addAttribute("areainfo", areaDto.getAreaInfo(area));
+		model.addAttribute("areabids", bidService.findBidsByArea(area));
+		//model.addAttribute("area", area.getName());
 		return "area.bids";
 	}
 }
