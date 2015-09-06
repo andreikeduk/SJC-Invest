@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sjc.investFund.dao.ProjectDao;
 import sjc.investFund.hibernate.AbstractHibernateDao;
+import sjc.investFund.model.Account;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 
@@ -28,6 +29,12 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 	@Override
 	public Project findProjectsByName(String name) {
 		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("name", name));
+		return (Project)cr.uniqueResult();
+	}
+	
+	@Override
+	public Project findProjectByAccount(Account account) {
+		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("account", account));
 		return (Project)cr.uniqueResult();
 	}
 	/*

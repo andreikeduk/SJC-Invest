@@ -89,6 +89,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.findReadyProjects(true);
 	}
 	
+	@Override
+	public Project findProjectByAccount(Account account) {
+		return projectRepository.findProjectByAccount(account);
+	}
+	
 	private Account generateAccount() {
 		Integer number = 1000000 + (int) (Math.random() * 1000);
 		Account acc = new Account();
