@@ -1,7 +1,6 @@
 package sjc.investFund.model;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

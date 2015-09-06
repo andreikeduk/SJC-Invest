@@ -1,22 +1,13 @@
 package sjc.investFund.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.validation.Valid;
-
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,9 +18,7 @@ import sjc.investFund.exception.AlredyExistException;
 import sjc.investFund.model.Creator;
 import sjc.investFund.model.Director;
 import sjc.investFund.model.Investor;
-import sjc.investFund.model.Role;
 import sjc.investFund.model.User;
-import sjc.investFund.repository.UserRepository;
 import sjc.investFund.service.UserService;
 
 /**
@@ -76,7 +65,7 @@ public class UserController {
 			if (user != null) {
 				String role = user.getRole().toString();
 				if (role.equals("INVESTOR")) {
-					user = new Investor(user);					
+					user = new Investor(user);
 				} else if (role.equals("CREATOR")) {
 					user = new Creator(user);
 				} else if (role.equals("DIRECTOR")) {
@@ -94,13 +83,13 @@ public class UserController {
 		User user = userService.findByLogin(auth.getName());
 		model.addAttribute("user", user);
 		model.addAttribute("action", "edit");
-		// model.addAttribute("roleOptions", Role.values());
 		return "user";
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView editClientSubmit(@ModelAttribute("user") @Valid User newUser,
-			BindingResult br, @RequestParam("id") String id, Authentication auth)
+	public ModelAndView editClientSubmit(
+			@ModelAttribute("user") @Valid User newUser, BindingResult br,
+			@RequestParam("id") String id, Authentication auth)
 			throws AlredyExistException {
 		ModelAndView mav = new ModelAndView();
 		String view = "redirect:/profile";
@@ -111,10 +100,10 @@ public class UserController {
 			System.out.println(newUser.getFirstName());
 			userService.update(oldUser, newUser);
 			mav.addObject("user", oldUser);
-			if(!oldUser.getLogin().equals(auth.getName())){
+			if (!oldUser.getLogin().equals(auth.getName())) {
 				view = "redirect:/j_spring_security_logout";
 			}
-		}		
+		}
 		mav.setViewName(view);
 		return mav;
 	}

@@ -2,13 +2,13 @@ package sjc.investFund.controller;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -109,7 +109,6 @@ public class ProjectController {
 		return "project.details";
 	}
 
-	// andrew
 	@PreAuthorize("project.user.login.equals(auth.name)")
 	// @PreAuthorize("hasRole('ROLE_CREATOR')")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -147,27 +146,15 @@ public class ProjectController {
 		return "project.transactions";
 	}
 
-	// public void getAreaList(Model model) {
-	// Map<String, String> areaList = new LinkedHashMap<String, String>();
-	//
-	// List<Area> areas = areaService.findAllAreas();
-	// for (Area a : areas) {
-	// areaList.put(a.getId().toString(), a.getName());
-	// }
-	// model.addAttribute("arealist", areaList);
-	// }
-	// andrew
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
 	public String getAreaBids(@PathVariable("id") Area area, Model model) {
 
-		//model.addAttribute("areainfo", areaDto.getAreaInfo(area));
 		model.addAttribute("areabids",
 				bidService.findBidsByAreaStatus(area, BidStatus.ACCEPTED));
 		model.addAttribute("area", area.getName());
 		return "area.bids";
 	}
 
-	// andrew
 	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@RequestMapping(value = "/{id}/accept", method = RequestMethod.GET)
 	public String acceptBid(@PathVariable("id") Project project, Model model) {

@@ -1,8 +1,5 @@
 package sjc.investFund.model;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,16 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Projects")
-public class Project { 
-	
+public class Project {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -41,7 +36,7 @@ public class Project {
 	@NotNull(message = "You need to enter count of days.")
 	@Column(name = "deadline")
 	private Integer deadline;
-	
+
 	@Digits(integer = 6, fraction = 0, message = "Only numbers")
 	@Min(value = 10, message = "Really?")
 	@NotNull(message = "Need  to enter required amount")
@@ -63,11 +58,11 @@ public class Project {
 
 	public Project() {
 	}
-	
+
 	public Project(Boolean status) {
 		this.status = status;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -95,15 +90,16 @@ public class Project {
 	public Boolean getStatus() {
 		return status;
 	}
-//	public String getStringStatus() {
-//		String stringStatus;
-//		if (status == true) {
-//			stringStatus = "Project ready";
-//		} else {
-//			stringStatus = "Project not ready";
-//		}
-//		return stringStatus;
-//	}
+
+	// public String getStringStatus() {
+	// String stringStatus;
+	// if (status == true) {
+	// stringStatus = "Project ready";
+	// } else {
+	// stringStatus = "Project not ready";
+	// }
+	// return stringStatus;
+	// }
 
 	public void setStatus(Boolean status) {
 		this.status = status;
@@ -149,4 +145,3 @@ public class Project {
 		this.account = account;
 	}
 }
-

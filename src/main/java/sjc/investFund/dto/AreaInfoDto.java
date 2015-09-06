@@ -8,12 +8,10 @@ public class AreaInfoDto {
 	private Area area;
 	
 	
-	public AreaInfoDto() {
-		
+	public AreaInfoDto() {		
 	}
 	
-	public AreaInfoDto(Area area, Long projectsCount, Long balance ) {
-		
+	public AreaInfoDto(Area area, Long projectsCount, Long balance ) {	
 		this.projectsCount = projectsCount;
 		this.balance = balance;
 		this.area = area;

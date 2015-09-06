@@ -1,16 +1,11 @@
 package sjc.investFund.controller;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUtils;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import sjc.investFund.model.Area;
-import sjc.investFund.model.Role;
-import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
 import sjc.investFund.service.ProjectService;
 import sjc.investFund.service.UserService;
@@ -34,12 +26,12 @@ public class LoginController {
 	private ProjectService projectService;
 	@Autowired
 	private AreaService areaService;
-	
-	private static final Logger logger = Logger.getLogger(LoginController.class);
 
-	@RequestMapping(value = { "", "/"}, method = RequestMethod.GET)
+	private static final Logger logger = Logger
+			.getLogger(LoginController.class);
+
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String login(HttpSession session) {
-		
 		session.setAttribute("arealist", areaService.getAreaMap());
 		return "login";
 	}
@@ -49,7 +41,7 @@ public class LoginController {
 			@RequestParam(value = "login", required = true) String login,
 			@RequestParam(value = "password", required = true) String password,
 			HttpRequest request, HttpSession session) {
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/redirector");
 		logger.info("User '" + login + "' entered.");
@@ -61,6 +53,5 @@ public class LoginController {
 		logger.info("Failed login");
 		return "login";
 	}
-	
-	
+
 }

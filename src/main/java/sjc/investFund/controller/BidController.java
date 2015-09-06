@@ -1,13 +1,5 @@
 package sjc.investFund.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -20,18 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.google.common.io.Files;
-
 import sjc.investFund.dto.service.AreaInfoDtoService;
 import sjc.investFund.exception.AlredyExistException;
-import sjc.investFund.model.Account;
 import sjc.investFund.model.Area;
-import sjc.investFund.model.Bid;
-import sjc.investFund.model.BidStatus;
 import sjc.investFund.model.Project;
 import sjc.investFund.model.User;
 import sjc.investFund.service.AreaService;
@@ -61,7 +45,6 @@ public class BidController {
 
 		model.addAttribute("project", new Project());
 		model.addAttribute("action", "new");
-		// model.addAttribute("arealist", areaService.getAreaMap());
 		return "bid";
 	}
 
@@ -94,12 +77,10 @@ public class BidController {
 		return mav;
 	}
 
-	// andrew
 	@RequestMapping(value = "/area/{id}", method = RequestMethod.GET)
 	public String getAreaBids(@PathVariable("id") Area area, Model model) {
 		model.addAttribute("areainfo", areaDto.getAreaInfo(area));
 		model.addAttribute("areabids", bidService.findBidsByArea(area));
-		//model.addAttribute("area", area.getName());
 		return "area.bids";
 	}
 }

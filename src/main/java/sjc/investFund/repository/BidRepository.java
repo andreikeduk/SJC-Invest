@@ -3,8 +3,6 @@ package sjc.investFund.repository;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
@@ -30,11 +28,6 @@ public class BidRepository extends AbstractHibernateDao<Bid, Integer> implements
 
 	@Override
 	public List<Bid> getBidsByUser(User user) {
-
-		// List<Bid> bids = getSession()
-		// .createQuery(
-		// "from Bid as b left join b.project as p left join p.user as u where u = ? ")
-		// .setEntity(0, user).list();
 
 		Criteria criteria = getSession().createCriteria(Bid.class, "Bids");
 		criteria.createAlias("project", "bid_project", JoinType.LEFT_OUTER_JOIN);
