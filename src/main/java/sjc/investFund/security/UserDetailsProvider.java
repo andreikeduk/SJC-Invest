@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sjc.investFund.model.User;
-import sjc.investFund.service.UserService;
+import sjc.investFund.domain.model.User;
+import sjc.investFund.domain.service.UserService;
 
 @Service("userDetailsService")
 public class UserDetailsProvider implements UserDetailsService, Serializable {

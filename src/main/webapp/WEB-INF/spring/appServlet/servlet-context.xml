@@ -21,9 +21,9 @@
 		class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<bean class="sjc.investFund.converters.StringToProjectConverter" />
-				<bean class="sjc.investFund.converters.StringToAreaConverter" />
-				<bean class="sjc.investFund.converters.StringToAccountConverter" />
+				<bean class="sjc.investFund.web.converters.StringToProjectConverter" />
+				<bean class="sjc.investFund.web.converters.StringToAreaConverter" />
+				<bean class="sjc.investFund.web.converters.StringToAccountConverter" />
 			</list>
 		</property>
 	</bean>
@@ -85,6 +85,6 @@
 		</bean>
 	</mvc:interceptors>
 
-	<context:component-scan base-package="sjc.investFund.controller" />
-	<context:component-scan base-package="sjc.investFund.exception" />
+	<context:component-scan base-package="sjc.investFund.web.controller" />
+	<context:component-scan base-package="sjc.investFund.web.exception" />
 </beans:beans>

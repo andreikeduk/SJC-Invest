@@ -17,13 +17,11 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
-	<context:component-scan base-package="sjc.investFund.hibernate" />
 	<context:component-scan base-package="sjc.investFund.repository" />
-	<context:component-scan base-package="sjc.investFund.serviceImpl" />
-	<context:component-scan base-package="sjc.investFund.controller" />	
-	<context:component-scan base-package="sjc.investFund.converters" />
-	<context:component-scan base-package="sjc.investFund.dto" />				
-				
+	<context:component-scan base-package="sjc.investFund.domain" />
+	<context:component-scan base-package="sjc.investFund.web" />	
+	<context:component-scan base-package="sjc.investFund.service" />
+
 	<import resource="app-data.xml" />
 	<import resource="app-security.xml" />
 </beans>
