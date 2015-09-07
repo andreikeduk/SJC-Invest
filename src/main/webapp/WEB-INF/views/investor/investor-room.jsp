@@ -18,10 +18,10 @@
 		<th><spring:message code="label.typeTransaction" /></th>
 	</tr>
 
-	<c:forEach items="${transactions}" var="transaction" varStatus="status">
-		<c:url value="/projects/${projects.get[status.index].id}" var="viewProjectUrl" />
+	<c:forEach items="${transactions}" var="transaction">
+		<c:url value="/projects/${projects.get(step).id}" var="viewProjectUrl" />
 		<tr>
-			<td><a href="${viewProjectUrl}">${projects[status.index].name}</a></td>
+			<td><a href="${viewProjectUrl}">${projects.get(step).name}</a></td>
 			<td>${transaction.amount}</td>
 			<td>${transaction.type}</td>
 		</tr>

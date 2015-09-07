@@ -47,13 +47,9 @@ public class InvestorController {
 		for (Transaction transaction : transactions) {
 			projects.add(flag, projectService.findProjectByAccount(transaction
 					.getGoalAccount()));
-			//System.out.println(projects.get(flag));
-			flag++;
 		}
 		
-		for (Project project : projects) {
-			System.out.println(project.getName());
-		}
+		System.out.println(projects.get(0).getName());
 		mav.addObject("transactions", transactions);
 		mav.addObject("projects", projects);
 		return mav;
