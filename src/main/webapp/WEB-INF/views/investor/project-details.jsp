@@ -24,46 +24,30 @@
 			title="projects">accept</a>
 		<a href="<c:url value="/projects/${project.id}/deny"/>"
 			title="projects">deny</a>
-		<form>
-			<input type="button" value="Send Money From Area"
-				onClick='location.href="/invest/projects/${project.id}/sendMoneyFromArea"'
-				class="btn btn-primary">
-		</form>
+		<a href="<c:url value="/projects/${project.id}/transactions"/>"
+			title="transactions">Transactions</a>
 	</security:authorize>
 </security:authorize>
 
-
-<security:authorize access="isAuthenticated()">
-	<form>
-		<h4>${project.name}(Popularity:${countLikes})
-			<input type="button" value="Like"
-				onClick='location.href="/invest/projects/${project.id}/sendLike"'
-				class="btn btn-primary">
-		</h4>
-	</form>
-</security:authorize>
+<h1>Name: ${project.name}</h1>
 Description: ${project.description}
-<br />
-Ready: ${project.status}
-<br />
+<br>
+Ready?: ${project.status}
+<br>
 Deadline:
 <c:if test="${!empty deadline}">${deadline} </c:if>
 (${project.deadline} days)
-<br />
+<br>
 Required Amount: ${project.requiredAmount.toString()}
-<br />
+<br>
 Creator: ${project.user.firstName} ${project.user.lastName}
-<br />
+<br>
 Area: ${project.area.name}
-<br />
-<security:authorize access="isAuthenticated()">
-	<form>
-		Average value: ${averageValue} <input type="button" value="Add Mark"
-			onClick='location.href="/invest/projects/${project.id}/sendMark"'
-			class="btn btn-primary">
-	</form>
-</security:authorize>
-<br />
+<br>
+Popularity: ${countLikes}
+<br>
+Average value: ${averageValue}
+<br>
 <security:authorize
 	access="hasRole('ROLE_INVESTOR') and isAuthenticated()">
 	<form>
@@ -71,19 +55,24 @@ Area: ${project.area.name}
 			onClick='location.href="/invest/sendMoney/${project.account.id}"'>
 	</form>
 </security:authorize>
-<br />
+<br>
 <security:authorize access="isAuthenticated()">
 	<form>
 		<input type="button" value="Complain"
-			onClick='location.href="/invest/projects/${project.id}/sendClaim"'
-			class="btn btn-primary">
+			onClick='location.href="/invest/projects/${project.id}/sendClaim"'>
 	</form>
 	<form>
 		<input type="button" value="Add Comment"
-			onClick='location.href="/invest/projects/${project.id}/sendComment"'
-			class="btn btn-primary">
+			onClick='location.href="/invest/projects/${project.id}/sendComment"'>
 	</form>
-
+	<form>
+		<input type="button" value="Like"
+			onClick='location.href="/invest/projects/${project.id}/sendLike"'>
+	</form>
+	<form>
+		<input type="button" value="Add Mark"
+			onClick='location.href="/invest/projects/${project.id}/sendMark"'>
+	</form>
 </security:authorize>
 <br>
 <h2>Comments:</h2>
@@ -93,3 +82,4 @@ Area: ${project.area.name}
 	${comment.comment}
 	<hr />
 </c:forEach>
+

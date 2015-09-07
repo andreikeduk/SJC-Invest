@@ -3,4 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
-<div id="footer"><h1>SJC 2015</h1></div>
+<div id="footer">
+	<h3>SJC 2015</h3>
+	<a href="?lang=en">en</a>| <a href="?lang=ru">ru</a>
+</div>

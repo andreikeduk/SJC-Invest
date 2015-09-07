@@ -45,6 +45,4 @@
 
 	<li><a href="<c:url value="/aboutUs"/>" title="aboutUs"><spring:message
 				code="label.aboutUs" /></a></li>
-	<li><a href="?lang=en">en</a></li>
-	<li><a href="?lang=ru">ru</a></li>
 </ul>
