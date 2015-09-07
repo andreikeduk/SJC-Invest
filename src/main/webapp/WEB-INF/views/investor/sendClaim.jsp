@@ -15,6 +15,6 @@
 		<form:textarea rows="5" cols="50" path="claim" />
 		<form:errors path="claim" cssClass="errorblock"></form:errors>
 		<br />
-		<input type="submit" value="Send Claim" />
+		<input type="submit" value="Send Claim" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

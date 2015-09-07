@@ -23,6 +23,6 @@
 		<form:input type="number" path="numberCard" />
 		<form:errors path="numberCard" cssClass="errorblock"></form:errors>
 		<br />
-		<input type="submit" value="Invest" />
+		<input type="submit" value="Invest" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

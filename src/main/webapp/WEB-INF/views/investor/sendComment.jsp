@@ -14,6 +14,6 @@
 		<form:textarea rows="5" cols="50" path="comment" />
 		<form:errors path="comment" cssClass="errorblock"></form:errors>
 		<br />
-		<input type="submit" value="Send Comment" />
+		<input type="submit" value="Send Comment" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

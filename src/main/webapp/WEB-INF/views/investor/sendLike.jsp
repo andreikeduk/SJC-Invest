@@ -11,6 +11,6 @@
 	<form:form method="post" modelAttribute="popularity" action="${action}">
 		<br />
 		<form:label path="popularity">Do you really want like this project?) </form:label>
-		<input type="submit" value="Yes!" />
+		<input type="submit" value="Yes!" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

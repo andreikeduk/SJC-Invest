@@ -23,6 +23,6 @@
 		<form:input type="number" path="numbertransfer" />
 		<form:errors path="numbertransfer" cssClass="errorblock"></form:errors>
 		
-		<input type="submit" value="Invest" />
+		<input type="submit" value="Invest" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

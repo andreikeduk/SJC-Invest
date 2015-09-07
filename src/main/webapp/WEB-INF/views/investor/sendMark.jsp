@@ -14,6 +14,6 @@
 		<form:input type="number" path="mark" />
 		<form:errors path="mark" cssClass="errorblock"></form:errors>
 		<br />
-		<input type="submit" value="Send Mark" />
+		<input type="submit" value="Send Mark" class="btn btn-primary"/>
 	</form:form>
 </security:authorize>

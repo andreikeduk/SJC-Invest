@@ -31,6 +31,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/investor/projects.jsp"/>
 	</definition>
 	
+	<definition name="verdictTransactions" extends="base">
+		<put-attribute name="title" value="Transactions"/>
+		<put-attribute name="content" value="/WEB-INF/views/director/verdictTransactions.jsp"/>
+	</definition>
+	
 	<definition name="project.details" extends="base">
 		<put-attribute name="title" expression="Simple Project" />
 		<put-attribute name="content"
@@ -41,6 +46,12 @@
 		<put-attribute name="title" expression="Send Money" />
 		<put-attribute name="content"
 			value="/WEB-INF/views/investor/sendMoney.jsp" />
+	</definition>
+
+	<definition name="sendMoneyFromArea" extends="base">
+		<put-attribute name="title" expression="Send Money From Area" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/investor/sendMoneyFromArea.jsp" />
 	</definition>
 	
 	<definition name="sendClaim" extends="base">

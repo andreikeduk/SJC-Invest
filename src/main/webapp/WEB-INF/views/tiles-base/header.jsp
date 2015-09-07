@@ -35,6 +35,14 @@
 		</security:authorize>
 	</security:authorize>
 
+	<security:authorize access="isAuthenticated()">
+		<security:authorize access="hasRole('ROLE_DIRECTOR')">
+			<li><a href="<c:url value="/director/verdictTransactions"/>"><spring:message
+						code="label.verdictTransactions" /></a></li>
+		</security:authorize>
+	</security:authorize>
+
+
 	<li><a href="<c:url value="/aboutUs"/>" title="aboutUs"><spring:message
 				code="label.aboutUs" /></a></li>
 	<li><a href="?lang=en">en</a></li>
