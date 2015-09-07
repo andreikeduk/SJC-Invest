@@ -35,6 +35,7 @@ public class ProjectRepository extends AbstractHibernateDao<Project, Integer>
 	@Override
 	public Project findProjectByAccount(Account account) {
 		Criteria cr = getSession().createCriteria(Project.class, "projects").add(Restrictions.eq("account", account));
+		System.out.println(cr);
 		return (Project)cr.uniqueResult();
 	}
 	/*
